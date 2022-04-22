@@ -48,7 +48,7 @@ internal class PLCAddress
         bitNumber = -1;
         dbNumber = 0;
 
-        switch (input.Substring(0, 2))
+        switch (input[..2])
         {
             case "DB":
                 string[] strings = input.Split(new char[] { '.' });
@@ -56,10 +56,10 @@ internal class PLCAddress
                     throw new InvalidAddressException("To few periods for DB address");
 
                 dataType = DataType.DataBlock;
-                dbNumber = int.Parse(strings[0].Substring(2));
-                address = int.Parse(strings[1].Substring(3));
+                dbNumber = int.Parse(strings[0][2..]);
+                address = int.Parse(strings[1][3..]);
 
-                string dbType = strings[1].Substring(0, 3);
+                string dbType = strings[1][..3];
                 switch (dbType)
                 {
                     case "DBB":
@@ -85,7 +85,7 @@ internal class PLCAddress
                 // Input byte
                 dataType = DataType.Input;
                 dbNumber = 0;
-                address = int.Parse(input.Substring(2));
+                address = int.Parse(input[2..]);
                 varType = VarType.Byte;
                 return;
             case "IW":
@@ -93,7 +93,7 @@ internal class PLCAddress
                 // Input word
                 dataType = DataType.Input;
                 dbNumber = 0;
-                address = int.Parse(input.Substring(2));
+                address = int.Parse(input[2..]);
                 varType = VarType.Word;
                 return;
             case "ID":
@@ -101,7 +101,7 @@ internal class PLCAddress
                 // Input double-word
                 dataType = DataType.Input;
                 dbNumber = 0;
-                address = int.Parse(input.Substring(2));
+                address = int.Parse(input[2..]);
                 varType = VarType.DWord;
                 return;
             case "QB":
@@ -110,7 +110,7 @@ internal class PLCAddress
                 // Output byte
                 dataType = DataType.Output;
                 dbNumber = 0;
-                address = int.Parse(input.Substring(2));
+                address = int.Parse(input[2..]);
                 varType = VarType.Byte;
                 return;
             case "QW":
@@ -119,7 +119,7 @@ internal class PLCAddress
                 // Output word
                 dataType = DataType.Output;
                 dbNumber = 0;
-                address = int.Parse(input.Substring(2));
+                address = int.Parse(input[2..]);
                 varType = VarType.Word;
                 return;
             case "QD":
@@ -128,32 +128,32 @@ internal class PLCAddress
                 // Output double-word
                 dataType = DataType.Output;
                 dbNumber = 0;
-                address = int.Parse(input.Substring(2));
+                address = int.Parse(input[2..]);
                 varType = VarType.DWord;
                 return;
             case "MB":
                 // Memory byte
                 dataType = DataType.Memory;
                 dbNumber = 0;
-                address = int.Parse(input.Substring(2));
+                address = int.Parse(input[2..]);
                 varType = VarType.Byte;
                 return;
             case "MW":
                 // Memory word
                 dataType = DataType.Memory;
                 dbNumber = 0;
-                address = int.Parse(input.Substring(2));
+                address = int.Parse(input[2..]);
                 varType = VarType.Word;
                 return;
             case "MD":
                 // Memory double-word
                 dataType = DataType.Memory;
                 dbNumber = 0;
-                address = int.Parse(input.Substring(2));
+                address = int.Parse(input[2..]);
                 varType = VarType.DWord;
                 return;
             default:
-                switch (input.Substring(0, 1))
+                switch (input[..1])
                 {
                     case "E":
                     case "I":
@@ -177,7 +177,7 @@ internal class PLCAddress
                         // Timer
                         dataType = DataType.Timer;
                         dbNumber = 0;
-                        address = int.Parse(input.Substring(1));
+                        address = int.Parse(input[1..]);
                         varType = VarType.Timer;
                         return;
                     case "Z":
@@ -185,19 +185,19 @@ internal class PLCAddress
                         // Counter
                         dataType = DataType.Counter;
                         dbNumber = 0;
-                        address = int.Parse(input.Substring(1));
+                        address = int.Parse(input[1..]);
                         varType = VarType.Counter;
                         return;
                     default:
-                        throw new InvalidAddressException(string.Format("{0} is not a valid address", input.Substring(0, 1)));
+                        throw new InvalidAddressException(string.Format("{0} is not a valid address", input[..1]));
                 }
 
-                string txt2 = input.Substring(1);
+                string txt2 = input[1..];
                 if (txt2.IndexOf(".") == -1)
                     throw new InvalidAddressException("To few periods for DB address");
 
-                address = int.Parse(txt2.Substring(0, txt2.IndexOf(".")));
-                bitNumber = int.Parse(txt2.Substring(txt2.IndexOf(".") + 1));
+                address = int.Parse(txt2[..txt2.IndexOf(".")]);
+                bitNumber = int.Parse(txt2[(txt2.IndexOf(".") + 1)..]);
                 if (bitNumber > 7)
                     throw new InvalidAddressException("Bit can only be 0-7");
                 return;
