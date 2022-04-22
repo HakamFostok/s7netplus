@@ -35,12 +35,12 @@ public partial class Plc
     /// <returns>Returns the bytes in an array</returns>
     public byte[] ReadBytes(DataType dataType, int db, int startByteAdr, int count)
     {
-        var result = new byte[count];
+        byte[]? result = new byte[count];
         int index = 0;
         while (count > 0)
         {
             //This works up to MaxPDUSize-1 on SNAP7. But not MaxPDUSize-0.
-            var maxToRead = Math.Min(count, MaxPDUSize - 18);
+            int maxToRead = Math.Min(count, MaxPDUSize - 18);
             ReadBytesWithSingleRequest(dataType, db, startByteAdr + index, result, index, maxToRead);
             count -= maxToRead;
             index += maxToRead;
@@ -75,7 +75,7 @@ public partial class Plc
     /// <returns>Returns an object that contains the value. This object must be cast accordingly. If no data has been read, null will be returned</returns>
     public object? Read(string variable)
     {
-        var adr = new PLCAddress(variable);
+        PLCAddress? adr = new PLCAddress(variable);
         return Read(adr.DataType, adr.DbNumber, adr.StartByte, adr.VarType, 1, (byte)adr.BitNumber);
     }
 
@@ -90,7 +90,7 @@ public partial class Plc
     {
         int numBytes = Struct.GetStructSize(structType);
         // now read the package
-        var resultBytes = ReadBytes(DataType.DataBlock, db, startByteAdr, numBytes);
+        byte[]? resultBytes = ReadBytes(DataType.DataBlock, db, startByteAdr, numBytes);
 
         // and decode it
         return Struct.FromBytes(structType, resultBytes);
@@ -126,7 +126,7 @@ public partial class Plc
         }
 
         // now read the package
-        var resultBytes = ReadBytes(DataType.DataBlock, db, startByteAdr, numBytes);
+        byte[]? resultBytes = ReadBytes(DataType.DataBlock, db, startByteAdr, numBytes);
         // and decode it
         Class.FromBytes(sourceClass, resultBytes);
         return resultBytes.Length;
@@ -157,7 +157,7 @@ public partial class Plc
     /// <returns>An instance of the class with the values read from the PLC. If no data has been read, null will be returned</returns>
     public T? ReadClass<T>(Func<T> classFactory, int db, int startByteAdr = 0) where T : class
     {
-        var instance = classFactory();
+        T? instance = classFactory();
         int readBytes = ReadClass(instance, db, startByteAdr);
         if (readBytes <= 0)
         {
@@ -183,7 +183,7 @@ public partial class Plc
             //TODO: Figure out how to use MaxPDUSize here
             //Snap7 seems to choke on PDU sizes above 256 even if snap7
             //replies with bigger PDU size in connection setup.
-            var maxToWrite = Math.Min(count, MaxPDUSize - 28);//TODO tested only when the MaxPDUSize is 480
+            int maxToWrite = Math.Min(count, MaxPDUSize - 28);//TODO tested only when the MaxPDUSize is 480
             WriteBytesWithASingleRequest(dataType, db, startByteAdr + localIndex, value, localIndex, maxToWrite);
             count -= maxToWrite;
             localIndex += maxToWrite;
@@ -265,7 +265,7 @@ public partial class Plc
     /// <param name="value">Value to be written to the PLC</param>
     public void Write(string variable, object value)
     {
-        var adr = new PLCAddress(variable);
+        PLCAddress? adr = new PLCAddress(variable);
         Write(adr.DataType, adr.DbNumber, adr.StartByte, value, adr.BitNumber);
     }
 
@@ -297,13 +297,13 @@ public partial class Plc
         {
             // first create the header
             int packageSize = 19 + 12; // 19 header + 12 for 1 request
-            var package = new System.IO.MemoryStream(packageSize);
+            MemoryStream? package = new System.IO.MemoryStream(packageSize);
             BuildHeaderPackage(package);
             // package.Add(0x02);  // datenart
             BuildReadDataRequestPackage(package, dataType, db, startByteAdr, count);
 
-            var dataToSend = package.ToArray();
-            var s7data = RequestTsdu(dataToSend);
+            byte[]? dataToSend = package.ToArray();
+            byte[]? s7data = RequestTsdu(dataToSend);
             AssertReadResponse(s7data, count);
 
             Array.Copy(s7data, 18, buffer, offset, count);
@@ -324,9 +324,9 @@ public partial class Plc
         AssertPduSizeForWrite(dataItems);
 
 
-        var message = new ByteArray();
-        var length = S7WriteMultiple.CreateRequest(message, dataItems);
-        var response = RequestTsdu(message.Array, 0, length);
+        ByteArray? message = new ByteArray();
+        int length = S7WriteMultiple.CreateRequest(message, dataItems);
+        byte[]? response = RequestTsdu(message.Array, 0, length);
 
         S7WriteMultiple.ParseResponse(response, response.Length, dataItems);
     }
@@ -335,8 +335,8 @@ public partial class Plc
     {
         try
         {
-            var dataToSend = BuildWriteBytesPackage(dataType, db, startByteAdr, value, dataOffset, count);
-            var s7data = RequestTsdu(dataToSend);
+            byte[]? dataToSend = BuildWriteBytesPackage(dataType, db, startByteAdr, value, dataOffset, count);
+            byte[]? s7data = RequestTsdu(dataToSend);
 
             ValidateResponseCode((ReadWriteErrorCode)s7data[14]);
         }
@@ -351,7 +351,7 @@ public partial class Plc
         int varCount = count;
         // first create the header
         int packageSize = 35 + varCount;
-        var package = new MemoryStream(new byte[packageSize]);
+        MemoryStream? package = new MemoryStream(new byte[packageSize]);
 
         package.WriteByte(3);
         package.WriteByte(0);
@@ -365,7 +365,7 @@ public partial class Plc
         package.WriteByteArray(Word.ToByteArray((ushort)varCount));
         package.WriteByteArray(Word.ToByteArray((ushort)(db)));
         package.WriteByte((byte)dataType);
-        var overflow = (int)(startByteAdr * 8 / 0xffffU); // handles words with address bigger than 8191
+        int overflow = (int)(startByteAdr * 8 / 0xffffU); // handles words with address bigger than 8191
         package.WriteByte((byte)overflow);
         package.WriteByteArray(Word.ToByteArray((ushort)(startByteAdr * 8)));
         package.WriteByteArray(new byte[] { 0, 4 });
@@ -379,11 +379,11 @@ public partial class Plc
 
     private byte[] BuildWriteBitPackage(DataType dataType, int db, int startByteAdr, bool bitValue, int bitAdr)
     {
-        var value = new[] { bitValue ? (byte)1 : (byte)0 };
+        byte[]? value = new[] { bitValue ? (byte)1 : (byte)0 };
         int varCount = 1;
         // first create the header
         int packageSize = 35 + varCount;
-        var package = new MemoryStream(new byte[packageSize]);
+        MemoryStream? package = new MemoryStream(new byte[packageSize]);
 
         package.WriteByte(3);
         package.WriteByte(0);
@@ -397,7 +397,7 @@ public partial class Plc
         package.WriteByteArray(Word.ToByteArray((ushort)varCount));
         package.WriteByteArray(Word.ToByteArray((ushort)(db)));
         package.WriteByte((byte)dataType);
-        var overflow = (int)(startByteAdr * 8 / 0xffffU); // handles words with address bigger than 8191
+        int overflow = (int)(startByteAdr * 8 / 0xffffU); // handles words with address bigger than 8191
         package.WriteByte((byte)overflow);
         package.WriteByteArray(Word.ToByteArray((ushort)(startByteAdr * 8 + bitAdr)));
         package.WriteByteArray(new byte[] { 0, 0x03 }); //ending 0x03 is used for writing a sinlge bit
@@ -414,8 +414,8 @@ public partial class Plc
     {
         try
         {
-            var dataToSend = BuildWriteBitPackage(dataType, db, startByteAdr, bitValue, bitAdr);
-            var s7data = RequestTsdu(dataToSend);
+            byte[]? dataToSend = BuildWriteBitPackage(dataType, db, startByteAdr, bitValue, bitAdr);
+            byte[]? s7data = RequestTsdu(dataToSend);
 
             ValidateResponseCode((ReadWriteErrorCode)s7data[14]);
         }
@@ -441,16 +441,16 @@ public partial class Plc
         {
             // first create the header
             int packageSize = 19 + (dataItems.Count * 12);
-            var package = new System.IO.MemoryStream(packageSize);
+            MemoryStream? package = new System.IO.MemoryStream(packageSize);
             BuildHeaderPackage(package, dataItems.Count);
             // package.Add(0x02);  // datenart
-            foreach (var dataItem in dataItems)
+            foreach (DataItem? dataItem in dataItems)
             {
                 BuildReadDataRequestPackage(package, dataItem.DataType, dataItem.DB, dataItem.StartByteAdr, VarTypeToByteLength(dataItem.VarType, dataItem.Count));
             }
 
-            var dataToSend = package.ToArray();
-            var s7data = RequestTsdu(dataToSend);
+            byte[]? dataToSend = package.ToArray();
+            byte[]? s7data = RequestTsdu(dataToSend);
 
             ValidateResponseCode((ReadWriteErrorCode)s7data[14]);
 

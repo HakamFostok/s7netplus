@@ -66,7 +66,7 @@ internal static class Serialization
             case "String":
                 // Hack: This is backwards compatible with the old code, but functionally it's broken
                 // if the consumer does not pay attention to string length.
-                var stringVal = (string)value;
+                string? stringVal = (string)value;
                 return Types.String.ToByteArray(stringVal, stringVal.Length);
             case "DateTime[]":
                 return Types.DateTime.ToByteArray((System.DateTime[])value);
@@ -79,7 +79,7 @@ internal static class Serialization
 
     public static void SetAddressAt(ByteArray buffer, int index, int startByte, byte bitNumber)
     {
-        var start = startByte * 8 + bitNumber;
+        int start = startByte * 8 + bitNumber;
         buffer[index + 2] = (byte)start;
         start >>= 8;
         buffer[index + 1] = (byte)start;

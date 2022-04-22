@@ -117,7 +117,7 @@ public class S7WStringTests
 
     private static void AssertFromByteArrayEquals(string expected, params byte[] bytes)
     {
-        var convertedString = S7WString.FromByteArray(bytes);
+        string? convertedString = S7WString.FromByteArray(bytes);
         Assert.AreEqual(expected, convertedString);
     }
 
@@ -135,15 +135,15 @@ public class S7WStringTests
 
     private static void AssertToByteArrayAndBackEquals(string value, int reservedLength, params byte[] expected)
     {
-        var convertedData = S7WString.ToByteArray(value, reservedLength);
+        byte[]? convertedData = S7WString.ToByteArray(value, reservedLength);
         CollectionAssert.AreEqual(expected, convertedData);
-        var convertedBack = S7WString.FromByteArray(convertedData);
+        string? convertedBack = S7WString.FromByteArray(convertedData);
         Assert.AreEqual(value, convertedBack);
     }
 
     private void AssertVarTypeToByteLength(VarType varType, int count, int expectedByteLength)
     {
-        var byteLength = Plc.VarTypeToByteLength(varType, count);
+        int byteLength = Plc.VarTypeToByteLength(varType, count);
         Assert.AreEqual(expectedByteLength, byteLength);
     }
 }

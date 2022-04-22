@@ -19,7 +19,7 @@ public partial class Plc
     /// <returns>A task that represents the asynchronous open operation.</returns>
     public async Task OpenAsync(CancellationToken cancellationToken = default)
     {
-        var stream = await ConnectAsync().ConfigureAwait(false);
+        NetworkStream? stream = await ConnectAsync().ConfigureAwait(false);
         try
         {
             await queue.Enqueue(async () =>
@@ -54,8 +54,8 @@ public partial class Plc
 
     private async Task RequestConnection(Stream stream, CancellationToken cancellationToken)
     {
-        var requestData = ConnectionRequest.GetCOTPConnectionRequest(TsapPair);
-        var response = await NoLockRequestTpduAsync(stream, requestData, cancellationToken).ConfigureAwait(false);
+        byte[]? requestData = ConnectionRequest.GetCOTPConnectionRequest(TsapPair);
+        COTP.TPDU? response = await NoLockRequestTpduAsync(stream, requestData, cancellationToken).ConfigureAwait(false);
 
         if (response.PDUType != COTP.PduType.ConnectionConfirmed)
         {
@@ -65,9 +65,9 @@ public partial class Plc
 
     private async Task SetupConnection(Stream stream, CancellationToken cancellationToken)
     {
-        var setupData = GetS7ConnectionSetup();
+        byte[]? setupData = GetS7ConnectionSetup();
 
-        var s7data = await NoLockRequestTsduAsync(stream, setupData, 0, setupData.Length, cancellationToken)
+        byte[]? s7data = await NoLockRequestTsduAsync(stream, setupData, 0, setupData.Length, cancellationToken)
             .ConfigureAwait(false);
 
         if (s7data.Length < 2)
@@ -98,12 +98,12 @@ public partial class Plc
     /// <returns>Returns the bytes in an array</returns>
     public async Task<byte[]> ReadBytesAsync(DataType dataType, int db, int startByteAdr, int count, CancellationToken cancellationToken = default)
     {
-        var resultBytes = new byte[count];
+        byte[]? resultBytes = new byte[count];
         int index = 0;
         while (count > 0)
         {
             //This works up to MaxPDUSize-1 on SNAP7. But not MaxPDUSize-0.
-            var maxToRead = Math.Min(count, MaxPDUSize - 18);
+            int maxToRead = Math.Min(count, MaxPDUSize - 18);
             await ReadBytesWithSingleRequestAsync(dataType, db, startByteAdr + index, resultBytes, index, maxToRead, cancellationToken).ConfigureAwait(false);
             count -= maxToRead;
             index += maxToRead;
@@ -141,7 +141,7 @@ public partial class Plc
     /// <returns>Returns an object that contains the value. This object must be cast accordingly.</returns>
     public async Task<object?> ReadAsync(string variable, CancellationToken cancellationToken = default)
     {
-        var adr = new PLCAddress(variable);
+        PLCAddress? adr = new PLCAddress(variable);
         return await ReadAsync(adr.DataType, adr.DbNumber, adr.StartByte, adr.VarType, 1, (byte)adr.BitNumber, cancellationToken).ConfigureAwait(false);
     }
 
@@ -158,7 +158,7 @@ public partial class Plc
     {
         int numBytes = Types.Struct.GetStructSize(structType);
         // now read the package
-        var resultBytes = await ReadBytesAsync(DataType.DataBlock, db, startByteAdr, numBytes, cancellationToken).ConfigureAwait(false);
+        byte[]? resultBytes = await ReadBytesAsync(DataType.DataBlock, db, startByteAdr, numBytes, cancellationToken).ConfigureAwait(false);
 
         // and decode it
         return Types.Struct.FromBytes(structType, resultBytes);
@@ -197,7 +197,7 @@ public partial class Plc
         }
 
         // now read the package
-        var resultBytes = await ReadBytesAsync(DataType.DataBlock, db, startByteAdr, numBytes, cancellationToken).ConfigureAwait(false);
+        byte[]? resultBytes = await ReadBytesAsync(DataType.DataBlock, db, startByteAdr, numBytes, cancellationToken).ConfigureAwait(false);
         // and decode it
         Class.FromBytes(sourceClass, resultBytes);
 
@@ -233,8 +233,8 @@ public partial class Plc
     /// <returns>An instance of the class with the values read from the PLC. If no data has been read, null will be returned</returns>
     public async Task<T?> ReadClassAsync<T>(Func<T> classFactory, int db, int startByteAdr = 0, CancellationToken cancellationToken = default) where T : class
     {
-        var instance = classFactory();
-        var res = await ReadClassAsync(instance, db, startByteAdr, cancellationToken).ConfigureAwait(false);
+        T? instance = classFactory();
+        Tuple<int, object>? res = await ReadClassAsync(instance, db, startByteAdr, cancellationToken).ConfigureAwait(false);
         int readBytes = res.Item1;
         if (readBytes <= 0)
         {
@@ -262,8 +262,8 @@ public partial class Plc
 
         try
         {
-            var dataToSend = BuildReadRequestPackage(dataItems.Select(d => DataItem.GetDataItemAddress(d)).ToList());
-            var s7data = await RequestTsduAsync(dataToSend, cancellationToken);
+            byte[]? dataToSend = BuildReadRequestPackage(dataItems.Select(d => DataItem.GetDataItemAddress(d)).ToList());
+            byte[]? s7data = await RequestTsduAsync(dataToSend, cancellationToken);
 
             ValidateResponseCode((ReadWriteErrorCode)s7data[14]);
 
@@ -302,7 +302,7 @@ public partial class Plc
         int count = value.Length;
         while (count > 0)
         {
-            var maxToWrite = (int)Math.Min(count, MaxPDUSize - 35);
+            int maxToWrite = (int)Math.Min(count, MaxPDUSize - 35);
             await WriteBytesWithASingleRequestAsync(dataType, db, startByteAdr + localIndex, value, localIndex, maxToWrite, cancellationToken).ConfigureAwait(false);
             count -= maxToWrite;
             localIndex += maxToWrite;
@@ -395,7 +395,7 @@ public partial class Plc
     /// <returns>A task that represents the asynchronous write operation.</returns>
     public async Task WriteAsync(string variable, object value, CancellationToken cancellationToken = default)
     {
-        var adr = new PLCAddress(variable);
+        PLCAddress? adr = new PLCAddress(variable);
         await WriteAsync(adr.DataType, adr.DbNumber, adr.StartByte, value, adr.BitNumber, cancellationToken).ConfigureAwait(false);
     }
 
@@ -410,7 +410,7 @@ public partial class Plc
     /// <returns>A task that represents the asynchronous write operation.</returns>
     public async Task WriteStructAsync(object structValue, int db, int startByteAdr = 0, CancellationToken cancellationToken = default)
     {
-        var bytes = Struct.ToBytes(structValue).ToList();
+        List<byte>? bytes = Struct.ToBytes(structValue).ToList();
         await WriteBytesAsync(DataType.DataBlock, db, startByteAdr, bytes.ToArray(), cancellationToken).ConfigureAwait(false);
     }
 
@@ -432,9 +432,9 @@ public partial class Plc
 
     private async Task ReadBytesWithSingleRequestAsync(DataType dataType, int db, int startByteAdr, byte[] buffer, int offset, int count, CancellationToken cancellationToken)
     {
-        var dataToSend = BuildReadRequestPackage(new[] { new DataItemAddress(dataType, db, startByteAdr, count) });
+        byte[]? dataToSend = BuildReadRequestPackage(new[] { new DataItemAddress(dataType, db, startByteAdr, count) });
 
-        var s7data = await RequestTsduAsync(dataToSend, cancellationToken);
+        byte[]? s7data = await RequestTsduAsync(dataToSend, cancellationToken);
         AssertReadResponse(s7data, count);
 
         Array.Copy(s7data, 18, buffer, offset, count);
@@ -450,10 +450,10 @@ public partial class Plc
     {
         AssertPduSizeForWrite(dataItems);
 
-        var message = new ByteArray();
-        var length = S7WriteMultiple.CreateRequest(message, dataItems);
+        ByteArray? message = new ByteArray();
+        int length = S7WriteMultiple.CreateRequest(message, dataItems);
 
-        var response = await RequestTsduAsync(message.Array, 0, length).ConfigureAwait(false);
+        byte[]? response = await RequestTsduAsync(message.Array, 0, length).ConfigureAwait(false);
 
         S7WriteMultiple.ParseResponse(response, response.Length, dataItems);
     }
@@ -470,8 +470,8 @@ public partial class Plc
     {
         try
         {
-            var dataToSend = BuildWriteBytesPackage(dataType, db, startByteAdr, value, dataOffset, count);
-            var s7data = await RequestTsduAsync(dataToSend, cancellationToken).ConfigureAwait(false);
+            byte[]? dataToSend = BuildWriteBytesPackage(dataType, db, startByteAdr, value, dataOffset, count);
+            byte[]? s7data = await RequestTsduAsync(dataToSend, cancellationToken).ConfigureAwait(false);
 
             ValidateResponseCode((ReadWriteErrorCode)s7data[14]);
         }
@@ -489,8 +489,8 @@ public partial class Plc
     {
         try
         {
-            var dataToSend = BuildWriteBitPackage(dataType, db, startByteAdr, bitValue, bitAdr);
-            var s7data = await RequestTsduAsync(dataToSend, cancellationToken).ConfigureAwait(false);
+            byte[]? dataToSend = BuildWriteBitPackage(dataType, db, startByteAdr, bitValue, bitAdr);
+            byte[]? s7data = await RequestTsduAsync(dataToSend, cancellationToken).ConfigureAwait(false);
 
             ValidateResponseCode((ReadWriteErrorCode)s7data[14]);
         }
@@ -509,7 +509,7 @@ public partial class Plc
 
     private Task<byte[]> RequestTsduAsync(byte[] requestData, int offset, int length, CancellationToken cancellationToken = default)
     {
-        var stream = GetStreamIfAvailable();
+        Stream? stream = GetStreamIfAvailable();
 
         return queue.Enqueue(() =>
             NoLockRequestTsduAsync(stream, requestData, offset, length, cancellationToken));
@@ -521,7 +521,7 @@ public partial class Plc
         cancellationToken.ThrowIfCancellationRequested();
         try
         {
-            using var closeOnCancellation = cancellationToken.Register(Close);
+            using CancellationTokenRegistration closeOnCancellation = cancellationToken.Register(Close);
             await stream.WriteAsync(requestData, 0, requestData.Length, cancellationToken).ConfigureAwait(false);
             return await COTP.TPDU.ReadAsync(stream, cancellationToken).ConfigureAwait(false);
         }
@@ -542,7 +542,7 @@ public partial class Plc
         cancellationToken.ThrowIfCancellationRequested();
         try
         {
-            using var closeOnCancellation = cancellationToken.Register(Close);
+            using CancellationTokenRegistration closeOnCancellation = cancellationToken.Register(Close);
             await stream.WriteAsync(requestData, offset, length, cancellationToken).ConfigureAwait(false);
             return await COTP.TSDU.ReadAsync(stream, cancellationToken).ConfigureAwait(false);
         }

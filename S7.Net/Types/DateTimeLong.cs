@@ -49,12 +49,12 @@ public static class DateTimeLong
                 $"Parsing an array of DateTimeLong requires a multiple of 12 bytes of input data, input data is '{bytes.Length}' long.");
         }
 
-        var cnt = bytes.Length / TypeLengthInBytes;
-        var result = new System.DateTime[cnt];
+        int cnt = bytes.Length / TypeLengthInBytes;
+        System.DateTime[]? result = new System.DateTime[cnt];
 
-        for (var i = 0; i < cnt; i++)
+        for (int i = 0; i < cnt; i++)
         {
-            var slice = new byte[TypeLengthInBytes];
+            byte[]? slice = new byte[TypeLengthInBytes];
             Array.Copy(bytes, i * TypeLengthInBytes, slice, 0, TypeLengthInBytes);
             result[i] = FromByteArrayImpl(slice);
         }
@@ -71,19 +71,19 @@ public static class DateTimeLong
         }
 
 
-        var year = AssertRangeInclusive(Word.FromBytes(bytes[1], bytes[0]), 1970, 2262, "year");
-        var month = AssertRangeInclusive(bytes[2], 1, 12, "month");
-        var day = AssertRangeInclusive(bytes[3], 1, 31, "day of month");
-        var dayOfWeek = AssertRangeInclusive(bytes[4], 1, 7, "day of week");
-        var hour = AssertRangeInclusive(bytes[5], 0, 23, "hour");
-        var minute = AssertRangeInclusive(bytes[6], 0, 59, "minute");
-        var second = AssertRangeInclusive(bytes[7], 0, 59, "second");
+        int year = AssertRangeInclusive(Word.FromBytes(bytes[1], bytes[0]), 1970, 2262, "year");
+        int month = AssertRangeInclusive(bytes[2], 1, 12, "month");
+        int day = AssertRangeInclusive(bytes[3], 1, 31, "day of month");
+        int dayOfWeek = AssertRangeInclusive(bytes[4], 1, 7, "day of week");
+        int hour = AssertRangeInclusive(bytes[5], 0, 23, "hour");
+        int minute = AssertRangeInclusive(bytes[6], 0, 59, "minute");
+        int second = AssertRangeInclusive(bytes[7], 0, 59, "second");
         ;
 
-        var nanoseconds = AssertRangeInclusive<uint>(DWord.FromBytes(bytes[11], bytes[10], bytes[9], bytes[8]), 0,
+        uint nanoseconds = AssertRangeInclusive<uint>(DWord.FromBytes(bytes[11], bytes[10], bytes[9], bytes[8]), 0,
             999999999, "nanoseconds");
 
-        var time = new System.DateTime(year, month, day, hour, minute, second);
+        System.DateTime time = new System.DateTime(year, month, day, hour, minute, second);
         return time.AddTicks(nanoseconds / 100);
     }
 
@@ -111,7 +111,7 @@ public static class DateTimeLong
                 $"Date time '{dateTime}' is after the maximum '{SpecMaximumDateTime}' supported in S7 DateTimeLong representation.");
         }
 
-        var stream = new MemoryStream(TypeLengthInBytes);
+        MemoryStream? stream = new MemoryStream(TypeLengthInBytes);
         // Convert Year
         stream.Write(Word.ToByteArray(Convert.ToUInt16(dateTime.Year)), 0, 2);
 
@@ -152,8 +152,8 @@ public static class DateTimeLong
     /// </exception>
     public static byte[] ToByteArray(System.DateTime[] dateTimes)
     {
-        var bytes = new List<byte>(dateTimes.Length * TypeLengthInBytes);
-        foreach (var dateTime in dateTimes)
+        List<byte>? bytes = new List<byte>(dateTimes.Length * TypeLengthInBytes);
+        foreach (System.DateTime dateTime in dateTimes)
         {
             bytes.AddRange(ToByteArray(dateTime));
         }

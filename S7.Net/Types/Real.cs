@@ -44,9 +44,9 @@ public static class Real
     /// </summary>
     public static byte[] ToByteArray(float[] value)
     {
-        var buffer = new byte[4 * value.Length];
-        var stream = new MemoryStream(buffer);
-        foreach (var val in value)
+        byte[]? buffer = new byte[4 * value.Length];
+        MemoryStream? stream = new MemoryStream(buffer);
+        foreach (float val in value)
         {
             stream.Write(ToByteArray(val), 0, 4);
         }
@@ -59,7 +59,7 @@ public static class Real
     /// </summary>
     public static float[] ToArray(byte[] bytes)
     {
-        var values = new float[bytes.Length / 4];
+        float[]? values = new float[bytes.Length / 4];
 
         int counter = 0;
         for (int cnt = 0; cnt < bytes.Length / 4; cnt++)

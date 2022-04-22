@@ -56,13 +56,13 @@ public static class S7WString
 
         if (reservedLength > 16382) throw new ArgumentException("The maximum string length supported is 16382.");
 
-        var buffer = new byte[4 + reservedLength * 2];
+        byte[]? buffer = new byte[4 + reservedLength * 2];
         buffer[0] = (byte)((reservedLength >> 8) & 0xFF);
         buffer[1] = (byte)(reservedLength & 0xFF);
         buffer[2] = (byte)((value.Length >> 8) & 0xFF);
         buffer[3] = (byte)(value.Length & 0xFF);
 
-        var stringLength = Encoding.BigEndianUnicode.GetBytes(value, 0, value.Length, buffer, 4) / 2;
+        int stringLength = Encoding.BigEndianUnicode.GetBytes(value, 0, value.Length, buffer, 4) / 2;
         if (stringLength > reservedLength) throw new ArgumentException($"The provided string length ({stringLength} is larger than the specified reserved length ({reservedLength}).");
 
         return buffer;

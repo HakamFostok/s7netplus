@@ -41,4 +41,3 @@ internal static class NativeMethods
     [DllImport("user32.dll")]
     public static extern bool DrawIcon(IntPtr hDC, int X, int Y, IntPtr hIcon);
 }
-

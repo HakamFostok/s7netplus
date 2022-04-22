@@ -42,10 +42,10 @@ public static class DateTime
             throw new ArgumentOutOfRangeException(nameof(bytes), bytes.Length,
                 $"Parsing an array of DateTime requires a multiple of 8 bytes of input data, input data is '{bytes.Length}' long.");
 
-        var cnt = bytes.Length / 8;
-        var result = new System.DateTime[bytes.Length / 8];
+        int cnt = bytes.Length / 8;
+        System.DateTime[]? result = new System.DateTime[bytes.Length / 8];
 
-        for (var i = 0; i < cnt; i++)
+        for (int i = 0; i < cnt; i++)
             result[i] = FromByteArrayImpl(new ArraySegment<byte>(bytes, i * 8, 8));
 
         return result;
@@ -61,7 +61,7 @@ public static class DateTime
 
         int ByteToYear(byte bcdYear)
         {
-            var input = DecodeBcd(bcdYear);
+            int input = DecodeBcd(bcdYear);
             if (input < 90) return input + 2000;
             if (input < 100) return input + 1900;
 
@@ -81,15 +81,15 @@ public static class DateTime
             return input;
         }
 
-        var year = ByteToYear(bytes[0]);
-        var month = AssertRangeInclusive(DecodeBcd(bytes[1]), 1, 12, "month");
-        var day = AssertRangeInclusive(DecodeBcd(bytes[2]), 1, 31, "day of month");
-        var hour = AssertRangeInclusive(DecodeBcd(bytes[3]), 0, 23, "hour");
-        var minute = AssertRangeInclusive(DecodeBcd(bytes[4]), 0, 59, "minute");
-        var second = AssertRangeInclusive(DecodeBcd(bytes[5]), 0, 59, "second");
-        var hsec = AssertRangeInclusive(DecodeBcd(bytes[6]), 0, 99, "first two millisecond digits");
-        var msec = AssertRangeInclusive(bytes[7] >> 4, 0, 9, "third millisecond digit");
-        var dayOfWeek = AssertRangeInclusive(bytes[7] & 0b00001111, 1, 7, "day of week");
+        int year = ByteToYear(bytes[0]);
+        int month = AssertRangeInclusive(DecodeBcd(bytes[1]), 1, 12, "month");
+        int day = AssertRangeInclusive(DecodeBcd(bytes[2]), 1, 31, "day of month");
+        int hour = AssertRangeInclusive(DecodeBcd(bytes[3]), 0, 23, "hour");
+        int minute = AssertRangeInclusive(DecodeBcd(bytes[4]), 0, 59, "minute");
+        int second = AssertRangeInclusive(DecodeBcd(bytes[5]), 0, 59, "second");
+        int hsec = AssertRangeInclusive(DecodeBcd(bytes[6]), 0, 99, "first two millisecond digits");
+        int msec = AssertRangeInclusive(bytes[7] >> 4, 0, 9, "third millisecond digit");
+        int dayOfWeek = AssertRangeInclusive(bytes[7] & 0b00001111, 1, 7, "day of week");
 
         return new System.DateTime(year, month, day, hour, minute, second, hsec * 10 + msec);
     }
@@ -144,8 +144,8 @@ public static class DateTime
     ///   or after <see cref="P:SpecMaximumDateTime"/>.</exception>
     public static byte[] ToByteArray(System.DateTime[] dateTimes)
     {
-        var bytes = new List<byte>(dateTimes.Length * 8);
-        foreach (var dateTime in dateTimes) bytes.AddRange(ToByteArray(dateTime));
+        List<byte>? bytes = new List<byte>(dateTimes.Length * 8);
+        foreach (System.DateTime dateTime in dateTimes) bytes.AddRange(ToByteArray(dateTime));
 
         return bytes.ToArray();
     }

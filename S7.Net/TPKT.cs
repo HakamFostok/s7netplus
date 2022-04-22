@@ -24,15 +24,15 @@ internal class TPKT
     /// <returns>Task TPKT Instace</returns>
     public static async Task<TPKT> ReadAsync(Stream stream, CancellationToken cancellationToken)
     {
-        var buf = new byte[4];
+        byte[]? buf = new byte[4];
         int len = await stream.ReadExactAsync(buf, 0, 4, cancellationToken).ConfigureAwait(false);
         if (len < 4) throw new TPKTInvalidException("TPKT is incomplete / invalid");
 
-        var version = buf[0];
-        var reserved1 = buf[1];
-        var length = buf[2] * 256 + buf[3]; //BigEndian
+        byte version = buf[0];
+        byte reserved1 = buf[1];
+        int length = buf[2] * 256 + buf[3]; //BigEndian
 
-        var data = new byte[length - 4];
+        byte[]? data = new byte[length - 4];
         len = await stream.ReadExactAsync(data, 0, data.Length, cancellationToken).ConfigureAwait(false);
         if (len < data.Length)
             throw new TPKTInvalidException("TPKT payload incomplete / invalid");

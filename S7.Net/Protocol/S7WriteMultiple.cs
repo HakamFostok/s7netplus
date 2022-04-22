@@ -9,22 +9,22 @@ internal static class S7WriteMultiple
         message.Add(Header.Template);
 
         message[Header.Offsets.ParameterCount] = (byte)dataItems.Length;
-        var paramSize = dataItems.Length * Parameter.Template.Length;
+        int paramSize = dataItems.Length * Parameter.Template.Length;
 
         Serialization.SetWordAt(message, Header.Offsets.ParameterSize,
             (ushort)(2 + paramSize));
 
-        var paramOffset = Header.Template.Length;
-        var data = new ByteArray();
+        int paramOffset = Header.Template.Length;
+        ByteArray? data = new ByteArray();
 
-        var itemCount = 0;
+        int itemCount = 0;
 
-        foreach (var item in dataItems)
+        foreach (DataItem? item in dataItems)
         {
             itemCount++;
             message.Add(Parameter.Template);
-            var value = Serialization.SerializeDataItem(item);
-            var wordLen = item.Value is bool ? 1 : 2;
+            byte[]? value = Serialization.SerializeDataItem(item);
+            int wordLen = item.Value is bool ? 1 : 2;
 
             message[paramOffset + Parameter.Offsets.WordLength] = (byte)wordLen;
             Serialization.SetWordAt(message, paramOffset + Parameter.Offsets.Amount, (ushort)value.Length);
@@ -54,7 +54,7 @@ internal static class S7WriteMultiple
             {
                 Serialization.SetAddressAt(message, paramOffset + Parameter.Offsets.Address, item.StartByteAdr, 0);
 
-                var len = value.Length;
+                int len = value.Length;
                 data.Add(0x04);
                 data.AddWord((ushort)(len << 3));
                 data.Add(value);
@@ -80,7 +80,7 @@ internal static class S7WriteMultiple
     {
         if (length < 12) throw new Exception("Not enough data received to parse write response.");
 
-        var messageError = Serialization.GetWordAt(message, 10);
+        ushort messageError = Serialization.GetWordAt(message, 10);
         if (messageError != 0)
             throw new Exception($"Write failed with error {messageError}.");
 

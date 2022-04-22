@@ -53,7 +53,7 @@ public partial class Plc
         stream.WriteByteArray(Word.ToByteArray((ushort)(count)));
         stream.WriteByteArray(Word.ToByteArray((ushort)(db)));
         stream.WriteByte((byte)dataType);
-        var overflow = (int)(startByteAdr * 8 / 0xffffU); // handles words with address bigger than 8191
+        int overflow = (int)(startByteAdr * 8 / 0xffffU); // handles words with address bigger than 8191
         stream.WriteByte((byte)overflow);
         switch (dataType)
         {
@@ -219,7 +219,7 @@ public partial class Plc
     private void ParseDataIntoDataItems(byte[] s7data, List<DataItem> dataItems)
     {
         int offset = 14;
-        foreach (var dataItem in dataItems)
+        foreach (DataItem? dataItem in dataItems)
         {
             // check for Return Code = Success
             if (s7data[offset] != 0xff)
@@ -248,11 +248,11 @@ public partial class Plc
     private static byte[] BuildReadRequestPackage(IList<DataItemAddress> dataItems)
     {
         int packageSize = 19 + (dataItems.Count * 12);
-        var package = new System.IO.MemoryStream(packageSize);
+        MemoryStream? package = new System.IO.MemoryStream(packageSize);
 
         BuildHeaderPackage(package, dataItems.Count);
 
-        foreach (var dataItem in dataItems)
+        foreach (DataItemAddress? dataItem in dataItems)
         {
             BuildReadDataRequestPackage(package, dataItem.DataType, dataItem.DB, dataItem.StartByteAddress, dataItem.ByteLength);
         }

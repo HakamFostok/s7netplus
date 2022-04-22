@@ -32,7 +32,7 @@ internal class COTP
                 PDUType = (PduType)tPKT.Data[1];
                 if (PDUType == PduType.Data) //DT Data
                 {
-                    var flags = tPKT.Data[2];
+                    byte flags = tPKT.Data[2];
                     TPDUNumber = flags & 0x7F;
                     LastDataUnit = (flags & 0x80) > 0;
                     Data = new byte[tPKT.Data.Length - HeaderLength - 1]; // substract header length byte + header length.
@@ -52,7 +52,7 @@ internal class COTP
         /// <returns>COTP DPDU instance</returns>
         public static async Task<TPDU> ReadAsync(Stream stream, CancellationToken cancellationToken)
         {
-            var tpkt = await TPKT.ReadAsync(stream, cancellationToken).ConfigureAwait(false);
+            TPKT? tpkt = await TPKT.ReadAsync(stream, cancellationToken).ConfigureAwait(false);
             if (tpkt.Length == 0)
             {
                 throw new TPDUInvalidException("No protocol data received");
@@ -86,7 +86,7 @@ internal class COTP
         /// <returns>Data in TSDU</returns>
         public static async Task<byte[]> ReadAsync(Stream stream, CancellationToken cancellationToken)
         {
-            var segment = await TPDU.ReadAsync(stream, cancellationToken).ConfigureAwait(false);
+            TPDU? segment = await TPDU.ReadAsync(stream, cancellationToken).ConfigureAwait(false);
 
             if (segment.LastDataUnit)
             {
@@ -94,13 +94,13 @@ internal class COTP
             }
 
             // More segments are expected, prepare a buffer to store all data
-            var buffer = new byte[segment.Data.Length];
+            byte[]? buffer = new byte[segment.Data.Length];
             Array.Copy(segment.Data, buffer, segment.Data.Length);
 
             while (!segment.LastDataUnit)
             {
                 segment = await TPDU.ReadAsync(stream, cancellationToken).ConfigureAwait(false);
-                var previousLength = buffer.Length;
+                int previousLength = buffer.Length;
                 Array.Resize(ref buffer, buffer.Length + segment.Data.Length);
                 Array.Copy(segment.Data, 0, buffer, previousLength, segment.Data.Length);
             }

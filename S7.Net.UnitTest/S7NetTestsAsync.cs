@@ -122,14 +122,14 @@ public partial class S7NetTests
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        var randomEngine = new Random();
-        var data = new byte[8192];
-        var db = 2;
+        Random? randomEngine = new Random();
+        byte[]? data = new byte[8192];
+        int db = 2;
         randomEngine.NextBytes(data);
 
         await plc.WriteBytesAsync(DataType.DataBlock, db, 0, data);
 
-        var readData = await plc.ReadBytesAsync(DataType.DataBlock, db, 0, data.Length);
+        byte[]? readData = await plc.ReadBytesAsync(DataType.DataBlock, db, 0, data.Length);
 
         CollectionAssert.AreEqual(data, readData);
     }
@@ -439,7 +439,7 @@ public partial class S7NetTests
         bool result6 = (bool)await plc.ReadAsync("DB2.DBX16384.6");
         Assert.AreEqual(val6, result6);
 
-        var dataItems = new List<DataItem>()
+        List<DataItem>? dataItems = new List<DataItem>()
         {
             new DataItem
             {
@@ -504,7 +504,7 @@ public partial class S7NetTests
             },
         };
 
-        var dataItemsRes = await plc.ReadMultipleVarsAsync(dataItems);
+        List<DataItem>? dataItemsRes = await plc.ReadMultipleVarsAsync(dataItems);
 
         Assert.AreEqual(val, dataItemsRes[0].Value);
         Assert.AreEqual(val1, dataItemsRes[1].Value);
@@ -526,7 +526,7 @@ public partial class S7NetTests
 
         // tests when writing true/false
         await plc.WriteAsync("DB1.DBX0.0", false);
-        var boolVariable = (bool)await plc.ReadAsync("DB1.DBX0.0");
+        bool boolVariable = (bool)await plc.ReadAsync("DB1.DBX0.0");
         Assert.IsFalse(boolVariable);
 
         await plc.WriteAsync("DB1.DBX0.0", true);
@@ -583,7 +583,7 @@ public partial class S7NetTests
 
         TestClassWithPrivateSetters tc2 = new TestClassWithPrivateSetters();
         // Values that are read from a class are stored inside the class itself, that is passed by reference
-        var res = await plc.ReadClassAsync(tc2, DB2);
+        Tuple<int, object>? res = await plc.ReadClassAsync(tc2, DB2);
         tc = (TestClassWithPrivateSetters)res.Item2;
         Assert.AreEqual(tc.BitVariable00, tc2.BitVariable00);
         Assert.AreEqual(tc.BitVariable10, tc2.BitVariable10);
@@ -603,7 +603,7 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadBytesReturnsNullIfPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
             TestClass tc = new TestClass();
@@ -631,7 +631,7 @@ public partial class S7NetTests
 
         // Values that are read from a class are stored inside the class itself, that is passed by reference
         TestClass tc2 = new TestClass();
-        var res = await plc.ReadClassAsync(tc2, DB2);
+        Tuple<int, object>? res = await plc.ReadClassAsync(tc2, DB2);
         tc2 = (TestClass)res.Item2;
         TestClass tc2Generic = await plc.ReadClassAsync<TestClass>(DB2);
 
@@ -647,7 +647,7 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadClassWithGenericReturnsNullIfPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
             await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadClassAsync<TestClass>(DB2));
@@ -687,7 +687,7 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadClassWithGenericAndClassFactoryThrowsExceptionPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
             await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadClassAsync(() => new TestClass(), DB2));
@@ -719,7 +719,7 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadStructThrowsExceptionPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
             await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadStructAsync(typeof(TestStruct), DB2));
@@ -748,7 +748,7 @@ public partial class S7NetTests
 
         // Values that are read from a struct are stored in a new struct, returned by the funcion ReadStruct
         TestStruct ts2 = (TestStruct)await plc.ReadStructAsync(typeof(TestStruct), DB2);
-        var test = await plc.ReadStructAsync<TestStruct>(DB2);
+        TestStruct? test = await plc.ReadStructAsync<TestStruct>(DB2);
         TestStruct ts2Generic = test.Value;
 
         Assert.AreEqual(ts2.BitVariable00, ts2Generic.BitVariable00);
@@ -765,7 +765,7 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadStructWithGenericThrowsExceptionIfPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
             await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadStructAsync<TestStruct>(DB2));
@@ -796,7 +796,7 @@ public partial class S7NetTests
 
         TestClass tc2 = new TestClass();
         // Values that are read from a class are stored inside the class itself, that is passed by reference
-        var res = await plc.ReadClassAsync(tc2, DB2);
+        Tuple<int, object>? res = await plc.ReadClassAsync(tc2, DB2);
         int actualReadBytes = res.Item1;
 
         Assert.AreEqual(expectedReadBytes, actualReadBytes);
@@ -882,7 +882,7 @@ public partial class S7NetTests
     {
         float test_value = 55.6632f;
         await plc.WriteAsync("DB1.DBD0", test_value);
-        var helper = await plc.ReadAsync("DB1.DBD0");
+        object? helper = await plc.ReadAsync("DB1.DBD0");
         float test_value2 = Conversion.ConvertToFloat((uint)helper);
 
         Assert.AreEqual(test_value, test_value2, "Compare Write/Read"); //No delta, datatype matches
@@ -893,8 +893,8 @@ public partial class S7NetTests
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        var count = 2000;
-        var dataItems = new List<byte>();
+        int count = 2000;
+        List<byte>? dataItems = new List<byte>();
         for (int i = 0; i < count; i++)
         {
             dataItems.Add((byte)(i % 256));
@@ -902,7 +902,7 @@ public partial class S7NetTests
 
         await plc.WriteBytesAsync(DataType.DataBlock, 2, 0, dataItems.ToArray());
 
-        var res = await plc.ReadBytesAsync(DataType.DataBlock, 2, 0, count);
+        byte[]? res = await plc.ReadBytesAsync(DataType.DataBlock, 2, 0, count);
 
         for (int x = 0; x < count; x++)
         {
@@ -918,12 +918,12 @@ public partial class S7NetTests
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        var cancellationSource = new CancellationTokenSource();
-        var cancellationToken = cancellationSource.Token;
+        CancellationTokenSource? cancellationSource = new CancellationTokenSource();
+        CancellationToken cancellationToken = cancellationSource.Token;
 
-        var randomEngine = new Random();
-        var data = new byte[8192];
-        var db = 2;
+        Random? randomEngine = new Random();
+        byte[]? data = new byte[8192];
+        int db = 2;
         randomEngine.NextBytes(data);
 
         cancellationSource.CancelAfter(TimeSpan.FromMilliseconds(5));
@@ -954,13 +954,13 @@ public partial class S7NetTests
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        var db = 2;
+        int db = 2;
         // First write a sensible S7 string capacity
         await plc.WriteBytesAsync(DataType.DataBlock, db, 0, new byte[] { 5, 0 });
 
         // Read two data items, with the first having odd number of bytes (7),
         // and the second has to be aligned on a even address
-        var dataItems = new List<DataItem>
+        List<DataItem>? dataItems = new List<DataItem>
         {
             new DataItem
             {

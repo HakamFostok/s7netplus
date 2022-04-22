@@ -16,10 +16,10 @@ public static class Struct
     {
         double numBytes = 0.0;
 
-        var infos = structType
+        FieldInfo[]? infos = structType
             .GetFields();
 
-        foreach (var info in infos)
+        foreach (FieldInfo? info in infos)
         {
             switch (info.FieldType.Name)
             {
@@ -95,10 +95,10 @@ public static class Struct
         object structValue = Activator.CreateInstance(structType);
 
 
-        var infos = structValue.GetType()
+        FieldInfo[]? infos = structValue.GetType()
             .GetFields();
 
-        foreach (var info in infos)
+        foreach (FieldInfo? info in infos)
         {
             switch (info.FieldType.Name)
             {
@@ -174,7 +174,7 @@ public static class Struct
                     if ((numBytes / 2 - Math.Floor(numBytes / 2.0)) > 0)
                         numBytes++;
                     // get the value
-                    var data = new byte[8];
+                    byte[]? data = new byte[8];
                     Array.Copy(bytes, (int)numBytes, data, 0, 8);
                     info.SetValue(structValue, LReal.FromByteArray(data));
                     numBytes += 8;
@@ -189,7 +189,7 @@ public static class Struct
                         numBytes++;
 
                     // get the value
-                    var sData = new byte[attribute.ReservedLengthInBytes];
+                    byte[]? sData = new byte[attribute.ReservedLengthInBytes];
                     Array.Copy(bytes, (int)numBytes, sData, 0, sData.Length);
                     switch (attribute.Type)
                     {
@@ -206,7 +206,7 @@ public static class Struct
                     numBytes += sData.Length;
                     break;
                 default:
-                    var buffer = new byte[GetStructSize(info.FieldType)];
+                    byte[]? buffer = new byte[GetStructSize(info.FieldType)];
                     if (buffer.Length == 0)
                         continue;
                     Buffer.BlockCopy(bytes, (int)Math.Ceiling(numBytes), buffer, 0, buffer.Length);
@@ -235,10 +235,10 @@ public static class Struct
         int bitPos = 0;
         double numBytes = 0.0;
 
-        var infos = type
+        FieldInfo[]? infos = type
             .GetFields();
 
-        foreach (var info in infos)
+        foreach (FieldInfo? info in infos)
         {
             bytes2 = null;
             switch (info.FieldType.Name)

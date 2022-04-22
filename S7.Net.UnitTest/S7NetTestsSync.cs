@@ -438,7 +438,7 @@ public partial class S7NetTests : IDisposable
         bool result6 = (bool)plc.Read("DB2.DBX16384.6");
         Assert.AreEqual(val6, result6);
 
-        var dataItems = new List<DataItem>()
+        List<DataItem>? dataItems = new List<DataItem>()
         {
             new DataItem
             {
@@ -525,7 +525,7 @@ public partial class S7NetTests : IDisposable
 
         // tests when writing true/false
         plc.Write("DB1.DBX0.0", false);
-        var boolVariable = (bool)plc.Read("DB1.DBX0.0");
+        bool boolVariable = (bool)plc.Read("DB1.DBX0.0");
         Assert.IsFalse(boolVariable);
 
         plc.Write("DB1.DBX0.0", true);
@@ -599,7 +599,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T13_ReadBytesThrowsIfPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
             TestClass tc = new TestClass();
@@ -640,7 +640,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T15_ReadClassWithGenericThrowsIfPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
@@ -682,7 +682,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T17_ReadClassWithGenericAndClassFactoryThrowsIfPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
 
@@ -748,14 +748,14 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        var randomEngine = new Random();
-        var data = new byte[8192];
-        var db = 2;
+        Random? randomEngine = new Random();
+        byte[]? data = new byte[8192];
+        int db = 2;
         randomEngine.NextBytes(data);
 
         plc.WriteBytes(DataType.DataBlock, db, 0, data);
 
-        var readData = plc.ReadBytes(DataType.DataBlock, db, 0, data.Length);
+        byte[]? readData = plc.ReadBytes(DataType.DataBlock, db, 0, data.Length);
 
         CollectionAssert.AreEqual(data, readData);
     }
@@ -763,7 +763,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T18_ReadStructThrowsIfPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
 
@@ -809,7 +809,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T20_ReadStructThrowsIfPlcIsNotConnected()
     {
-        using (var notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
 
@@ -930,7 +930,7 @@ public partial class S7NetTests : IDisposable
         plc.Close();
         S7TestServer.Stop();
 
-        var unreachablePlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 2);
+        Plc? unreachablePlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 2);
         try
         {
             unreachablePlc.Open();
@@ -948,7 +948,7 @@ public partial class S7NetTests : IDisposable
         S7TestServer.Stop();
         S7TestServer.Start(TestServerPort);
 
-        var reachablePlc = CreatePlc();
+        Plc? reachablePlc = CreatePlc();
         reachablePlc.Open();
         Assert.IsTrue(reachablePlc.IsConnected);
     }
@@ -958,7 +958,7 @@ public partial class S7NetTests : IDisposable
     {
         double test_value = 55.66;
         plc.Write(DataType.DataBlock, 1, 0, test_value);
-        var result = (double)plc.Read(DataType.DataBlock, 1, 0, VarType.LReal, 1);
+        double result = (double)plc.Read(DataType.DataBlock, 1, 0, VarType.LReal, 1);
 
         Assert.AreEqual(test_value, result, "Compare Write/Read");
     }
@@ -968,8 +968,8 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        var count = 2000;
-        var dataItems = new List<byte>();
+        int count = 2000;
+        List<byte>? dataItems = new List<byte>();
         for (int i = 0; i < count; i++)
         {
             dataItems.Add((byte)(i % 256));
@@ -977,7 +977,7 @@ public partial class S7NetTests : IDisposable
 
         plc.WriteBytes(DataType.DataBlock, 2, 0, dataItems.ToArray());
 
-        var res = plc.ReadBytes(DataType.DataBlock, 2, 0, count);
+        byte[]? res = plc.ReadBytes(DataType.DataBlock, 2, 0, count);
 
         for (int x = 0; x < count; x++)
         {
@@ -990,13 +990,13 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        var tc = new TestSmallClass
+        TestSmallClass? tc = new TestSmallClass
         {
             Bool1 = true
         };
 
         plc.WriteClass(tc, DB2);
-        var tc2 = plc.ReadClass<TestSmallClass>(DB2);
+        TestSmallClass? tc2 = plc.ReadClass<TestSmallClass>(DB2);
 
         Assert.AreEqual(tc.Bool1, tc2.Bool1);
     }
@@ -1010,7 +1010,7 @@ public partial class S7NetTests : IDisposable
         double test_value = 55.66;
         plc.Write("DB1.DBD0", test_value);
 
-        var helper = plc.Read("DB1.DBD0");
+        object? helper = plc.Read("DB1.DBD0");
         Assert.AreEqual(helper, null, "Value in Read.");
     }
 
@@ -1019,7 +1019,7 @@ public partial class S7NetTests : IDisposable
     {
         float test_value = 55.6632f;
         plc.Write("DB1.DBD0", test_value);
-        var helper = plc.Read("DB1.DBD0");
+        object? helper = plc.Read("DB1.DBD0");
         float test_value2 = Conversion.ConvertToFloat((uint)helper);
 
         Assert.AreEqual(test_value, test_value2, "Compare Write/Read"); //No delta, datatype matches
@@ -1028,12 +1028,12 @@ public partial class S7NetTests : IDisposable
     [TestMethod]
     public void T33_ReadWriteDateTimeLong()
     {
-        var test_value = System.DateTime.Now;
-        var db = 1;
-        var offset = 0;
+        System.DateTime test_value = System.DateTime.Now;
+        int db = 1;
+        int offset = 0;
 
         plc.WriteBytes(DataType.DataBlock, db, offset, Types.DateTimeLong.ToByteArray(test_value));
-        var test_value2 = plc.Read(DataType.DataBlock, db, offset, VarType.DateTimeLong, 1);
+        object? test_value2 = plc.Read(DataType.DataBlock, db, offset, VarType.DateTimeLong, 1);
         Assert.IsInstanceOfType(test_value2, typeof(System.DateTime));
 
         Assert.AreEqual(test_value, test_value2, "Compare DateTimeLong Write/Read");

@@ -9,9 +9,9 @@ internal static class TypeHelper
     /// </summary>
     public static byte[] ToByteArray<T>(T[] value, Func<T, byte[]> converter) where T : struct
     {
-        var buffer = new byte[Marshal.SizeOf(default(T)) * value.Length];
-        var stream = new MemoryStream(buffer);
-        foreach (var val in value)
+        byte[]? buffer = new byte[Marshal.SizeOf(default(T)) * value.Length];
+        MemoryStream? stream = new MemoryStream(buffer);
+        foreach (T val in value)
         {
             stream.Write(converter(val), 0, 4);
         }
@@ -24,13 +24,13 @@ internal static class TypeHelper
     /// </summary>
     public static T[] ToArray<T>(byte[] bytes, Func<byte[], T> converter) where T : struct
     {
-        var typeSize = Marshal.SizeOf(default(T));
-        var entries = bytes.Length / typeSize;
-        var values = new T[entries];
+        int typeSize = Marshal.SizeOf(default(T));
+        int entries = bytes.Length / typeSize;
+        T[]? values = new T[entries];
 
         for (int i = 0; i < entries; ++i)
         {
-            var buffer = new byte[typeSize];
+            byte[]? buffer = new byte[typeSize];
             Array.Copy(bytes, i * typeSize, buffer, 0, typeSize);
             values[i] = converter(buffer);
         }

@@ -12,9 +12,9 @@ public class String
     /// <param name="reservedLength">The amount of bytes reserved for the <paramref name="value"/> in the PLC.</param>
     public static byte[] ToByteArray(string value, int reservedLength)
     {
-        var length = value?.Length;
+        int? length = value?.Length;
         if (length > reservedLength) length = reservedLength;
-        var bytes = new byte[reservedLength];
+        byte[]? bytes = new byte[reservedLength];
 
         if (length is null || length == 0) return bytes;
 

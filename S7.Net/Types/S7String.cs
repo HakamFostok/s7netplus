@@ -55,10 +55,10 @@ public static class S7String
 
         if (reservedLength > 254) throw new ArgumentException($"The maximum string length supported is 254.");
 
-        var bytes = Encoding.ASCII.GetBytes(value);
+        byte[]? bytes = Encoding.ASCII.GetBytes(value);
         if (bytes.Length > reservedLength) throw new ArgumentException($"The provided string length ({bytes.Length} is larger than the specified reserved length ({reservedLength}).");
 
-        var buffer = new byte[2 + reservedLength];
+        byte[]? buffer = new byte[2 + reservedLength];
         Array.Copy(bytes, 0, buffer, 2, bytes.Length);
         buffer[0] = (byte)reservedLength;
         buffer[1] = (byte)bytes.Length;

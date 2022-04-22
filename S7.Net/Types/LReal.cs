@@ -14,7 +14,7 @@ public static class LReal
         {
             throw new ArgumentException("Wrong number of bytes. Bytes array must contain 8 bytes.");
         }
-        var buffer = bytes;
+        byte[]? buffer = bytes;
 
         // sps uses bigending so we have to reverse if platform needs
         if (BitConverter.IsLittleEndian)
@@ -30,7 +30,7 @@ public static class LReal
     /// </summary>
     public static byte[] ToByteArray(double value)
     {
-        var bytes = BitConverter.GetBytes(value);
+        byte[]? bytes = BitConverter.GetBytes(value);
 
         // sps uses bigending so we have to check if platform is same
         if (BitConverter.IsLittleEndian)

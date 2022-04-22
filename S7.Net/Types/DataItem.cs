@@ -59,8 +59,8 @@ public class DataItem
     /// <remarks>The <see cref="Count" /> property is not parsed from the address.</remarks>
     public static DataItem FromAddress(string address)
     {
-        PLCAddress.Parse(address, out var dataType, out var dbNumber, out var varType, out var startByte,
-            out var bitNumber);
+        PLCAddress.Parse(address, out DataType dataType, out int dbNumber, out VarType varType, out int startByte,
+            out int bitNumber);
 
         return new DataItem
         {
@@ -80,12 +80,12 @@ public class DataItem
     /// <returns>A new <see cref="DataItem"/> instance with properties parsed from <paramref name="address"/> and the supplied value set.</returns>
     public static DataItem FromAddressAndValue<T>(string address, T value)
     {
-        var dataItem = FromAddress(address);
+        DataItem? dataItem = FromAddress(address);
         dataItem.Value = value;
 
         if (typeof(T).IsArray)
         {
-            var array = ((Array?)dataItem.Value);
+            Array? array = ((Array?)dataItem.Value);
             if (array != null)
             {
                 dataItem.Count = array.Length;

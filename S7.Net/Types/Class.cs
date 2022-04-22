@@ -55,7 +55,7 @@ public static class Class
                 numBytes += 8;
                 break;
             default:
-                var propertyClass = Activator.CreateInstance(type);
+                object? propertyClass = Activator.CreateInstance(type);
                 numBytes = GetClassSize(propertyClass, numBytes, true);
                 break;
         }
@@ -70,8 +70,8 @@ public static class Class
     /// <returns>the number of bytes</returns>
     public static double GetClassSize(object instance, double numBytes = 0.0, bool isInnerProperty = false)
     {
-        var properties = GetAccessableProperties(instance.GetType());
-        foreach (var property in properties)
+        IEnumerable<PropertyInfo>? properties = GetAccessableProperties(instance.GetType());
+        foreach (PropertyInfo? property in properties)
         {
             if (property.PropertyType.IsArray)
             {
@@ -182,14 +182,14 @@ public static class Class
                 numBytes = Math.Ceiling(numBytes);
                 if ((numBytes / 2 - Math.Floor(numBytes / 2.0)) > 0)
                     numBytes++;
-                var buffer = new byte[8];
+                byte[]? buffer = new byte[8];
                 Array.Copy(bytes, (int)numBytes, buffer, 0, 8);
                 // hier auswerten
                 value = LReal.FromByteArray(buffer);
                 numBytes += 8;
                 break;
             default:
-                var propClass = Activator.CreateInstance(propertyType);
+                object? propClass = Activator.CreateInstance(propertyType);
                 numBytes = FromBytes(propClass, bytes, numBytes);
                 value = propClass;
                 break;
@@ -208,8 +208,8 @@ public static class Class
         if (bytes is null)
             return numBytes;
 
-        var properties = GetAccessableProperties(sourceClass.GetType());
-        foreach (var property in properties)
+        IEnumerable<PropertyInfo>? properties = GetAccessableProperties(sourceClass.GetType());
+        foreach (PropertyInfo? property in properties)
         {
             if (property.PropertyType.IsArray)
             {
@@ -302,8 +302,8 @@ public static class Class
     /// <returns>A byte array or null if fails.</returns>
     public static double ToBytes(object sourceClass, byte[] bytes, double numBytes = 0.0)
     {
-        var properties = GetAccessableProperties(sourceClass.GetType());
-        foreach (var property in properties)
+        IEnumerable<PropertyInfo>? properties = GetAccessableProperties(sourceClass.GetType());
+        foreach (PropertyInfo? property in properties)
         {
             if (property.PropertyType.IsArray)
             {

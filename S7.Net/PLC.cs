@@ -194,11 +194,11 @@ public partial class Plc : IDisposable
     private void AssertPduSizeForRead(ICollection<DataItem> dataItems)
     {
         // send request limit: 19 bytes of header data, 12 bytes of parameter data for each dataItem
-        var requiredRequestSize = 19 + dataItems.Count * 12;
+        int requiredRequestSize = 19 + dataItems.Count * 12;
         if (requiredRequestSize > MaxPDUSize) throw new Exception($"Too many vars requested for read. Request size ({requiredRequestSize}) is larger than protocol limit ({MaxPDUSize}).");
 
         // response limit: 14 bytes of header data, 4 bytes of result data for each dataItem and the actual data
-        var requiredResponseSize = GetDataLength(dataItems) + dataItems.Count * 4 + 14;
+        int requiredResponseSize = GetDataLength(dataItems) + dataItems.Count * 4 + 14;
         if (requiredResponseSize > MaxPDUSize) throw new Exception($"Too much data requested for read. Response size ({requiredResponseSize}) is larger than protocol limit ({MaxPDUSize}).");
     }
 
@@ -232,7 +232,7 @@ public partial class Plc : IDisposable
 
     private static void AssertReadResponse(byte[] s7Data, int dataLength)
     {
-        var expectedLength = dataLength + 18;
+        int expectedLength = dataLength + 18;
 
         PlcException NotEnoughBytes() =>
             new PlcException(ErrorCode.WrongNumberReceivedBytes,

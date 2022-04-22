@@ -8,7 +8,7 @@ internal class TaskQueue
 
     public async Task<T> Enqueue<T>(Func<Task<T>> action)
     {
-        var tcs = new TaskCompletionSource<object>();
+        TaskCompletionSource<object>? tcs = new TaskCompletionSource<object>();
         await Interlocked.Exchange(ref prev, tcs.Task).ConfigureAwait(false);
 
         try
