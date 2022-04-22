@@ -32,7 +32,7 @@ public static class Bit
     {
         if (length > bytes.Length * 8) throw new ArgumentException($"Not enough data in bytes to return {length} bits.", nameof(bytes));
 
-        BitArray? bitArr = new BitArray(bytes);
+        BitArray? bitArr = new(bytes);
         bool[]? bools = new bool[length];
         for (int i = 0; i < length; i++) bools[i] = bitArr[i];
 

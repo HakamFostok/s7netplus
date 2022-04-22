@@ -75,7 +75,7 @@ public partial class Plc
     /// <returns>Returns an object that contains the value. This object must be cast accordingly. If no data has been read, null will be returned</returns>
     public object? Read(string variable)
     {
-        PLCAddress? adr = new PLCAddress(variable);
+        PLCAddress? adr = new(variable);
         return Read(adr.DataType, adr.DbNumber, adr.StartByte, adr.VarType, 1, (byte)adr.BitNumber);
     }
 
@@ -265,7 +265,7 @@ public partial class Plc
     /// <param name="value">Value to be written to the PLC</param>
     public void Write(string variable, object value)
     {
-        PLCAddress? adr = new PLCAddress(variable);
+        PLCAddress? adr = new(variable);
         Write(adr.DataType, adr.DbNumber, adr.StartByte, value, adr.BitNumber);
     }
 
@@ -297,7 +297,7 @@ public partial class Plc
         {
             // first create the header
             int packageSize = 19 + 12; // 19 header + 12 for 1 request
-            MemoryStream? package = new System.IO.MemoryStream(packageSize);
+            MemoryStream? package = new(packageSize);
             BuildHeaderPackage(package);
             // package.Add(0x02);  // datenart
             BuildReadDataRequestPackage(package, dataType, db, startByteAdr, count);
@@ -324,7 +324,7 @@ public partial class Plc
         AssertPduSizeForWrite(dataItems);
 
 
-        ByteArray? message = new ByteArray();
+        ByteArray? message = new();
         int length = S7WriteMultiple.CreateRequest(message, dataItems);
         byte[]? response = RequestTsdu(message.Array, 0, length);
 
@@ -351,7 +351,7 @@ public partial class Plc
         int varCount = count;
         // first create the header
         int packageSize = 35 + varCount;
-        MemoryStream? package = new MemoryStream(new byte[packageSize]);
+        MemoryStream? package = new(new byte[packageSize]);
 
         package.WriteByte(3);
         package.WriteByte(0);
@@ -383,7 +383,7 @@ public partial class Plc
         int varCount = 1;
         // first create the header
         int packageSize = 35 + varCount;
-        MemoryStream? package = new MemoryStream(new byte[packageSize]);
+        MemoryStream? package = new(new byte[packageSize]);
 
         package.WriteByte(3);
         package.WriteByte(0);
@@ -441,7 +441,7 @@ public partial class Plc
         {
             // first create the header
             int packageSize = 19 + (dataItems.Count * 12);
-            MemoryStream? package = new System.IO.MemoryStream(packageSize);
+            MemoryStream? package = new(packageSize);
             BuildHeaderPackage(package, dataItems.Count);
             // package.Add(0x02);  // datenart
             foreach (DataItem? dataItem in dataItems)

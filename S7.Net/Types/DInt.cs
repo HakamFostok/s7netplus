@@ -38,7 +38,7 @@ public static class DInt
     /// </summary>
     public static byte[] ToByteArray(Int32[] value)
     {
-        ByteArray arr = new ByteArray();
+        ByteArray arr = new();
         foreach (Int32 val in value)
             arr.Add(ToByteArray(val));
         return arr.Array;

@@ -11,7 +11,7 @@ public class ProtocolUnitTest
     [TestMethod]
     public async Task TPKT_Read()
     {
-        MemoryStream? m = new MemoryStream(StringToByteArray("0300002902f0803203000000010002001400000401ff0400807710000100000103000000033f8ccccd"));
+        MemoryStream? m = new(StringToByteArray("0300002902f0803203000000010002001400000401ff0400807710000100000103000000033f8ccccd"));
         TPKT? t = await TPKT.ReadAsync(m, TestContext.CancellationTokenSource.Token);
         Assert.AreEqual(0x03, t.Version);
         Assert.AreEqual(0x29, t.Length);
@@ -21,7 +21,7 @@ public class ProtocolUnitTest
     [ExpectedException(typeof(TPKTInvalidException))]
     public async Task TPKT_ReadShort()
     {
-        MemoryStream? m = new MemoryStream(StringToByteArray("0300002902f0803203000000010002001400000401ff040080"));
+        MemoryStream? m = new(StringToByteArray("0300002902f0803203000000010002001400000401ff040080"));
         TPKT? t = await TPKT.ReadAsync(m, CancellationToken.None);
     }
 
@@ -30,7 +30,7 @@ public class ProtocolUnitTest
     [ExpectedException(typeof(TPKTInvalidException))]
     public async Task TPKT_ReadShortAsync()
     {
-        MemoryStream? m = new MemoryStream(StringToByteArray("0300002902f0803203000000010002001400000401ff040080"));
+        MemoryStream? m = new(StringToByteArray("0300002902f0803203000000010002001400000401ff040080"));
         TPKT? t = await TPKT.ReadAsync(m, TestContext.CancellationTokenSource.Token);
     }
 
@@ -38,7 +38,7 @@ public class ProtocolUnitTest
     public async Task COTP_ReadTSDU()
     {
         byte[]? expected = StringToByteArray("320700000400000800080001120411440100ff09000400000000");
-        MemoryStream? m = new MemoryStream(StringToByteArray("0300000702f0000300000702f0000300002102f080320700000400000800080001120411440100ff09000400000000"));
+        MemoryStream? m = new(StringToByteArray("0300000702f0000300000702f0000300002102f080320700000400000800080001120411440100ff09000400000000"));
         byte[]? t = await COTP.TSDU.ReadAsync(m, TestContext.CancellationTokenSource.Token);
         Assert.IsTrue(expected.SequenceEqual(t));
     }
@@ -56,7 +56,7 @@ public class ProtocolUnitTest
     public async Task TestResponseCode()
     {
         byte[]? expected = StringToByteArray("320700000400000800080001120411440100ff09000400000000");
-        MemoryStream? m = new MemoryStream(StringToByteArray("0300000702f0000300000702f0000300002102f080320700000400000800080001120411440100ff09000400000000"));
+        MemoryStream? m = new(StringToByteArray("0300000702f0000300000702f0000300002102f080320700000400000800080001120411440100ff09000400000000"));
         byte[]? t = await COTP.TSDU.ReadAsync(m, CancellationToken.None);
         Assert.IsTrue(expected.SequenceEqual(t));
 

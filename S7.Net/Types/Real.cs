@@ -45,7 +45,7 @@ public static class Real
     public static byte[] ToByteArray(float[] value)
     {
         byte[]? buffer = new byte[4 * value.Length];
-        MemoryStream? stream = new MemoryStream(buffer);
+        MemoryStream? stream = new(buffer);
         foreach (float val in value)
         {
             stream.Write(ToByteArray(val), 0, 4);

@@ -63,14 +63,14 @@ public class ConnectionCloseTest
     [TestMethod]
     public async Task Test_CancellationDuringTransmission()
     {
-        Plc? plc = new Plc(CpuType.S7300, TestServerIp, TestServerPort, 0, 2);
+        Plc? plc = new(CpuType.S7300, TestServerIp, TestServerPort, 0, 2);
 
         // Set up a shared cancellation source so we can let the stream
         // initiate cancel after some data has been written to it.
-        CancellationTokenSource? cancellationSource = new CancellationTokenSource();
+        CancellationTokenSource? cancellationSource = new();
         CancellationToken cancellationToken = cancellationSource.Token;
 
-        TestStreamConnectionClose? stream = new TestStreamConnectionClose(cancellationSource);
+        TestStreamConnectionClose? stream = new(cancellationSource);
         byte[]? requestData = new byte[100]; // empty data, it does not matter what is in there
 
         // Set up access to private method and field
@@ -119,13 +119,13 @@ public class ConnectionCloseTest
     [TestMethod]
     public async Task Test_CancellationBeforeTransmission()
     {
-        Plc? plc = new Plc(CpuType.S7300, TestServerIp, TestServerPort, 0, 2);
+        Plc? plc = new(CpuType.S7300, TestServerIp, TestServerPort, 0, 2);
 
         // Set up a cancellation source
-        CancellationTokenSource? cancellationSource = new CancellationTokenSource();
+        CancellationTokenSource? cancellationSource = new();
         CancellationToken cancellationToken = cancellationSource.Token;
 
-        TestStreamConnectionClose? stream = new TestStreamConnectionClose(cancellationSource);
+        TestStreamConnectionClose? stream = new(cancellationSource);
         byte[]? requestData = new byte[100]; // empty data, it does not matter what is in there
 
         // Set up access to private method and field

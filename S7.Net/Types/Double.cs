@@ -42,7 +42,7 @@ public static class Double
     /// </summary>
     public static byte[] ToByteArray(double[] value)
     {
-        ByteArray arr = new ByteArray();
+        ByteArray arr = new();
         foreach (double val in value)
             arr.Add(ToByteArray(val));
         return arr.Array;

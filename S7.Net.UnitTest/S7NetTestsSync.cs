@@ -173,7 +173,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestClass tc = new TestClass();
+        TestClass tc = new();
         tc.BitVariable00 = true;
         tc.BitVariable10 = true;
         tc.DIntVariable = -100000;
@@ -182,7 +182,7 @@ public partial class S7NetTests : IDisposable
         tc.RealVariable = -154.789f;
         tc.DWordVariable = 850;
         plc.WriteClass(tc, DB2);
-        TestClass tc2 = new TestClass();
+        TestClass tc2 = new();
         // Values that are read from a class are stored inside the class itself, that is passed by reference
         plc.ReadClass(tc2, DB2);
         Assert.AreEqual(tc.BitVariable00, tc2.BitVariable00);
@@ -202,7 +202,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestStruct tc = new TestStruct();
+        TestStruct tc = new();
         tc.BitVariable00 = true;
         tc.BitVariable10 = true;
         tc.DIntVariable = -100000;
@@ -235,7 +235,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestLongStruct tc = new TestLongStruct();
+        TestLongStruct tc = new();
         tc.IntVariable0 = 0;
         tc.IntVariable1 = 1;
         tc.IntVariable10 = 10;
@@ -297,7 +297,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestLongClass tc = new TestLongClass();
+        TestLongClass tc = new();
         tc.IntVariable0 = 0;
         tc.IntVariable1 = 1;
         tc.IntVariable10 = 10;
@@ -324,7 +324,7 @@ public partial class S7NetTests : IDisposable
         tc.IntVariable111 = 201;
         plc.WriteClass(tc, DB2);
         // Values that are read from a struct are stored in a new struct, returned by the funcion ReadStruct
-        TestLongClass tc2 = new TestLongClass();
+        TestLongClass tc2 = new();
         plc.ReadClass(tc2, DB2);
         Assert.AreEqual(tc.IntVariable0, tc2.IntVariable0);
         Assert.AreEqual(tc.IntVariable1, tc2.IntVariable1);
@@ -438,7 +438,7 @@ public partial class S7NetTests : IDisposable
         bool result6 = (bool)plc.Read("DB2.DBX16384.6");
         Assert.AreEqual(val6, result6);
 
-        List<DataItem>? dataItems = new List<DataItem>()
+        List<DataItem>? dataItems = new()
         {
             new DataItem
             {
@@ -567,7 +567,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestClassWithPrivateSetters tc = new TestClassWithPrivateSetters();
+        TestClassWithPrivateSetters tc = new();
         tc.BitVariable00 = true;
         tc.BitVariable10 = true;
         tc.DIntVariable = -100000;
@@ -578,7 +578,7 @@ public partial class S7NetTests : IDisposable
 
         plc.WriteClass(tc, DB2);
 
-        TestClassWithPrivateSetters tc2 = new TestClassWithPrivateSetters();
+        TestClassWithPrivateSetters tc2 = new();
         // Values that are read from a class are stored inside the class itself, that is passed by reference
         plc.ReadClass(tc2, DB2);
         Assert.AreEqual(tc.BitVariable00, tc2.BitVariable00);
@@ -599,10 +599,10 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T13_ReadBytesThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
-            TestClass tc = new TestClass();
+            TestClass tc = new();
             int actualReadBytes = notConnectedPlc.ReadClass(tc, DB2);
         }
     }
@@ -612,7 +612,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestClass tc = new TestClass();
+        TestClass tc = new();
         tc.BitVariable00 = true;
         tc.BitVariable10 = true;
         tc.DIntVariable = -100000;
@@ -624,7 +624,7 @@ public partial class S7NetTests : IDisposable
         plc.WriteClass(tc, DB2);
 
         // Values that are read from a class are stored inside the class itself, that is passed by reference
-        TestClass tc2 = new TestClass();
+        TestClass tc2 = new();
         plc.ReadClass(tc2, DB2);
         TestClass tc2Generic = plc.ReadClass<TestClass>(DB2);
 
@@ -640,7 +640,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T15_ReadClassWithGenericThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
@@ -655,7 +655,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestClass tc = new TestClass();
+        TestClass tc = new();
         tc.BitVariable00 = true;
         tc.BitVariable10 = true;
         tc.DIntVariable = -100000;
@@ -682,7 +682,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T17_ReadClassWithGenericAndClassFactoryThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
 
@@ -699,14 +699,14 @@ public partial class S7NetTests : IDisposable
 
         Assert.AreEqual(6, Types.Class.GetClassSize(new TestClassWithNestedClass()));
 
-        TestClassWithNestedClass tc = new TestClassWithNestedClass();
+        TestClassWithNestedClass tc = new();
         tc.BitVariable00 = true;
         tc.BitVariable01.BitVariable00 = true;
         tc.ByteVariable02.ByteVariable00 = 128;
         tc.BitVariable03 = true;
         tc.ShortVariable04.ShortVarialbe00 = -15000;
 
-        TestClassWithNestedClass tc2 = new TestClassWithNestedClass();
+        TestClassWithNestedClass tc2 = new();
         plc.ReadClass(tc2, DB4);
         Assert.AreEqual(tc.BitVariable00, tc2.BitVariable00);
         Assert.AreEqual(tc.BitVariable01.BitVariable00, tc2.BitVariable01.BitVariable00);
@@ -720,7 +720,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestClassWithNestedClass tc = new TestClassWithNestedClass
+        TestClassWithNestedClass tc = new()
         {
             BitVariable00 = true,
             BitVariable01 = new TestClassInnerWithBool { BitVariable00 = true },
@@ -730,7 +730,7 @@ public partial class S7NetTests : IDisposable
         };
 
         plc.WriteClass(tc, DB4);
-        TestClassWithNestedClass tc2 = new TestClassWithNestedClass();
+        TestClassWithNestedClass tc2 = new();
         // Values that are read from a class are stored inside the class itself, that is passed by reference
         plc.ReadClass(tc2, DB4);
         Assert.AreEqual(tc.BitVariable00, tc2.BitVariable00);
@@ -748,7 +748,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        Random? randomEngine = new Random();
+        Random? randomEngine = new();
         byte[]? data = new byte[8192];
         int db = 2;
         randomEngine.NextBytes(data);
@@ -763,7 +763,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T18_ReadStructThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
 
@@ -778,7 +778,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestStruct ts = new TestStruct();
+        TestStruct ts = new();
         ts.BitVariable00 = true;
         ts.BitVariable10 = true;
         ts.DIntVariable = -100000;
@@ -809,7 +809,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T20_ReadStructThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 0))
+        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
         {
             Assert.IsFalse(notConnectedPlc.IsConnected);
 
@@ -827,7 +827,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestClass tc = new TestClass();
+        TestClass tc = new();
         tc.BitVariable00 = true;
         tc.BitVariable10 = true;
         tc.DIntVariable = -100000;
@@ -839,7 +839,7 @@ public partial class S7NetTests : IDisposable
 
         int expectedReadBytes = (int)Types.Class.GetClassSize(tc);
 
-        TestClass tc2 = new TestClass();
+        TestClass tc2 = new();
         // Values that are read from a class are stored inside the class itself, that is passed by reference
         int actualReadBytes = plc.ReadClass(tc2, DB2);
 
@@ -851,7 +851,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestClassWithArrays tc = new TestClassWithArrays();
+        TestClassWithArrays tc = new();
         tc.Bool = true;
         tc.BoolValues[1] = true;
         tc.Int = int.MinValue;
@@ -903,7 +903,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestClassWithCustomType tc = new TestClassWithCustomType();
+        TestClassWithCustomType tc = new();
         tc.Int = int.MinValue;
         tc.CustomType = new CustomType();
         tc.CustomType.Bools[1] = true;
@@ -930,7 +930,7 @@ public partial class S7NetTests : IDisposable
         plc.Close();
         S7TestServer.Stop();
 
-        Plc? unreachablePlc = new Plc(CpuType.S7300, "255.255.255.255", 0, 2);
+        Plc? unreachablePlc = new(CpuType.S7300, "255.255.255.255", 0, 2);
         try
         {
             unreachablePlc.Open();
@@ -969,7 +969,7 @@ public partial class S7NetTests : IDisposable
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
         int count = 2000;
-        List<byte>? dataItems = new List<byte>();
+        List<byte>? dataItems = new();
         for (int i = 0; i < count; i++)
         {
             dataItems.Add((byte)(i % 256));
@@ -990,7 +990,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        TestSmallClass? tc = new TestSmallClass
+        TestSmallClass? tc = new()
         {
             Bool1 = true
         };

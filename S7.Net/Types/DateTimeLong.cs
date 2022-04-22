@@ -9,12 +9,12 @@ public static class DateTimeLong
     /// <summary>
     /// The minimum <see cref="T:System.DateTime" /> value supported by the specification.
     /// </summary>
-    public static readonly System.DateTime SpecMinimumDateTime = new System.DateTime(1970, 1, 1);
+    public static readonly System.DateTime SpecMinimumDateTime = new(1970, 1, 1);
 
     /// <summary>
     /// The maximum <see cref="T:System.DateTime" /> value supported by the specification.
     /// </summary>
-    public static readonly System.DateTime SpecMaximumDateTime = new System.DateTime(2262, 4, 11, 23, 47, 16, 854);
+    public static readonly System.DateTime SpecMaximumDateTime = new(2262, 4, 11, 23, 47, 16, 854);
 
     /// <summary>
     /// Parses a <see cref="T:System.DateTime" /> value from bytes.
@@ -83,7 +83,7 @@ public static class DateTimeLong
         uint nanoseconds = AssertRangeInclusive<uint>(DWord.FromBytes(bytes[11], bytes[10], bytes[9], bytes[8]), 0,
             999999999, "nanoseconds");
 
-        System.DateTime time = new System.DateTime(year, month, day, hour, minute, second);
+        System.DateTime time = new(year, month, day, hour, minute, second);
         return time.AddTicks(nanoseconds / 100);
     }
 
@@ -111,7 +111,7 @@ public static class DateTimeLong
                 $"Date time '{dateTime}' is after the maximum '{SpecMaximumDateTime}' supported in S7 DateTimeLong representation.");
         }
 
-        MemoryStream? stream = new MemoryStream(TypeLengthInBytes);
+        MemoryStream? stream = new(TypeLengthInBytes);
         // Convert Year
         stream.Write(Word.ToByteArray(Convert.ToUInt16(dateTime.Year)), 0, 2);
 
@@ -152,7 +152,7 @@ public static class DateTimeLong
     /// </exception>
     public static byte[] ToByteArray(System.DateTime[] dateTimes)
     {
-        List<byte>? bytes = new List<byte>(dateTimes.Length * TypeLengthInBytes);
+        List<byte>? bytes = new(dateTimes.Length * TypeLengthInBytes);
         foreach (System.DateTime dateTime in dateTimes)
         {
             bytes.AddRange(ToByteArray(dateTime));

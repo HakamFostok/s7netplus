@@ -758,7 +758,7 @@ public class S7Client
         if (res == 0)
         {
             // Packed->Managed
-            DateTime PlcDT = new DateTime(tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            DateTime PlcDT = new(tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
             DT = PlcDT;
         }
         return res;
@@ -1122,7 +1122,7 @@ public class S7Client
     protected static extern int Cli_GetExecTime(IntPtr Client, ref UInt32 Time);
     public int ExecTime()
     {
-        UInt32 Time = new UInt32();
+        UInt32 Time = new();
         if (Cli_GetExecTime(Client, ref Time) == 0)
             return (int)(Time);
         else
@@ -1133,7 +1133,7 @@ public class S7Client
     protected static extern int Cli_GetLastError(IntPtr Client, ref Int32 LastError);
     public int LastError()
     {
-        Int32 ClientLastError = new Int32();
+        Int32 ClientLastError = new();
         if (Cli_GetLastError(Client, ref ClientLastError) == 0)
             return (int)ClientLastError;
         else
@@ -1145,8 +1145,8 @@ public class S7Client
 
     public int RequestedPduLength()
     {
-        Int32 Requested = new Int32();
-        Int32 Negotiated = new Int32();
+        Int32 Requested = new();
+        Int32 Negotiated = new();
         if (Cli_GetPduLength(Client, ref Requested, ref Negotiated) == 0)
             return Requested;
         else
@@ -1155,8 +1155,8 @@ public class S7Client
 
     public int NegotiatedPduLength()
     {
-        Int32 Requested = new Int32();
-        Int32 Negotiated = new Int32();
+        Int32 Requested = new();
+        Int32 Negotiated = new();
         if (Cli_GetPduLength(Client, ref Requested, ref Negotiated) == 0)
             return Negotiated;
         else
@@ -1167,7 +1167,7 @@ public class S7Client
     protected static extern int Cli_ErrorText(int Error, StringBuilder ErrMsg, int TextSize);
     public string ErrorText(int Error)
     {
-        StringBuilder Message = new StringBuilder(MsgTextLen);
+        StringBuilder Message = new(MsgTextLen);
         Cli_ErrorText(Error, Message, MsgTextLen);
         return Message.ToString();
     }
@@ -1176,7 +1176,7 @@ public class S7Client
     protected static extern int Cli_GetConnected(IntPtr Client, ref UInt32 IsConnected);
     public bool Connected()
     {
-        UInt32 IsConnected = new UInt32();
+        UInt32 IsConnected = new();
         if (Cli_GetConnected(Client, ref IsConnected) == 0)
             return IsConnected != 0;
         else
@@ -1507,7 +1507,7 @@ public class S7Server
     protected static extern int Srv_PickEvent(IntPtr Server, ref USrvEvent Event, ref Int32 EvtReady);
     public bool PickEvent(ref USrvEvent Event)
     {
-        Int32 EvtReady = new Int32();
+        Int32 EvtReady = new();
         if (Srv_PickEvent(Server, ref Event, ref EvtReady) == 0)
             return EvtReady != 0;
         else
@@ -1525,14 +1525,14 @@ public class S7Server
     protected static extern int Srv_EventText(ref USrvEvent Event, StringBuilder EvtMsg, int TextSize);
     public string EventText(ref USrvEvent Event)
     {
-        StringBuilder Message = new StringBuilder(MsgTextLen);
+        StringBuilder Message = new(MsgTextLen);
         Srv_EventText(ref Event, Message, MsgTextLen);
         return Message.ToString();
     }
 
     public DateTime EvtTimeToDateTime(IntPtr TimeStamp)
     {
-        DateTime UnixStartEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        DateTime UnixStartEpoch = new(1970, 1, 1, 0, 0, 0, 0);
         return UnixStartEpoch.AddSeconds(Convert.ToDouble(TimeStamp));
     }
 
@@ -1546,7 +1546,7 @@ public class S7Server
     {
         get
         {
-            UInt32 Mask = new UInt32();
+            UInt32 Mask = new();
             if (Srv_GetMask(Server, S7Server.mkLog, ref Mask) == 0)
                 return Mask;
             else
@@ -1563,7 +1563,7 @@ public class S7Server
     {
         get
         {
-            UInt32 Mask = new UInt32();
+            UInt32 Mask = new();
             if (Srv_GetMask(Server, S7Server.mkEvent, ref Mask) == 0)
                 return Mask;
             else
@@ -1590,9 +1590,9 @@ public class S7Server
     {
         get
         {
-            Int32 CStatus = new Int32();
-            Int32 SStatus = new Int32();
-            Int32 CCount = new Int32();
+            Int32 CStatus = new();
+            Int32 SStatus = new();
+            Int32 CCount = new();
 
             if (Srv_GetStatus(Server, ref CStatus, ref SStatus, ref CCount) == 0)
                 return CStatus;
@@ -1610,9 +1610,9 @@ public class S7Server
     {
         get
         {
-            Int32 CStatus = new Int32();
-            Int32 SStatus = new Int32();
-            Int32 CCount = new Int32();
+            Int32 CStatus = new();
+            Int32 SStatus = new();
+            Int32 CCount = new();
             if (Srv_GetStatus(Server, ref CStatus, ref SStatus, ref CCount) == 0)
                 return SStatus;
             else
@@ -1625,9 +1625,9 @@ public class S7Server
     {
         get
         {
-            Int32 CStatus = new Int32();
-            Int32 SStatus = new Int32();
-            Int32 CCount = new Int32();
+            Int32 CStatus = new();
+            Int32 SStatus = new();
+            Int32 CCount = new();
             if (Srv_GetStatus(Server, ref CStatus, ref SStatus, ref CCount) == 0)
                 return CCount;
             else
@@ -1639,7 +1639,7 @@ public class S7Server
     protected static extern int Srv_ErrorText(int Error, StringBuilder ErrMsg, int TextSize);
     public string ErrorText(int Error)
     {
-        StringBuilder Message = new StringBuilder(MsgTextLen);
+        StringBuilder Message = new(MsgTextLen);
         Srv_ErrorText(Error, Message, MsgTextLen);
         return Message.ToString();
     }
@@ -1919,7 +1919,7 @@ public class S7Partner
     protected static extern int Par_GetLastError(IntPtr Partner, ref Int32 LastError);
     public int LastError(ref Int32 LastError)
     {
-        Int32 PartnerLastError = new Int32();
+        Int32 PartnerLastError = new();
         if (Par_GetLastError(Partner, ref PartnerLastError) == 0)
             return (int)PartnerLastError;
         else
@@ -1930,7 +1930,7 @@ public class S7Partner
     protected static extern int Par_ErrorText(int Error, StringBuilder ErrMsg, int TextSize);
     public string ErrorText(int Error)
     {
-        StringBuilder Message = new StringBuilder(MsgTextLen);
+        StringBuilder Message = new(MsgTextLen);
         Par_ErrorText(Error, Message, MsgTextLen);
         return Message.ToString();
     }
@@ -1993,7 +1993,7 @@ public class S7Partner
     {
         get
         {
-            int ParStatus = new int();
+            int ParStatus = new();
             if (Par_GetStatus(Partner, ref ParStatus) != 0)
                 return -1;
             else

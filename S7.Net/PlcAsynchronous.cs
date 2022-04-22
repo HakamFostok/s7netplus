@@ -141,7 +141,7 @@ public partial class Plc
     /// <returns>Returns an object that contains the value. This object must be cast accordingly.</returns>
     public async Task<object?> ReadAsync(string variable, CancellationToken cancellationToken = default)
     {
-        PLCAddress? adr = new PLCAddress(variable);
+        PLCAddress? adr = new(variable);
         return await ReadAsync(adr.DataType, adr.DbNumber, adr.StartByte, adr.VarType, 1, (byte)adr.BitNumber, cancellationToken).ConfigureAwait(false);
     }
 
@@ -395,7 +395,7 @@ public partial class Plc
     /// <returns>A task that represents the asynchronous write operation.</returns>
     public async Task WriteAsync(string variable, object value, CancellationToken cancellationToken = default)
     {
-        PLCAddress? adr = new PLCAddress(variable);
+        PLCAddress? adr = new(variable);
         await WriteAsync(adr.DataType, adr.DbNumber, adr.StartByte, value, adr.BitNumber, cancellationToken).ConfigureAwait(false);
     }
 
@@ -450,7 +450,7 @@ public partial class Plc
     {
         AssertPduSizeForWrite(dataItems);
 
-        ByteArray? message = new ByteArray();
+        ByteArray? message = new();
         int length = S7WriteMultiple.CreateRequest(message, dataItems);
 
         byte[]? response = await RequestTsduAsync(message.Array, 0, length).ConfigureAwait(false);

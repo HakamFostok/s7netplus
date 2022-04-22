@@ -20,7 +20,7 @@ public partial class Plc : IDisposable
     /// </summary>
     public const int DefaultTimeout = 10_000;
 
-    private readonly TaskQueue queue = new TaskQueue();
+    private readonly TaskQueue queue = new();
 
     //TCP connection to device
     private TcpClient? tcpClient;
@@ -235,7 +235,7 @@ public partial class Plc : IDisposable
         int expectedLength = dataLength + 18;
 
         PlcException NotEnoughBytes() =>
-            new PlcException(ErrorCode.WrongNumberReceivedBytes,
+            new(ErrorCode.WrongNumberReceivedBytes,
                 $"Received {s7Data.Length} bytes: '{BitConverter.ToString(s7Data)}', expected {expectedLength} bytes.")
         ;
 

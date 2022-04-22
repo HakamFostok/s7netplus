@@ -8,12 +8,12 @@ public static class DateTime
     /// <summary>
     /// The minimum <see cref="T:System.DateTime"/> value supported by the specification.
     /// </summary>
-    public static readonly System.DateTime SpecMinimumDateTime = new System.DateTime(1990, 1, 1);
+    public static readonly System.DateTime SpecMinimumDateTime = new(1990, 1, 1);
 
     /// <summary>
     /// The maximum <see cref="T:System.DateTime"/> value supported by the specification.
     /// </summary>
-    public static readonly System.DateTime SpecMaximumDateTime = new System.DateTime(2089, 12, 31, 23, 59, 59, 999);
+    public static readonly System.DateTime SpecMaximumDateTime = new(2089, 12, 31, 23, 59, 59, 999);
 
     /// <summary>
     /// Parses a <see cref="T:System.DateTime"/> value from bytes.
@@ -144,7 +144,7 @@ public static class DateTime
     ///   or after <see cref="P:SpecMaximumDateTime"/>.</exception>
     public static byte[] ToByteArray(System.DateTime[] dateTimes)
     {
-        List<byte>? bytes = new List<byte>(dateTimes.Length * 8);
+        List<byte>? bytes = new(dateTimes.Length * 8);
         foreach (System.DateTime dateTime in dateTimes) bytes.AddRange(ToByteArray(dateTime));
 
         return bytes.ToArray();

@@ -78,7 +78,7 @@ public class StreamTests
     public async Task TPKT_ReadRestrictedStreamAsync()
     {
         byte[]? fullMessage = ProtocolUnitTest.StringToByteArray("0300002902f0803203000000010002001400000401ff0400807710000100000103000000033f8ccccd");
-        TestStream1BytePerRead? m = new TestStream1BytePerRead(fullMessage);
+        TestStream1BytePerRead? m = new(fullMessage);
         TPKT? t = await TPKT.ReadAsync(m, TestContext.CancellationTokenSource.Token);
         Assert.AreEqual(fullMessage.Length, t.Length);
         Assert.AreEqual(fullMessage.Last(), t.Data.Last());
@@ -88,7 +88,7 @@ public class StreamTests
     public async Task TPKT_ReadRestrictedStream()
     {
         byte[]? fullMessage = ProtocolUnitTest.StringToByteArray("0300002902f0803203000000010002001400000401ff0400807710000100000103000000033f8ccccd");
-        TestStream1BytePerRead? m = new TestStream1BytePerRead(fullMessage);
+        TestStream1BytePerRead? m = new(fullMessage);
         TPKT? t = await TPKT.ReadAsync(m, CancellationToken.None);
         Assert.AreEqual(fullMessage.Length, t.Length);
         Assert.AreEqual(fullMessage.Last(), t.Data.Last());
@@ -98,7 +98,7 @@ public class StreamTests
     public async Task TPKT_ReadStreamTooShort()
     {
         byte[]? fullMessage = ProtocolUnitTest.StringToByteArray("0300002902f0803203000000010002001400");
-        TestStream1BytePerRead? m = new TestStream1BytePerRead(fullMessage);
+        TestStream1BytePerRead? m = new(fullMessage);
         await Assert.ThrowsExceptionAsync<TPKTInvalidException>(() => TPKT.ReadAsync(m, CancellationToken.None));
     }
 }

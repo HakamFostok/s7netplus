@@ -42,7 +42,7 @@ public static class Single
     /// </summary>
     public static byte[] ToByteArray(float[] value)
     {
-        ByteArray arr = new ByteArray();
+        ByteArray arr = new();
         foreach (float val in value)
             arr.Add(ToByteArray(val));
         return arr.Array;

@@ -15,7 +15,7 @@ internal static class S7WriteMultiple
             (ushort)(2 + paramSize));
 
         int paramOffset = Header.Template.Length;
-        ByteArray? data = new ByteArray();
+        ByteArray? data = new();
 
         int itemCount = 0;
 

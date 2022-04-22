@@ -2,7 +2,7 @@
 
 class ByteArray
 {
-    List<byte> list = new List<byte>();
+    List<byte> list = new();
 
     public byte this[int index]
     {

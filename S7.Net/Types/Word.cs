@@ -46,7 +46,7 @@ public static class Word
     /// </summary>
     public static byte[] ToByteArray(UInt16[] value)
     {
-        ByteArray arr = new ByteArray();
+        ByteArray arr = new();
         foreach (UInt16 val in value)
             arr.Add(ToByteArray(val));
         return arr.Array;

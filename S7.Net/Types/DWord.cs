@@ -48,7 +48,7 @@ public static class DWord
     /// </summary>
     public static byte[] ToByteArray(UInt32[] value)
     {
-        ByteArray arr = new ByteArray();
+        ByteArray arr = new();
         foreach (UInt32 val in value)
             arr.Add(ToByteArray(val));
         return arr.Array;

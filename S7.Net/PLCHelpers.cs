@@ -248,7 +248,7 @@ public partial class Plc
     private static byte[] BuildReadRequestPackage(IList<DataItemAddress> dataItems)
     {
         int packageSize = 19 + (dataItems.Count * 12);
-        MemoryStream? package = new System.IO.MemoryStream(packageSize);
+        MemoryStream? package = new(packageSize);
 
         BuildHeaderPackage(package, dataItems.Count);
 
