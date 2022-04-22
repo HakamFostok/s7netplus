@@ -23,7 +23,6 @@ public partial class Plc
         }
     }
 
-
     /// <summary>
     /// Reads a number of bytes from a DB starting from a specified index. This handles more than 200 bytes with multiple requests.
     /// If the read was not successful, check LastErrorCode or LastErrorString.
@@ -107,7 +106,6 @@ public partial class Plc
     {
         return ReadStruct(typeof(T), db, startByteAdr) as T?;
     }
-
 
     /// <summary>
     /// Reads all the bytes needed to fill a class in C#, starting from a certain address, and set all the properties values to the value that are read from the PLC.
@@ -323,7 +321,6 @@ public partial class Plc
     {
         AssertPduSizeForWrite(dataItems);
 
-
         ByteArray? message = new();
         int length = S7WriteMultiple.CreateRequest(message, dataItems);
         byte[]? response = RequestTsdu(message.Array, 0, length);
@@ -408,7 +405,6 @@ public partial class Plc
 
         return package.ToArray();
     }
-
 
     private void WriteBitWithASingleRequest(DataType dataType, int db, int startByteAdr, int bitAdr, bool bitValue)
     {

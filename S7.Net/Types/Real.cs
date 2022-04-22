@@ -67,5 +67,4 @@ public static class Real
 
         return values;
     }
-
 }

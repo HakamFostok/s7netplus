@@ -94,7 +94,6 @@ public static class Struct
         double numBytes = 0.0;
         object structValue = Activator.CreateInstance(structType);
 
-
         FieldInfo[]? infos = structValue.GetType()
             .GetFields();
 

@@ -21,7 +21,6 @@ public class S7WStringTests
     [TestMethod]
     public void ReadEmptyStringWithOneCharGarbage()
     {
-
         AssertFromByteArrayEquals("", 0, 1, 0, 0, 0x00, 0x41);
     }
 

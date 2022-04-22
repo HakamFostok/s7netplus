@@ -84,7 +84,6 @@ public partial class Plc
         MaxPDUSize = s7data[18] * 256 + s7data[19];
     }
 
-
     /// <summary>
     /// Reads a number of bytes from a DB starting from a specified index. This handles more than 200 bytes with multiple requests.
     /// If the read was not successful, check LastErrorCode or LastErrorString.
@@ -283,7 +282,6 @@ public partial class Plc
         }
         return dataItems;
     }
-
 
     /// <summary>
     /// Write a number of bytes from a DB starting from a specified index. This handles more than 200 bytes with multiple requests.

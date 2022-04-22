@@ -19,7 +19,6 @@ public static class Int
         return (short)((int)(bytes[1]) | ((int)(bytes[0]) << 8));
     }
 
-
     /// <summary>
     /// Converts a short (Int16) to a S7 Int byte array (2 bytes)
     /// </summary>
@@ -80,5 +79,4 @@ public static class Int
         }
         return (short)value;
     }
-
 }

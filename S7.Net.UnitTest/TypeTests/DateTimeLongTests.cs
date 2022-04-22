@@ -105,7 +105,6 @@ public static class DateTimeLongTests
             Types.DateTimeLong.FromByteArray(MutateSample(8, 0x3B));
         }
 
-
         [TestMethod, ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ThrowsOnZeroDayOfWeek()
         {

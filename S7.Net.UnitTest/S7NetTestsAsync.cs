@@ -599,7 +599,6 @@ public partial class S7NetTests
         Assert.AreEqual(TestClassWithPrivateSetters.JUST_A_GETTER_VALUE, tc2.JustAGetterProperty);
     }
 
-
     [TestMethod]
     public async Task Test_Async_ReadBytesReturnsNullIfPlcIsNotConnected()
     {

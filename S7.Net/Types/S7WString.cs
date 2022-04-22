@@ -38,7 +38,6 @@ public static class S7WString
                 $"Failed to parse {VarType.S7WString} from data. Following fields were read: size: '{size}', actual length: '{length}', total number of bytes (including header): '{bytes.Length}'.",
                 e);
         }
-
     }
 
     /// <summary>

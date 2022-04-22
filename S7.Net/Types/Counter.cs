@@ -19,7 +19,6 @@ public static class Counter
         return (ushort)((bytes[0] << 8) | bytes[1]);
     }
 
-
     /// <summary>
     /// Converts a ushort (UInt16) to word (2 bytes)
     /// </summary>

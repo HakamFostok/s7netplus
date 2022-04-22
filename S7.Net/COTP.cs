@@ -70,7 +70,6 @@ internal class COTP
                 BitConverter.ToString(Data)
                 );
         }
-
     }
 
     /// <summary>

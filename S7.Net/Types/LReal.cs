@@ -49,5 +49,4 @@ public static class LReal
     /// Converts an array of S7 LReal to an array of double
     /// </summary>
     public static double[] ToArray(byte[] bytes) => TypeHelper.ToArray(bytes, FromByteArray);
-
 }

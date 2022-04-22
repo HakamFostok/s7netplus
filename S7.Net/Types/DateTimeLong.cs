@@ -70,7 +70,6 @@ public static class DateTimeLong
                 $"Parsing a DateTimeLong requires exactly 12 bytes of input data, input data is {bytes.Length} bytes long.");
         }
 
-
         int year = AssertRangeInclusive(Word.FromBytes(bytes[1], bytes[0]), 1970, 2262, "year");
         int month = AssertRangeInclusive(bytes[2], 1, 12, "month");
         int day = AssertRangeInclusive(bytes[3], 1, 31, "day of month");

@@ -50,7 +50,6 @@ public partial class S7NetTests : IDisposable
     public S7NetTests()
     {
         plc = CreatePlc();
-
     }
 
     private static Plc CreatePlc()
@@ -594,7 +593,6 @@ public partial class S7NetTests : IDisposable
         Assert.AreEqual(TestClassWithPrivateSetters.INTERNAL_SETTER_VALUE, tc2.InternalSetterProperty);
         Assert.AreEqual(TestClassWithPrivateSetters.JUST_A_GETTER_VALUE, tc2.JustAGetterProperty);
     }
-
 
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T13_ReadBytesThrowsIfPlcIsNotConnected()

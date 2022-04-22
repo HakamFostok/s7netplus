@@ -18,7 +18,6 @@ public static class Word
         return (ushort)((bytes[0] << 8) | bytes[1]);
     }
 
-
     /// <summary>
     /// Converts 2 bytes to ushort (UInt16)
     /// </summary>
@@ -26,7 +25,6 @@ public static class Word
     {
         return (ushort)((b2 << 8) | b1);
     }
-
 
     /// <summary>
     /// Converts a ushort (UInt16) to word (2 bytes)

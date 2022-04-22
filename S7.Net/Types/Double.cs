@@ -31,7 +31,6 @@ public static class Double
         return d;
     }
 
-
     /// <summary>
     /// Converts a double to S7 Real (4 bytes)
     /// </summary>
@@ -61,5 +60,4 @@ public static class Double
 
         return values;
     }
-
 }

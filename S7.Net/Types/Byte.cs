@@ -26,5 +26,4 @@ public static class Byte
         }
         return bytes[0];
     }
-
 }

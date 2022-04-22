@@ -13,7 +13,6 @@ public static class DWord
         return (uint)(bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | bytes[3]);
     }
 
-
     /// <summary>
     /// Converts 4 bytes to DWord (UInt32)
     /// </summary>
@@ -21,7 +20,6 @@ public static class DWord
     {
         return (uint)((b4 << 24) | (b3 << 16) | (b2 << 8) | b1);
     }
-
 
     /// <summary>
     /// Converts a uint (UInt32) to S7 DWord (4 bytes) 
@@ -37,11 +35,6 @@ public static class DWord
 
         return bytes;
     }
-
-
-
-
-
 
     /// <summary>
     /// Converts an array of uint (UInt32) to an array of S7 DWord (4 bytes) 

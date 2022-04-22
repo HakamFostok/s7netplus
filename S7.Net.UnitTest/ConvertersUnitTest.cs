@@ -17,6 +17,5 @@ public class ConvertersUnitTest
         Assert.IsFalse(dummyByte.SelectBit(5));
         Assert.IsFalse(dummyByte.SelectBit(6));
         Assert.IsFalse(dummyByte.SelectBit(7));
-
     }
 }

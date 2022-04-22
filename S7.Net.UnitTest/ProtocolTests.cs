@@ -25,7 +25,6 @@ public class ProtocolUnitTest
         TPKT? t = await TPKT.ReadAsync(m, CancellationToken.None);
     }
 
-
     [TestMethod]
     [ExpectedException(typeof(TPKTInvalidException))]
     public async Task TPKT_ReadShortAsync()
@@ -50,7 +49,6 @@ public class ProtocolUnitTest
                          .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                          .ToArray();
     }
-
 
     [TestMethod]
     public async Task TestResponseCode()

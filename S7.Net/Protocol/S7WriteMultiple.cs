@@ -102,7 +102,6 @@ internal static class S7WriteMultiple
                 if (errors is null) errors = new List<Exception>();
                 errors.Add(new Exception($"Write of dataItem {dataItems[i]} failed: {e.Message}."));
             }
-
         }
 
         if (errors != null)

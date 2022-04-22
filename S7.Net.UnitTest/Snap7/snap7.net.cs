@@ -232,7 +232,6 @@ public class S7Client
         public string Header;
     };
 
-
     public ushort[] TS7BlocksOfType;
 
     // Packed Order Code + Version
@@ -768,7 +767,6 @@ public class S7Client
     protected static extern int Cli_SetPlcDateTime(IntPtr Client, ref cpp_tm tm);
     public int SetPlcDateTime(DateTime DT)
     {
-
         // Managed->Packed
         tm.tm_year = DT.Year - 1900;
         tm.tm_mon = DT.Month - 1;
@@ -1574,7 +1572,6 @@ public class S7Server
             Srv_SetMask(Server, S7Server.mkEvent, value);
         }
     }
-
 
     #endregion
 
