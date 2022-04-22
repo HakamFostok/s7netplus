@@ -1,5 +1,4 @@
-﻿using System;
-#if NET_FULL
+﻿#if NET_FULL
 using System.Runtime.Serialization;    
 #endif
 
@@ -20,16 +19,16 @@ namespace S7.Net
         {
         }
 
-        #if NET_FULL
+#if NET_FULL
         protected WrongNumberOfBytesException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-        #endif
+#endif
     }
 
     internal class InvalidAddressException : Exception
     {
-        public InvalidAddressException() : base ()
+        public InvalidAddressException() : base()
         {
         }
 
@@ -41,11 +40,11 @@ namespace S7.Net
         {
         }
 
-        #if NET_FULL
+#if NET_FULL
         protected InvalidAddressException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-        #endif
+#endif
     }
 
     internal class InvalidVariableTypeException : Exception
@@ -62,11 +61,11 @@ namespace S7.Net
         {
         }
 
-        #if NET_FULL
+#if NET_FULL
         protected InvalidVariableTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-        #endif
+#endif
     }
 
     internal class TPKTInvalidException : Exception
@@ -83,11 +82,11 @@ namespace S7.Net
         {
         }
 
-        #if NET_FULL
+#if NET_FULL
         protected TPKTInvalidException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
-        #endif
+#endif
     }
 
     internal class TPDUInvalidException : Exception

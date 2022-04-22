@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using S7.Net.Types;
 
 namespace S7.Net.UnitTest.TypeTests
 {
@@ -39,47 +38,47 @@ namespace S7.Net.UnitTest.TypeTests
         [TestMethod]
         public void WriteAWithReservedLengthOne()
         {
-            AssertToByteArrayEquals("A", 1, (byte) 'A');
+            AssertToByteArrayEquals("A", 1, (byte)'A');
         }
 
         [TestMethod]
         public void WriteAWithReservedLengthTwo()
         {
-            AssertToByteArrayEquals("A", 2, (byte) 'A', 0);
+            AssertToByteArrayEquals("A", 2, (byte)'A', 0);
         }
 
         [TestMethod]
         public void WriteAbcWithReservedLengthOne()
         {
-            AssertToByteArrayEquals("Abc", 1, (byte) 'A');
+            AssertToByteArrayEquals("Abc", 1, (byte)'A');
         }
 
         [TestMethod]
         public void WriteAbcWithReservedLengthTwo()
         {
-            AssertToByteArrayEquals("Abc", 2, (byte) 'A', (byte) 'b');
+            AssertToByteArrayEquals("Abc", 2, (byte)'A', (byte)'b');
         }
 
         [TestMethod]
         public void WriteAbcWithReservedLengthThree()
         {
-            AssertToByteArrayEquals("Abc", 3, (byte) 'A', (byte) 'b', (byte) 'c');
+            AssertToByteArrayEquals("Abc", 3, (byte)'A', (byte)'b', (byte)'c');
         }
 
         [TestMethod]
         public void WriteAbcWithReservedLengthFour()
         {
-            AssertToByteArrayEquals("Abc", 4, (byte) 'A', (byte) 'b', (byte) 'c', 0);
+            AssertToByteArrayEquals("Abc", 4, (byte)'A', (byte)'b', (byte)'c', 0);
         }
 
         private static void AssertFromByteArrayEquals(string expected, params byte[] bytes)
         {
-            Assert.AreEqual(expected, String.FromByteArray(bytes));
+            Assert.AreEqual(expected, S7.Net.Types.String.FromByteArray(bytes));
         }
 
         private static void AssertToByteArrayEquals(string value, int reservedLength, params byte[] expected)
         {
-            CollectionAssert.AreEqual(expected, String.ToByteArray(value, reservedLength));
+            CollectionAssert.AreEqual(expected, S7.Net.Types.String.ToByteArray(value, reservedLength));
         }
     }
 }

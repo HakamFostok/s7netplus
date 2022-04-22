@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace S7.Net.Types
 {
@@ -30,7 +28,7 @@ namespace S7.Net.Types
             var entries = bytes.Length / typeSize;
             var values = new T[entries];
 
-            for(int i = 0; i < entries; ++i)
+            for (int i = 0; i < entries; ++i)
             {
                 var buffer = new byte[typeSize];
                 Array.Copy(bytes, i * typeSize, buffer, 0, typeSize);

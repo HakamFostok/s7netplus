@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Sockets;
 using S7.Net.Internal;
 using S7.Net.Protocol;
 using S7.Net.Types;
+using System.Net.Sockets;
 
 
 namespace S7.Net
@@ -273,7 +269,7 @@ namespace S7.Net
                 case ReadWriteErrorCode.Success:
                     break;
                 default:
-                    throw new Exception( $"Invalid response from PLC: statusCode={(byte)statusCode}.");
+                    throw new Exception($"Invalid response from PLC: statusCode={(byte)statusCode}.");
             }
         }
 

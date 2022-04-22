@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using S7.Net.Types;
-using System;
 
 namespace S7.Net.UnitTest.TypeTests
 {
@@ -10,7 +9,7 @@ namespace S7.Net.UnitTest.TypeTests
         [TestMethod]
         public void ReadEmptyStringWithZeroLength()
         {
-            AssertFromByteArrayEquals("", 0, 0 , 0, 0);
+            AssertFromByteArrayEquals("", 0, 0, 0, 0);
         }
 
         [TestMethod]
@@ -35,7 +34,7 @@ namespace S7.Net.UnitTest.TypeTests
         [TestMethod]
         public void ReadMalformedStringSizeLargerThanCapacity()
         {
-            Assert.ThrowsException<PlcException>(() => S7WString.FromByteArray(new byte[] { 0, 3, 0, 5, 0, 0x00, 0x41, 0x00, 0x41, 0x00, 0x41}));
+            Assert.ThrowsException<PlcException>(() => S7WString.FromByteArray(new byte[] { 0, 3, 0, 5, 0, 0x00, 0x41, 0x00, 0x41, 0x00, 0x41 }));
         }
 
         [TestMethod]
@@ -77,7 +76,7 @@ namespace S7.Net.UnitTest.TypeTests
         [TestMethod]
         public void WriteNullWithReservedLengthOne()
         {
-            Assert.ThrowsException<ArgumentNullException>(() => AssertToByteArrayAndBackEquals(null, 1, 0, 1 , 0, 0));
+            Assert.ThrowsException<ArgumentNullException>(() => AssertToByteArrayAndBackEquals(null, 1, 0, 1, 0, 0));
         }
 
         [TestMethod]
@@ -113,7 +112,7 @@ namespace S7.Net.UnitTest.TypeTests
         [TestMethod]
         public void WriteAbcWithReservedLengthFour()
         {
-            AssertToByteArrayAndBackEquals("Abc", 4, 0, 4, 0, 3, 0x00, 0x41, 0x00, 0x62, 0x00, 0x63, 0 , 0);
+            AssertToByteArrayAndBackEquals("Abc", 4, 0, 4, 0, 3, 0x00, 0x41, 0x00, 0x62, 0x00, 0x63, 0, 0);
         }
 
         private static void AssertFromByteArrayEquals(string expected, params byte[] bytes)

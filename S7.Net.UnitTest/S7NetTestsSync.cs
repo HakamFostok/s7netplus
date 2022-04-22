@@ -1,9 +1,7 @@
 ﻿#region Using
-using System;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using S7.Net.UnitTest.Helpers;
 using S7.Net.Types;
+using S7.Net.UnitTest.Helpers;
 using S7.UnitTest.Helpers;
 
 #endregion
