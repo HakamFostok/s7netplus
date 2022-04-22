@@ -3,9 +3,6 @@
 [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
 public sealed class S7StringAttribute : Attribute
 {
-    private readonly S7StringType type;
-    private readonly int reservedLength;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="S7StringAttribute"/> class.
     /// </summary>
@@ -17,8 +14,8 @@ public sealed class S7StringAttribute : Attribute
         if (!Enum.IsDefined(typeof(S7StringType), type))
             throw new ArgumentException("Please use a valid value for the string type");
 
-        this.type = type;
-        this.reservedLength = reservedLength;
+        this.Type = type;
+        this.ReservedLength = reservedLength;
     }
 
     /// <summary>
@@ -27,7 +24,7 @@ public sealed class S7StringAttribute : Attribute
     /// <value>
     /// The string type.
     /// </value>
-    public S7StringType Type => type;
+    public S7StringType Type { get; }
 
     /// <summary>
     /// Gets the reserved length of the string in characters.
@@ -35,7 +32,7 @@ public sealed class S7StringAttribute : Attribute
     /// <value>
     /// The reserved length of the string in characters.
     /// </value>
-    public int ReservedLength => reservedLength;
+    public int ReservedLength { get; }
 
     /// <summary>
     /// Gets the reserved length in bytes.
@@ -43,7 +40,7 @@ public sealed class S7StringAttribute : Attribute
     /// <value>
     /// The reserved length in bytes.
     /// </value>
-    public int ReservedLengthInBytes => type == S7StringType.S7String ? reservedLength + 2 : (reservedLength * 2) + 4;
+    public int ReservedLengthInBytes => Type == S7StringType.S7String ? ReservedLength + 2 : (ReservedLength * 2) + 4;
 }
 
 /// <summary>

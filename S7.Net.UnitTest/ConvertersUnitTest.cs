@@ -8,7 +8,7 @@ public class ConvertersUnitTest
     [TestMethod]
     public void T00_TestSelectBit()
     {
-        byte dummyByte = 5; // 0000 0101
+        const byte dummyByte = 5; // 0000 0101
         Assert.IsTrue(dummyByte.SelectBit(0));
         Assert.IsFalse(dummyByte.SelectBit(1));
         Assert.IsTrue(dummyByte.SelectBit(2));

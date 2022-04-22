@@ -294,7 +294,7 @@ public partial class Plc
         try
         {
             // first create the header
-            int packageSize = 19 + 12; // 19 header + 12 for 1 request
+            const int packageSize = 19 + 12; // 19 header + 12 for 1 request
             MemoryStream? package = new(packageSize);
             BuildHeaderPackage(package);
             // package.Add(0x02);  // datenart
@@ -377,9 +377,9 @@ public partial class Plc
     private byte[] BuildWriteBitPackage(DataType dataType, int db, int startByteAdr, bool bitValue, int bitAdr)
     {
         byte[]? value = new[] { bitValue ? (byte)1 : (byte)0 };
-        int varCount = 1;
+        const int varCount = 1;
         // first create the header
-        int packageSize = 35 + varCount;
+        const int packageSize = 35 + varCount;
         MemoryStream? package = new(new byte[packageSize]);
 
         package.WriteByte(3);

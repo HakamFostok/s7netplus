@@ -25,8 +25,6 @@ using S7.UnitTest.Helpers;
  *
  */
 
-//This file contains tests for the synchronous methods
-#pragma warning disable CS0618
 namespace S7.Net.UnitTest;
 
 [TestClass]
@@ -102,7 +100,7 @@ public partial class S7NetTests : IDisposable
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
         // To write a ushort i don't need any cast, only unboxing must be done
-        ushort val = 40000;
+        const ushort val = 40000;
         plc.Write("DB1.DBW0", val);
         ushort result = (ushort)plc.Read("DB1.DBW0");
         Assert.AreEqual(val, result, "A ushort goes from 0 to 64512");
@@ -110,7 +108,7 @@ public partial class S7NetTests : IDisposable
         // To write a short i need to convert it to UShort, then i need to reconvert the readed value to get
         // the negative sign back
         // Depending if i'm writing on a DWORD or on a DEC, i will see ushort or short value in the plc
-        short value = -100;
+        const short value = -100;
         Assert.IsTrue(plc.IsConnected, "After connecting, IsConnected must be set to true");
         plc.Write("DB1.DBW0", value.ConvertToUshort());
         short result2 = ((ushort)plc.Read("DB1.DBW0")).ConvertToShort();
@@ -128,7 +126,7 @@ public partial class S7NetTests : IDisposable
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
         // To write a uint I don't need any cast, only unboxing must be done
-        uint val = 1000;
+        const uint val = 1000;
         plc.Write("DB1.DBD40", val);
         uint result = (uint)plc.Read("DB1.DBD40");
         Assert.AreEqual(val, result);
@@ -136,7 +134,7 @@ public partial class S7NetTests : IDisposable
         // To write a int I need to convert it to uint, then I need to reconvert the readed value to get
         // the negative sign back
         // Depending if I'm writing on a DBD or on a LONG, I will see uint or int value in the plc
-        int value = -60000;
+        const int value = -60000;
         plc.Write("DB1.DBD60", value);
         int result2 = ((uint)plc.Read("DB1.DBD60")).ConvertToInt();
         Assert.AreEqual(value, result2);
@@ -153,12 +151,12 @@ public partial class S7NetTests : IDisposable
 
         // Reading and writing a float is quite complicated, because it needs to be converted to DWord before the write,
         // then reconvert to float after the read. Float values can contain only 7 digits, so no precision is lost.
-        float val2 = 1234567;
+        const float val2 = 1234567;
         plc.Write("DB1.DBD40", val2.ConvertToUInt());
         float result2 = ((uint)plc.Read("DB1.DBD40")).ConvertToFloat();
         Assert.AreEqual(val2, result2);
 
-        float val3 = 12.34567f;
+        const float val3 = 12.34567f;
         plc.Write("DB1.DBD40", val3.ConvertToUInt());
         float result3 = ((uint)plc.Read("DB1.DBD40")).ConvertToFloat();
         Assert.AreEqual(val3, result3);
@@ -360,7 +358,7 @@ public partial class S7NetTests : IDisposable
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
         // To write a ushort i don't need any cast, only unboxing must be done
-        ushort val = 8192;
+        const ushort val = 8192;
         plc.Write("DB2.DBW8192", val);
         ushort result = (ushort)plc.Read("DB2.DBW8192");
         Assert.AreEqual(val, result, "A ushort goes from 0 to 64512");
@@ -368,7 +366,7 @@ public partial class S7NetTests : IDisposable
         // To write a short i need to convert it to UShort, then i need to reconvert the readed value to get
         // the negative sign back
         // Depending if i'm writing on a DWORD or on a DEC, i will see ushort or short value in the plc
-        short value = -8192;
+        const short value = -8192;
         Assert.IsTrue(plc.IsConnected, "After connecting, IsConnected must be set to true");
         plc.Write("DB2.DBW8192", value.ConvertToUshort());
         short result2 = ((ushort)plc.Read("DB2.DBW8192")).ConvertToShort();
@@ -384,7 +382,7 @@ public partial class S7NetTests : IDisposable
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
         // To write a ushort i don't need any cast, only unboxing must be done
-        ushort val = 16384;
+        const ushort val = 16384;
         plc.Write("DB2.DBW16384", val);
         ushort result = (ushort)plc.Read("DB2.DBW16384");
         Assert.AreEqual(val, result, "A ushort goes from 0 to 64512");
@@ -392,7 +390,7 @@ public partial class S7NetTests : IDisposable
         // To write a short i need to convert it to UShort, then i need to reconvert the readed value to get
         // the negative sign back
         // Depending if i'm writing on a DWORD or on a DEC, i will see ushort or short value in the plc
-        short value = -16384;
+        const short value = -16384;
         Assert.IsTrue(plc.IsConnected, "After connecting, IsConnected must be set to true");
         plc.Write("DB2.DBW16384", value.ConvertToUshort());
         short result2 = ((ushort)plc.Read("DB2.DBW16384")).ConvertToShort();
@@ -404,22 +402,22 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        bool val = true;
+        const bool val = true;
         plc.Write("DB2.DBX0.5", val);
         bool result = (bool)plc.Read("DB2.DBX0.5");
         Assert.AreEqual(val, result);
 
-        ushort val1 = 16384;
+        const ushort val1 = 16384;
         plc.Write("DB2.DBW16384", val1);
         ushort result1 = (ushort)plc.Read("DB2.DBW16384");
         Assert.AreEqual(val1, result1, "A ushort goes from 0 to 64512");
 
-        bool val2 = true;
+        const bool val2 = true;
         plc.Write("DB2.DBX8192.7", val2);
         bool result2 = (bool)plc.Read("DB2.DBX8192.7");
         Assert.AreEqual(val2, result2);
 
-        ushort val3 = 129;
+        const ushort val3 = 129;
         plc.Write("DB2.DBW16", val3);
         ushort result3 = (ushort)plc.Read("DB2.DBW16");
         Assert.AreEqual(val3, result3, "A ushort goes from 0 to 64512");
@@ -432,7 +430,7 @@ public partial class S7NetTests : IDisposable
         Assert.AreEqual(val4[0], result4b0);
         Assert.AreEqual(val4[1], result4b1);
 
-        bool val6 = true;
+        const bool val6 = true;
         plc.Write("DB2.DBX16384.6", val6);
         bool result6 = (bool)plc.Read("DB2.DBX16384.6");
         Assert.AreEqual(val6, result6);
@@ -742,7 +740,7 @@ public partial class S7NetTests : IDisposable
 
         Random? randomEngine = new();
         byte[]? data = new byte[8192];
-        int db = 2;
+        const int db = 2;
         randomEngine.NextBytes(data);
 
         plc.WriteBytes(DataType.DataBlock, db, 0, data);
@@ -944,7 +942,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod]
     public void T26_ReadWriteDouble()
     {
-        double test_value = 55.66;
+        const double test_value = 55.66;
         plc.Write(DataType.DataBlock, 1, 0, test_value);
         double result = (double)plc.Read(DataType.DataBlock, 1, 0, VarType.LReal, 1);
 
@@ -956,7 +954,7 @@ public partial class S7NetTests : IDisposable
     {
         Assert.IsTrue(plc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-        int count = 2000;
+        const int count = 2000;
         List<byte>? dataItems = new();
         for (int i = 0; i < count; i++)
         {
@@ -995,7 +993,7 @@ public partial class S7NetTests : IDisposable
         // leave plc Open
         S7TestServer.Stop();
 
-        double test_value = 55.66;
+        const double test_value = 55.66;
         plc.Write("DB1.DBD0", test_value);
 
         object? helper = plc.Read("DB1.DBD0");
@@ -1005,7 +1003,7 @@ public partial class S7NetTests : IDisposable
     [TestMethod]
     public void T30_ReadWriteSingle()
     {
-        float test_value = 55.6632f;
+        const float test_value = 55.6632f;
         plc.Write("DB1.DBD0", test_value);
         object? helper = plc.Read("DB1.DBD0");
         float test_value2 = Conversion.ConvertToFloat((uint)helper);
@@ -1017,8 +1015,8 @@ public partial class S7NetTests : IDisposable
     public void T33_ReadWriteDateTimeLong()
     {
         System.DateTime test_value = System.DateTime.Now;
-        int db = 1;
-        int offset = 0;
+        const int db = 1;
+        const int offset = 0;
 
         plc.WriteBytes(DataType.DataBlock, db, offset, Types.DateTimeLong.ToByteArray(test_value));
         object? test_value2 = plc.Read(DataType.DataBlock, db, offset, VarType.DateTimeLong, 1);

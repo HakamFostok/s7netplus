@@ -93,7 +93,7 @@ public static class Class
                 numBytes = GetIncreasedNumberOfBytes(numBytes, property.PropertyType);
             }
         }
-        if (false == isInnerProperty)
+        if (isInnerProperty == false)
         {
             // enlarge numBytes to next even number because S7-Structs in a DB always will be resized to an even byte count
             numBytes = Math.Ceiling(numBytes);
