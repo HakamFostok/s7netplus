@@ -32,7 +32,7 @@ using System.Text;
 
 namespace Snap7;
 
-public class S7Consts
+public static class S7Consts
 {
     public const string Snap7LibName = "snap7";
 

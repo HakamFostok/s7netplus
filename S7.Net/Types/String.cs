@@ -3,7 +3,7 @@
 /// <summary>
 /// Contains the methods to convert from S7 Array of Chars (like a const char[N] C-String) to C# strings
 /// </summary>
-public class String
+public static class String
 {
     /// <summary>
     /// Converts a string to <paramref name="reservedLength"/> of bytes, padded with 0-bytes if required.
@@ -32,5 +32,4 @@ public class String
     {
         return System.Text.Encoding.ASCII.GetString(bytes);
     }
-
 }
