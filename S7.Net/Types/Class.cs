@@ -260,16 +260,16 @@ public static class Class
                 numBytes++;
                 break;
             case "Int16":
-                bytes2 = Int.ToByteArray((Int16)propertyValue);
+                bytes2 = Int.ToByteArray((short)propertyValue);
                 break;
             case "UInt16":
-                bytes2 = Word.ToByteArray((UInt16)propertyValue);
+                bytes2 = Word.ToByteArray((ushort)propertyValue);
                 break;
             case "Int32":
-                bytes2 = DInt.ToByteArray((Int32)propertyValue);
+                bytes2 = DInt.ToByteArray((int)propertyValue);
                 break;
             case "UInt32":
-                bytes2 = DWord.ToByteArray((UInt32)propertyValue);
+                bytes2 = DWord.ToByteArray((uint)propertyValue);
                 break;
             case "Single":
                 bytes2 = Real.ToByteArray((float)propertyValue);

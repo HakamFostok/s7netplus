@@ -260,16 +260,16 @@ public static class Struct
                     numBytes++;
                     break;
                 case "Int16":
-                    bytes2 = Int.ToByteArray((Int16)info.GetValue(structValue));
+                    bytes2 = Int.ToByteArray((short)info.GetValue(structValue));
                     break;
                 case "UInt16":
-                    bytes2 = Word.ToByteArray((UInt16)info.GetValue(structValue));
+                    bytes2 = Word.ToByteArray((ushort)info.GetValue(structValue));
                     break;
                 case "Int32":
-                    bytes2 = DInt.ToByteArray((Int32)info.GetValue(structValue));
+                    bytes2 = DInt.ToByteArray((int)info.GetValue(structValue));
                     break;
                 case "UInt32":
-                    bytes2 = DWord.ToByteArray((UInt32)info.GetValue(structValue));
+                    bytes2 = DWord.ToByteArray((uint)info.GetValue(structValue));
                     break;
                 case "Single":
                     bytes2 = Real.ToByteArray((float)info.GetValue(structValue));

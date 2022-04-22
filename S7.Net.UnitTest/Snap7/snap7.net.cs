@@ -39,21 +39,21 @@ public class S7Consts
     //------------------------------------------------------------------------------
     //                                  PARAMS LIST            
     //------------------------------------------------------------------------------
-    public static readonly Int32 p_u16_LocalPort = 1;
-    public static readonly Int32 p_u16_RemotePort = 2;
-    public static readonly Int32 p_i32_PingTimeout = 3;
-    public static readonly Int32 p_i32_SendTimeout = 4;
-    public static readonly Int32 p_i32_RecvTimeout = 5;
-    public static readonly Int32 p_i32_WorkInterval = 6;
-    public static readonly Int32 p_u16_SrcRef = 7;
-    public static readonly Int32 p_u16_DstRef = 8;
-    public static readonly Int32 p_u16_SrcTSap = 9;
-    public static readonly Int32 p_i32_PDURequest = 10;
-    public static readonly Int32 p_i32_MaxClients = 11;
-    public static readonly Int32 p_i32_BSendTimeout = 12;
-    public static readonly Int32 p_i32_BRecvTimeout = 13;
-    public static readonly Int32 p_u32_RecoveryTime = 14;
-    public static readonly Int32 p_u32_KeepAliveTime = 15;
+    public static readonly int p_u16_LocalPort = 1;
+    public static readonly int p_u16_RemotePort = 2;
+    public static readonly int p_i32_PingTimeout = 3;
+    public static readonly int p_i32_SendTimeout = 4;
+    public static readonly int p_i32_RecvTimeout = 5;
+    public static readonly int p_i32_WorkInterval = 6;
+    public static readonly int p_u16_SrcRef = 7;
+    public static readonly int p_u16_DstRef = 8;
+    public static readonly int p_u16_SrcTSap = 9;
+    public static readonly int p_i32_PDURequest = 10;
+    public static readonly int p_i32_MaxClients = 11;
+    public static readonly int p_i32_BSendTimeout = 12;
+    public static readonly int p_i32_BRecvTimeout = 13;
+    public static readonly int p_u32_RecoveryTime = 14;
+    public static readonly int p_u32_KeepAliveTime = 15;
 }
 
 public class S7Client
@@ -147,9 +147,9 @@ public class S7Client
     public static readonly int MaxVars = 20;
 
     // Client Connection Type
-    public static readonly UInt16 CONNTYPE_PG = 0x01;  // Connect to the PLC as a PG
-    public static readonly UInt16 CONNTYPE_OP = 0x02;  // Connect to the PLC as an OP
-    public static readonly UInt16 CONNTYPE_BASIC = 0x03;  // Basic connection 
+    public static readonly ushort CONNTYPE_PG = 0x01;  // Connect to the PLC as a PG
+    public static readonly ushort CONNTYPE_OP = 0x02;  // Connect to the PLC as an OP
+    public static readonly ushort CONNTYPE_BASIC = 0x03;  // Basic connection 
 
     // Job
     private const int JobComplete = 0;
@@ -161,12 +161,12 @@ public class S7Client
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct S7DataItem
     {
-        public Int32 Area;
-        public Int32 WordLen;
-        public Int32 Result;
-        public Int32 DBNumber;
-        public Int32 Start;
-        public Int32 Amount;
+        public int Area;
+        public int WordLen;
+        public int Result;
+        public int DBNumber;
+        public int Start;
+        public int Amount;
         public IntPtr pData;
     }
 
@@ -174,29 +174,29 @@ public class S7Client
     [StructLayout(LayoutKind.Sequential, Pack = 1)] // <- "maybe" we don't need
     public struct S7BlocksList
     {
-        public Int32 OBCount;
-        public Int32 FBCount;
-        public Int32 FCCount;
-        public Int32 SFBCount;
-        public Int32 SFCCount;
-        public Int32 DBCount;
-        public Int32 SDBCount;
+        public int OBCount;
+        public int FBCount;
+        public int FCCount;
+        public int SFBCount;
+        public int SFCCount;
+        public int DBCount;
+        public int SDBCount;
     };
 
     // Packed Block Info
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
     protected struct US7BlockInfo
     {
-        public Int32 BlkType;
-        public Int32 BlkNumber;
-        public Int32 BlkLang;
-        public Int32 BlkFlags;
-        public Int32 MC7Size;  // The real size in bytes
-        public Int32 LoadSize;
-        public Int32 LocalData;
-        public Int32 SBBLength;
-        public Int32 CheckSum;
-        public Int32 Version;
+        public int BlkType;
+        public int BlkNumber;
+        public int BlkLang;
+        public int BlkFlags;
+        public int MC7Size;  // The real size in bytes
+        public int LoadSize;
+        public int LocalData;
+        public int SBBLength;
+        public int CheckSum;
+        public int Version;
         // Chars info
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 11)]
         public char[] CodeDate;
@@ -286,10 +286,10 @@ public class S7Client
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct S7CpInfo
     {
-        public Int32 MaxPduLengt;
-        public Int32 MaxConnections;
-        public Int32 MaxMpiRate;
-        public Int32 MaxBusRate;
+        public int MaxPduLengt;
+        public int MaxConnections;
+        public int MaxMpiRate;
+        public int MaxBusRate;
     };
 
     // See §33.1 of "System Software for S7-300/400 System and Standard Functions"
@@ -297,8 +297,8 @@ public class S7Client
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct SZL_HEADER
     {
-        public UInt16 LENTHDR;
-        public UInt16 N_DR;
+        public ushort LENTHDR;
+        public ushort N_DR;
     };
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
@@ -315,7 +315,7 @@ public class S7Client
     {
         public SZL_HEADER Header;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0x2000 - 2)]
-        public UInt16[] Data;
+        public ushort[] Data;
     };
 
     // S7 Protection
@@ -323,26 +323,26 @@ public class S7Client
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct S7Protection  // Packed S7Protection
     {
-        public UInt16 sch_schal;
-        public UInt16 sch_par;
-        public UInt16 sch_rel;
-        public UInt16 bart_sch;
-        public UInt16 anl_sch;
+        public ushort sch_schal;
+        public ushort sch_par;
+        public ushort sch_rel;
+        public ushort bart_sch;
+        public ushort anl_sch;
     };
 
     // C++ time struct, functions to convert it from/to DateTime are provided ;-)
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     protected struct cpp_tm
     {
-        public Int32 tm_sec;
-        public Int32 tm_min;
-        public Int32 tm_hour;
-        public Int32 tm_mday;
-        public Int32 tm_mon;
-        public Int32 tm_year;
-        public Int32 tm_wday;
-        public Int32 tm_yday;
-        public Int32 tm_isdst;
+        public int tm_sec;
+        public int tm_min;
+        public int tm_hour;
+        public int tm_mday;
+        public int tm_mon;
+        public int tm_year;
+        public int tm_wday;
+        public int tm_yday;
+        public int tm_isdst;
     }
     private cpp_tm tm;
 
@@ -386,18 +386,18 @@ public class S7Client
     [DllImport(S7Consts.Snap7LibName)]
     protected static extern int Cli_SetConnectionParams(IntPtr Client,
         [MarshalAs(UnmanagedType.LPStr)] string Address,
-        UInt16 LocalTSAP,
-        UInt16 RemoteTSAP
+        ushort LocalTSAP,
+        ushort RemoteTSAP
         );
 
-    public int SetConnectionParams(string Address, UInt16 LocalTSAP, UInt16 RemoteTSAP)
+    public int SetConnectionParams(string Address, ushort LocalTSAP, ushort RemoteTSAP)
     {
         return Cli_SetConnectionParams(Client, Address, LocalTSAP, RemoteTSAP);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_SetConnectionType(IntPtr Client, UInt16 ConnectionType);
-    public int SetConnectionType(UInt16 ConnectionType)
+    protected static extern int Cli_SetConnectionType(IntPtr Client, ushort ConnectionType);
+    public int SetConnectionType(ushort ConnectionType)
     {
         return Cli_SetConnectionType(Client, ConnectionType);
     }
@@ -414,85 +414,85 @@ public class S7Client
     // To avoid the use of unsafe code we split the DLL functions and use overloaded methods.
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
-    protected static extern int Cli_GetParam_i16(IntPtr Client, Int32 ParamNumber, ref Int16 IntValue);
-    public int GetParam(Int32 ParamNumber, ref Int16 IntValue)
+    protected static extern int Cli_GetParam_i16(IntPtr Client, int ParamNumber, ref short IntValue);
+    public int GetParam(int ParamNumber, ref short IntValue)
     {
         return Cli_GetParam_i16(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
-    protected static extern int Cli_GetParam_u16(IntPtr Client, Int32 ParamNumber, ref UInt16 IntValue);
-    public int GetParam(Int32 ParamNumber, ref UInt16 IntValue)
+    protected static extern int Cli_GetParam_u16(IntPtr Client, int ParamNumber, ref ushort IntValue);
+    public int GetParam(int ParamNumber, ref ushort IntValue)
     {
         return Cli_GetParam_u16(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
-    protected static extern int Cli_GetParam_i32(IntPtr Client, Int32 ParamNumber, ref Int32 IntValue);
-    public int GetParam(Int32 ParamNumber, ref Int32 IntValue)
+    protected static extern int Cli_GetParam_i32(IntPtr Client, int ParamNumber, ref int IntValue);
+    public int GetParam(int ParamNumber, ref int IntValue)
     {
         return Cli_GetParam_i32(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
-    protected static extern int Cli_GetParam_u32(IntPtr Client, Int32 ParamNumber, ref UInt32 IntValue);
-    public int GetParam(Int32 ParamNumber, ref UInt32 IntValue)
+    protected static extern int Cli_GetParam_u32(IntPtr Client, int ParamNumber, ref uint IntValue);
+    public int GetParam(int ParamNumber, ref uint IntValue)
     {
         return Cli_GetParam_u32(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
-    protected static extern int Cli_GetParam_i64(IntPtr Client, Int32 ParamNumber, ref Int64 IntValue);
-    public int GetParam(Int32 ParamNumber, ref Int64 IntValue)
+    protected static extern int Cli_GetParam_i64(IntPtr Client, int ParamNumber, ref long IntValue);
+    public int GetParam(int ParamNumber, ref long IntValue)
     {
         return Cli_GetParam_i64(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
-    protected static extern int Cli_GetParam_u64(IntPtr Client, Int32 ParamNumber, ref UInt64 IntValue);
-    public int GetParam(Int32 ParamNumber, ref UInt64 IntValue)
+    protected static extern int Cli_GetParam_u64(IntPtr Client, int ParamNumber, ref ulong IntValue);
+    public int GetParam(int ParamNumber, ref ulong IntValue)
     {
         return Cli_GetParam_u64(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
-    protected static extern int Cli_SetParam_i16(IntPtr Client, Int32 ParamNumber, ref Int16 IntValue);
-    public int SetParam(Int32 ParamNumber, ref Int16 IntValue)
+    protected static extern int Cli_SetParam_i16(IntPtr Client, int ParamNumber, ref short IntValue);
+    public int SetParam(int ParamNumber, ref short IntValue)
     {
         return Cli_SetParam_i16(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
-    protected static extern int Cli_SetParam_u16(IntPtr Client, Int32 ParamNumber, ref UInt16 IntValue);
-    public int SetParam(Int32 ParamNumber, ref UInt16 IntValue)
+    protected static extern int Cli_SetParam_u16(IntPtr Client, int ParamNumber, ref ushort IntValue);
+    public int SetParam(int ParamNumber, ref ushort IntValue)
     {
         return Cli_SetParam_u16(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
-    protected static extern int Cli_SetParam_i32(IntPtr Client, Int32 ParamNumber, ref Int32 IntValue);
-    public int SetParam(Int32 ParamNumber, ref Int32 IntValue)
+    protected static extern int Cli_SetParam_i32(IntPtr Client, int ParamNumber, ref int IntValue);
+    public int SetParam(int ParamNumber, ref int IntValue)
     {
         return Cli_SetParam_i32(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
-    protected static extern int Cli_SetParam_u32(IntPtr Client, Int32 ParamNumber, ref UInt32 IntValue);
-    public int SetParam(Int32 ParamNumber, ref UInt32 IntValue)
+    protected static extern int Cli_SetParam_u32(IntPtr Client, int ParamNumber, ref uint IntValue);
+    public int SetParam(int ParamNumber, ref uint IntValue)
     {
         return Cli_SetParam_u32(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
-    protected static extern int Cli_SetParam_i64(IntPtr Client, Int32 ParamNumber, ref Int64 IntValue);
-    public int SetParam(Int32 ParamNumber, ref Int64 IntValue)
+    protected static extern int Cli_SetParam_i64(IntPtr Client, int ParamNumber, ref long IntValue);
+    public int SetParam(int ParamNumber, ref long IntValue)
     {
         return Cli_SetParam_i64(Client, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
-    protected static extern int Cli_SetParam_u64(IntPtr Client, Int32 ParamNumber, ref UInt64 IntValue);
-    public int SetParam(Int32 ParamNumber, ref UInt64 IntValue)
+    protected static extern int Cli_SetParam_u64(IntPtr Client, int ParamNumber, ref ulong IntValue);
+    public int SetParam(int ParamNumber, ref ulong IntValue)
     {
         return Cli_SetParam_u64(Client, ParamNumber, ref IntValue);
     }
@@ -666,7 +666,7 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_GetPgBlockInfo(IntPtr Client, ref US7BlockInfo Info, byte[] Buffer, Int32 Size);
+    protected static extern int Cli_GetPgBlockInfo(IntPtr Client, ref US7BlockInfo Info, byte[] Buffer, int Size);
     public int GetPgBlockInfo(ref S7BlockInfo Info, byte[] Buffer, int Size)
     {
         int res = Cli_GetPgBlockInfo(Client, ref UBlockInfo, Buffer, Size);
@@ -694,7 +694,7 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_ListBlocksOfType(IntPtr Client, Int32 BlockType, ushort[] List, ref int ItemsCount);
+    protected static extern int Cli_ListBlocksOfType(IntPtr Client, int BlockType, ushort[] List, ref int ItemsCount);
     public int ListBlocksOfType(int BlockType, ushort[] List, ref int ItemsCount)
     {
         return Cli_ListBlocksOfType(Client, BlockType, List, ref ItemsCount);
@@ -833,15 +833,15 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_ReadSZL(IntPtr Client, int ID, int Index, ref S7SZL Data, ref Int32 Size);
-    public int ReadSZL(int ID, int Index, ref S7SZL Data, ref Int32 Size)
+    protected static extern int Cli_ReadSZL(IntPtr Client, int ID, int Index, ref S7SZL Data, ref int Size);
+    public int ReadSZL(int ID, int Index, ref S7SZL Data, ref int Size)
     {
         return Cli_ReadSZL(Client, ID, Index, ref Data, ref Size);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_ReadSZLList(IntPtr Client, ref S7SZLList List, ref Int32 ItemsCount);
-    public int ReadSZLList(ref S7SZLList List, ref Int32 ItemsCount)
+    protected static extern int Cli_ReadSZLList(IntPtr Client, ref S7SZLList List, ref int ItemsCount);
+    public int ReadSZLList(ref S7SZLList List, ref int ItemsCount)
     {
         return Cli_ReadSZLList(Client, ref List, ref ItemsCount);
     }
@@ -872,22 +872,22 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_CopyRamToRom(IntPtr Client, UInt32 Timeout);
-    public int PlcCopyRamToRom(UInt32 Timeout)
+    protected static extern int Cli_CopyRamToRom(IntPtr Client, uint Timeout);
+    public int PlcCopyRamToRom(uint Timeout)
     {
         return Cli_CopyRamToRom(Client, Timeout);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_Compress(IntPtr Client, UInt32 Timeout);
-    public int PlcCompress(UInt32 Timeout)
+    protected static extern int Cli_Compress(IntPtr Client, uint Timeout);
+    public int PlcCompress(uint Timeout)
     {
         return Cli_Compress(Client, Timeout);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_GetPlcStatus(IntPtr Client, ref Int32 Status);
-    public int PlcGetStatus(ref Int32 Status)
+    protected static extern int Cli_GetPlcStatus(IntPtr Client, ref int Status);
+    public int PlcGetStatus(ref int Status)
     {
         return Cli_GetPlcStatus(Client, ref Status);
     }
@@ -922,8 +922,8 @@ public class S7Client
     #region [Low Level]
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_IsoExchangeBuffer(IntPtr Client, byte[] Buffer, ref Int32 Size);
-    public int IsoExchangeBuffer(byte[] Buffer, ref Int32 Size)
+    protected static extern int Cli_IsoExchangeBuffer(IntPtr Client, byte[] Buffer, ref int Size);
+    public int IsoExchangeBuffer(byte[] Buffer, ref int Size)
     {
         return Cli_IsoExchangeBuffer(Client, Buffer, ref Size);
     }
@@ -1031,22 +1031,22 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_AsListBlocksOfType(IntPtr Client, Int32 BlockType, ushort[] List);
+    protected static extern int Cli_AsListBlocksOfType(IntPtr Client, int BlockType, ushort[] List);
     public int AsListBlocksOfType(int BlockType, ushort[] List)
     {
         return Cli_AsListBlocksOfType(Client, BlockType, List);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_AsReadSZL(IntPtr Client, int ID, int Index, ref S7SZL Data, ref Int32 Size);
-    public int AsReadSZL(int ID, int Index, ref S7SZL Data, ref Int32 Size)
+    protected static extern int Cli_AsReadSZL(IntPtr Client, int ID, int Index, ref S7SZL Data, ref int Size);
+    public int AsReadSZL(int ID, int Index, ref S7SZL Data, ref int Size)
     {
         return Cli_AsReadSZL(Client, ID, Index, ref Data, ref Size);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_AsReadSZLList(IntPtr Client, ref S7SZLList List, ref Int32 ItemsCount);
-    public int AsReadSZLList(ref S7SZLList List, ref Int32 ItemsCount)
+    protected static extern int Cli_AsReadSZLList(IntPtr Client, ref S7SZLList List, ref int ItemsCount);
+    public int AsReadSZLList(ref S7SZLList List, ref int ItemsCount)
     {
         return Cli_AsReadSZLList(Client, ref List, ref ItemsCount);
     }
@@ -1073,15 +1073,15 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_AsPlcCopyRamToRom(IntPtr Client, UInt32 Timeout);
-    public int AsPlcCopyRamToRom(UInt32 Timeout)
+    protected static extern int Cli_AsPlcCopyRamToRom(IntPtr Client, uint Timeout);
+    public int AsPlcCopyRamToRom(uint Timeout)
     {
         return Cli_AsPlcCopyRamToRom(Client, Timeout);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_AsPlcCompress(IntPtr Client, UInt32 Timeout);
-    public int AsPlcCompress(UInt32 Timeout)
+    protected static extern int Cli_AsPlcCompress(IntPtr Client, uint Timeout);
+    public int AsPlcCompress(uint Timeout)
     {
         return Cli_AsPlcCompress(Client, Timeout);
     }
@@ -1101,14 +1101,14 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_CheckAsCompletion(IntPtr Client, ref Int32 opResult);
+    protected static extern int Cli_CheckAsCompletion(IntPtr Client, ref int opResult);
     public bool CheckAsCompletion(ref int opResult)
     {
         return Cli_CheckAsCompletion(Client, ref opResult) == JobComplete;
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_WaitAsCompletion(IntPtr Client, Int32 Timeout);
+    protected static extern int Cli_WaitAsCompletion(IntPtr Client, int Timeout);
     public int WaitAsCompletion(int Timeout)
     {
         return Cli_WaitAsCompletion(Client, Timeout);
@@ -1119,10 +1119,10 @@ public class S7Client
     #region [Info Functions]
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_GetExecTime(IntPtr Client, ref UInt32 Time);
+    protected static extern int Cli_GetExecTime(IntPtr Client, ref uint Time);
     public int ExecTime()
     {
-        UInt32 Time = new();
+        uint Time = new();
         if (Cli_GetExecTime(Client, ref Time) == 0)
             return (int)(Time);
         else
@@ -1130,10 +1130,10 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_GetLastError(IntPtr Client, ref Int32 LastError);
+    protected static extern int Cli_GetLastError(IntPtr Client, ref int LastError);
     public int LastError()
     {
-        Int32 ClientLastError = new();
+        int ClientLastError = new();
         if (Cli_GetLastError(Client, ref ClientLastError) == 0)
             return (int)ClientLastError;
         else
@@ -1141,12 +1141,12 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_GetPduLength(IntPtr Client, ref Int32 Requested, ref Int32 Negotiated);
+    protected static extern int Cli_GetPduLength(IntPtr Client, ref int Requested, ref int Negotiated);
 
     public int RequestedPduLength()
     {
-        Int32 Requested = new();
-        Int32 Negotiated = new();
+        int Requested = new();
+        int Negotiated = new();
         if (Cli_GetPduLength(Client, ref Requested, ref Negotiated) == 0)
             return Requested;
         else
@@ -1155,8 +1155,8 @@ public class S7Client
 
     public int NegotiatedPduLength()
     {
-        Int32 Requested = new();
-        Int32 Negotiated = new();
+        int Requested = new();
+        int Negotiated = new();
         if (Cli_GetPduLength(Client, ref Requested, ref Negotiated) == 0)
             return Negotiated;
         else
@@ -1173,10 +1173,10 @@ public class S7Client
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Cli_GetConnected(IntPtr Client, ref UInt32 IsConnected);
+    protected static extern int Cli_GetConnected(IntPtr Client, ref uint IsConnected);
     public bool Connected()
     {
-        UInt32 IsConnected = new();
+        uint IsConnected = new();
         if (Cli_GetConnected(Client, ref IsConnected) == 0)
             return IsConnected != 0;
         else
@@ -1301,8 +1301,8 @@ public class S7Server
     public struct USrvEvent
     {
         public IntPtr EvtTime;   // It's platform dependent (32 or 64 bit)
-        public Int32 EvtSender;
-        public UInt32 EvtCode;
+        public int EvtSender;
+        public uint EvtCode;
         public ushort EvtRetCode;
         public ushort EvtParam1;
         public ushort EvtParam2;
@@ -1313,8 +1313,8 @@ public class S7Server
     public struct SrvEvent
     {
         public DateTime EvtTime;
-        public Int32 EvtSender;
-        public UInt32 EvtCode;
+        public int EvtSender;
+        public uint EvtCode;
         public ushort EvtRetCode;
         public ushort EvtParam1;
         public ushort EvtParam2;
@@ -1368,85 +1368,85 @@ public class S7Server
     // To avoid the use of unsafe code we split the DLL functions and use overloaded methods.
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_GetParam")]
-    protected static extern int Srv_GetParam_i16(IntPtr Server, Int32 ParamNumber, ref Int16 IntValue);
-    public int GetParam(Int32 ParamNumber, ref Int16 IntValue)
+    protected static extern int Srv_GetParam_i16(IntPtr Server, int ParamNumber, ref short IntValue);
+    public int GetParam(int ParamNumber, ref short IntValue)
     {
         return Srv_GetParam_i16(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_GetParam")]
-    protected static extern int Srv_GetParam_u16(IntPtr Server, Int32 ParamNumber, ref UInt16 IntValue);
-    public int GetParam(Int32 ParamNumber, ref UInt16 IntValue)
+    protected static extern int Srv_GetParam_u16(IntPtr Server, int ParamNumber, ref ushort IntValue);
+    public int GetParam(int ParamNumber, ref ushort IntValue)
     {
         return Srv_GetParam_u16(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_GetParam")]
-    protected static extern int Srv_GetParam_i32(IntPtr Server, Int32 ParamNumber, ref Int32 IntValue);
-    public int GetParam(Int32 ParamNumber, ref Int32 IntValue)
+    protected static extern int Srv_GetParam_i32(IntPtr Server, int ParamNumber, ref int IntValue);
+    public int GetParam(int ParamNumber, ref int IntValue)
     {
         return Srv_GetParam_i32(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_GetParam")]
-    protected static extern int Srv_GetParam_u32(IntPtr Server, Int32 ParamNumber, ref UInt32 IntValue);
-    public int GetParam(Int32 ParamNumber, ref UInt32 IntValue)
+    protected static extern int Srv_GetParam_u32(IntPtr Server, int ParamNumber, ref uint IntValue);
+    public int GetParam(int ParamNumber, ref uint IntValue)
     {
         return Srv_GetParam_u32(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_GetParam")]
-    protected static extern int Srv_GetParam_i64(IntPtr Server, Int32 ParamNumber, ref Int64 IntValue);
-    public int GetParam(Int32 ParamNumber, ref Int64 IntValue)
+    protected static extern int Srv_GetParam_i64(IntPtr Server, int ParamNumber, ref long IntValue);
+    public int GetParam(int ParamNumber, ref long IntValue)
     {
         return Srv_GetParam_i64(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_GetParam")]
-    protected static extern int Srv_GetParam_u64(IntPtr Server, Int32 ParamNumber, ref UInt64 IntValue);
-    public int GetParam(Int32 ParamNumber, ref UInt64 IntValue)
+    protected static extern int Srv_GetParam_u64(IntPtr Server, int ParamNumber, ref ulong IntValue);
+    public int GetParam(int ParamNumber, ref ulong IntValue)
     {
         return Srv_GetParam_u64(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_SetParam")]
-    protected static extern int Srv_SetParam_i16(IntPtr Server, Int32 ParamNumber, ref Int16 IntValue);
-    public int SetParam(Int32 ParamNumber, ref Int16 IntValue)
+    protected static extern int Srv_SetParam_i16(IntPtr Server, int ParamNumber, ref short IntValue);
+    public int SetParam(int ParamNumber, ref short IntValue)
     {
         return Srv_SetParam_i16(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_SetParam")]
-    protected static extern int Srv_SetParam_u16(IntPtr Server, Int32 ParamNumber, ref UInt16 IntValue);
-    public int SetParam(Int32 ParamNumber, ref UInt16 IntValue)
+    protected static extern int Srv_SetParam_u16(IntPtr Server, int ParamNumber, ref ushort IntValue);
+    public int SetParam(int ParamNumber, ref ushort IntValue)
     {
         return Srv_SetParam_u16(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_SetParam")]
-    protected static extern int Srv_SetParam_i32(IntPtr Server, Int32 ParamNumber, ref Int32 IntValue);
-    public int SetParam(Int32 ParamNumber, ref Int32 IntValue)
+    protected static extern int Srv_SetParam_i32(IntPtr Server, int ParamNumber, ref int IntValue);
+    public int SetParam(int ParamNumber, ref int IntValue)
     {
         return Srv_SetParam_i32(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_SetParam")]
-    protected static extern int Srv_SetParam_u32(IntPtr Server, Int32 ParamNumber, ref UInt32 IntValue);
-    public int SetParam(Int32 ParamNumber, ref UInt32 IntValue)
+    protected static extern int Srv_SetParam_u32(IntPtr Server, int ParamNumber, ref uint IntValue);
+    public int SetParam(int ParamNumber, ref uint IntValue)
     {
         return Srv_SetParam_u32(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_SetParam")]
-    protected static extern int Srv_SetParam_i64(IntPtr Server, Int32 ParamNumber, ref Int64 IntValue);
-    public int SetParam(Int32 ParamNumber, ref Int64 IntValue)
+    protected static extern int Srv_SetParam_i64(IntPtr Server, int ParamNumber, ref long IntValue);
+    public int SetParam(int ParamNumber, ref long IntValue)
     {
         return Srv_SetParam_i64(Server, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Srv_SetParam")]
-    protected static extern int Srv_SetParam_u64(IntPtr Server, Int32 ParamNumber, ref UInt64 IntValue);
-    public int SetParam(Int32 ParamNumber, ref UInt64 IntValue)
+    protected static extern int Srv_SetParam_u64(IntPtr Server, int ParamNumber, ref ulong IntValue);
+    public int SetParam(int ParamNumber, ref ulong IntValue)
     {
         return Srv_SetParam_u64(Server, ParamNumber, ref IntValue);
     }
@@ -1456,29 +1456,29 @@ public class S7Server
     #region [Data Areas functions]
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Srv_RegisterArea(IntPtr Server, Int32 AreaCode, Int32 Index, byte[] pUsrData, Int32 Size);
-    public int RegisterArea(Int32 AreaCode, Int32 Index, byte[] pUsrData, Int32 Size)
+    protected static extern int Srv_RegisterArea(IntPtr Server, int AreaCode, int Index, byte[] pUsrData, int Size);
+    public int RegisterArea(int AreaCode, int Index, byte[] pUsrData, int Size)
     {
         return Srv_RegisterArea(Server, AreaCode, Index, pUsrData, Size);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Srv_UnregisterArea(IntPtr Server, Int32 AreaCode, Int32 Index);
-    public int UnregisterArea(Int32 AreaCode, Int32 Index)
+    protected static extern int Srv_UnregisterArea(IntPtr Server, int AreaCode, int Index);
+    public int UnregisterArea(int AreaCode, int Index)
     {
         return Srv_UnregisterArea(Server, AreaCode, Index);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Srv_LockArea(IntPtr Server, Int32 AreaCode, Int32 Index);
-    public int LockArea(Int32 AreaCode, Int32 Index)
+    protected static extern int Srv_LockArea(IntPtr Server, int AreaCode, int Index);
+    public int LockArea(int AreaCode, int Index)
     {
         return Srv_LockArea(Server, AreaCode, Index);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Srv_UnlockArea(IntPtr Server, Int32 AreaCode, Int32 Index);
-    public int UnlockArea(Int32 AreaCode, Int32 Index)
+    protected static extern int Srv_UnlockArea(IntPtr Server, int AreaCode, int Index);
+    public int UnlockArea(int AreaCode, int Index)
     {
         return Srv_UnlockArea(Server, AreaCode, Index);
     }
@@ -1504,10 +1504,10 @@ public class S7Server
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Srv_PickEvent(IntPtr Server, ref USrvEvent Event, ref Int32 EvtReady);
+    protected static extern int Srv_PickEvent(IntPtr Server, ref USrvEvent Event, ref int EvtReady);
     public bool PickEvent(ref USrvEvent Event)
     {
-        Int32 EvtReady = new();
+        int EvtReady = new();
         if (Srv_PickEvent(Server, ref Event, ref EvtReady) == 0)
             return EvtReady != 0;
         else
@@ -1537,16 +1537,16 @@ public class S7Server
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Srv_GetMask(IntPtr Server, Int32 MaskKind, ref UInt32 Mask);
+    protected static extern int Srv_GetMask(IntPtr Server, int MaskKind, ref uint Mask);
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Srv_SetMask(IntPtr Server, Int32 MaskKind, UInt32 Mask);
+    protected static extern int Srv_SetMask(IntPtr Server, int MaskKind, uint Mask);
 
     // Property LogMask R/W
-    public UInt32 LogMask
+    public uint LogMask
     {
         get
         {
-            UInt32 Mask = new();
+            uint Mask = new();
             if (Srv_GetMask(Server, S7Server.mkLog, ref Mask) == 0)
                 return Mask;
             else
@@ -1559,11 +1559,11 @@ public class S7Server
     }
 
     // Property EventMask R/W
-    public UInt32 EventMask
+    public uint EventMask
     {
         get
         {
-            UInt32 Mask = new();
+            uint Mask = new();
             if (Srv_GetMask(Server, S7Server.mkEvent, ref Mask) == 0)
                 return Mask;
             else
@@ -1581,18 +1581,18 @@ public class S7Server
     #region [Info functions]
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Srv_GetStatus(IntPtr Server, ref Int32 ServerStatus, ref Int32 CpuStatus, ref Int32 ClientsCount);
+    protected static extern int Srv_GetStatus(IntPtr Server, ref int ServerStatus, ref int CpuStatus, ref int ClientsCount);
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Srv_SetCpuStatus(IntPtr Server, Int32 CpuStatus);
+    protected static extern int Srv_SetCpuStatus(IntPtr Server, int CpuStatus);
 
     // Property Virtual CPU status R/W
     public int CpuStatus
     {
         get
         {
-            Int32 CStatus = new();
-            Int32 SStatus = new();
-            Int32 CCount = new();
+            int CStatus = new();
+            int SStatus = new();
+            int CCount = new();
 
             if (Srv_GetStatus(Server, ref CStatus, ref SStatus, ref CCount) == 0)
                 return CStatus;
@@ -1610,9 +1610,9 @@ public class S7Server
     {
         get
         {
-            Int32 CStatus = new();
-            Int32 SStatus = new();
-            Int32 CCount = new();
+            int CStatus = new();
+            int SStatus = new();
+            int CCount = new();
             if (Srv_GetStatus(Server, ref CStatus, ref SStatus, ref CCount) == 0)
                 return SStatus;
             else
@@ -1625,9 +1625,9 @@ public class S7Server
     {
         get
         {
-            Int32 CStatus = new();
-            Int32 SStatus = new();
-            Int32 CCount = new();
+            int CStatus = new();
+            int SStatus = new();
+            int CCount = new();
             if (Srv_GetStatus(Server, ref CStatus, ref SStatus, ref CCount) == 0)
                 return CCount;
             else
@@ -1700,17 +1700,17 @@ public class S7Partner
 
     private IntPtr Partner;
 
-    private Int32 parBytesSent;
-    private Int32 parBytesRecv;
-    private Int32 parSendErrors;
-    private Int32 parRecvErrors;
+    private int parBytesSent;
+    private int parBytesRecv;
+    private int parSendErrors;
+    private int parRecvErrors;
 
     #endregion
 
     #region [Class Control]
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern IntPtr Par_Create(Int32 ParActive);
+    protected static extern IntPtr Par_Create(int ParActive);
     public S7Partner(int Active)
     {
         Partner = Par_Create(Active);
@@ -1728,14 +1728,14 @@ public class S7Partner
         IntPtr Partner,
         [MarshalAs(UnmanagedType.LPStr)] string LocalAddress,
         [MarshalAs(UnmanagedType.LPStr)] string RemoteAddress,
-        UInt16 LocalTSAP,
-        UInt16 RemoteTSAP);
+        ushort LocalTSAP,
+        ushort RemoteTSAP);
 
     public int StartTo(
         string LocalAddress,
         string RemoteAddress,
-        UInt16 LocalTSAP,
-        UInt16 RemoteTSAP)
+        ushort LocalTSAP,
+        ushort RemoteTSAP)
     {
         return Par_StartTo(Partner, LocalAddress, RemoteAddress, LocalTSAP, RemoteTSAP);
     }
@@ -1759,85 +1759,85 @@ public class S7Partner
     // To avoid the use of unsafe code we split the DLL functions and use overloaded methods.
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_GetParam")]
-    protected static extern int Par_GetParam_i16(IntPtr Partner, Int32 ParamNumber, ref Int16 IntValue);
-    public int GetParam(Int32 ParamNumber, ref Int16 IntValue)
+    protected static extern int Par_GetParam_i16(IntPtr Partner, int ParamNumber, ref short IntValue);
+    public int GetParam(int ParamNumber, ref short IntValue)
     {
         return Par_GetParam_i16(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_GetParam")]
-    protected static extern int Par_GetParam_u16(IntPtr Partner, Int32 ParamNumber, ref UInt16 IntValue);
-    public int GetParam(Int32 ParamNumber, ref UInt16 IntValue)
+    protected static extern int Par_GetParam_u16(IntPtr Partner, int ParamNumber, ref ushort IntValue);
+    public int GetParam(int ParamNumber, ref ushort IntValue)
     {
         return Par_GetParam_u16(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_GetParam")]
-    protected static extern int Par_GetParam_i32(IntPtr Partner, Int32 ParamNumber, ref Int32 IntValue);
-    public int GetParam(Int32 ParamNumber, ref Int32 IntValue)
+    protected static extern int Par_GetParam_i32(IntPtr Partner, int ParamNumber, ref int IntValue);
+    public int GetParam(int ParamNumber, ref int IntValue)
     {
         return Par_GetParam_i32(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_GetParam")]
-    protected static extern int Par_GetParam_u32(IntPtr Partner, Int32 ParamNumber, ref UInt32 IntValue);
-    public int GetParam(Int32 ParamNumber, ref UInt32 IntValue)
+    protected static extern int Par_GetParam_u32(IntPtr Partner, int ParamNumber, ref uint IntValue);
+    public int GetParam(int ParamNumber, ref uint IntValue)
     {
         return Par_GetParam_u32(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_GetParam")]
-    protected static extern int Par_GetParam_i64(IntPtr Partner, Int32 ParamNumber, ref Int64 IntValue);
-    public int GetParam(Int32 ParamNumber, ref Int64 IntValue)
+    protected static extern int Par_GetParam_i64(IntPtr Partner, int ParamNumber, ref long IntValue);
+    public int GetParam(int ParamNumber, ref long IntValue)
     {
         return Par_GetParam_i64(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_GetParam")]
-    protected static extern int Par_GetParam_u64(IntPtr Partner, Int32 ParamNumber, ref UInt64 IntValue);
-    public int GetParam(Int32 ParamNumber, ref UInt64 IntValue)
+    protected static extern int Par_GetParam_u64(IntPtr Partner, int ParamNumber, ref ulong IntValue);
+    public int GetParam(int ParamNumber, ref ulong IntValue)
     {
         return Par_GetParam_u64(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_SetParam")]
-    protected static extern int Par_SetParam_i16(IntPtr Partner, Int32 ParamNumber, ref Int16 IntValue);
-    public int SetParam(Int32 ParamNumber, ref Int16 IntValue)
+    protected static extern int Par_SetParam_i16(IntPtr Partner, int ParamNumber, ref short IntValue);
+    public int SetParam(int ParamNumber, ref short IntValue)
     {
         return Par_SetParam_i16(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_SetParam")]
-    protected static extern int Par_SetParam_u16(IntPtr Partner, Int32 ParamNumber, ref UInt16 IntValue);
-    public int SetParam(Int32 ParamNumber, ref UInt16 IntValue)
+    protected static extern int Par_SetParam_u16(IntPtr Partner, int ParamNumber, ref ushort IntValue);
+    public int SetParam(int ParamNumber, ref ushort IntValue)
     {
         return Par_SetParam_u16(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_SetParam")]
-    protected static extern int Par_SetParam_i32(IntPtr Partner, Int32 ParamNumber, ref Int32 IntValue);
-    public int SetParam(Int32 ParamNumber, ref Int32 IntValue)
+    protected static extern int Par_SetParam_i32(IntPtr Partner, int ParamNumber, ref int IntValue);
+    public int SetParam(int ParamNumber, ref int IntValue)
     {
         return Par_SetParam_i32(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_SetParam")]
-    protected static extern int Par_SetParam_u32(IntPtr Partner, Int32 ParamNumber, ref UInt32 IntValue);
-    public int SetParam(Int32 ParamNumber, ref UInt32 IntValue)
+    protected static extern int Par_SetParam_u32(IntPtr Partner, int ParamNumber, ref uint IntValue);
+    public int SetParam(int ParamNumber, ref uint IntValue)
     {
         return Par_SetParam_u32(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_SetParam")]
-    protected static extern int Par_SetParam_i64(IntPtr Partner, Int32 ParamNumber, ref Int64 IntValue);
-    public int SetParam(Int32 ParamNumber, ref Int64 IntValue)
+    protected static extern int Par_SetParam_i64(IntPtr Partner, int ParamNumber, ref long IntValue);
+    public int SetParam(int ParamNumber, ref long IntValue)
     {
         return Par_SetParam_i64(Partner, ParamNumber, ref IntValue);
     }
 
     [DllImport(S7Consts.Snap7LibName, EntryPoint = "Par_SetParam")]
-    protected static extern int Par_SetParam_u64(IntPtr Partner, Int32 ParamNumber, ref UInt64 IntValue);
-    public int SetParam(Int32 ParamNumber, ref UInt64 IntValue)
+    protected static extern int Par_SetParam_u64(IntPtr Partner, int ParamNumber, ref ulong IntValue);
+    public int SetParam(int ParamNumber, ref ulong IntValue)
     {
         return Par_SetParam_u64(Partner, ParamNumber, ref IntValue);
     }
@@ -1847,28 +1847,28 @@ public class S7Partner
     #region [Data I/O functions : BSend]
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Par_BSend(IntPtr Partner, UInt32 R_ID, byte[] Buffer, Int32 Size);
-    public int BSend(UInt32 R_ID, byte[] Buffer, Int32 Size)
+    protected static extern int Par_BSend(IntPtr Partner, uint R_ID, byte[] Buffer, int Size);
+    public int BSend(uint R_ID, byte[] Buffer, int Size)
     {
         return Par_BSend(Partner, R_ID, Buffer, Size);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Par_AsBSend(IntPtr Partner, UInt32 R_ID, byte[] Buffer, Int32 Size);
-    public int AsBSend(UInt32 R_ID, byte[] Buffer, Int32 Size)
+    protected static extern int Par_AsBSend(IntPtr Partner, uint R_ID, byte[] Buffer, int Size);
+    public int AsBSend(uint R_ID, byte[] Buffer, int Size)
     {
         return Par_AsBSend(Partner, R_ID, Buffer, Size);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Par_CheckAsBSendCompletion(IntPtr Partner, ref Int32 opResult);
+    protected static extern int Par_CheckAsBSendCompletion(IntPtr Partner, ref int opResult);
     public bool CheckAsBSendCompletion(ref int opResult)
     {
         return Par_CheckAsBSendCompletion(Partner, ref opResult) == JobComplete;
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Par_WaitAsBSendCompletion(IntPtr Partner, Int32 Timeout);
+    protected static extern int Par_WaitAsBSendCompletion(IntPtr Partner, int Timeout);
     public int WaitAsBSendCompletion(int Timeout)
     {
         return Par_WaitAsBSendCompletion(Partner, Timeout);
@@ -1888,15 +1888,15 @@ public class S7Partner
     #region [Data I/O functions : BRecv]
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Par_BRecv(IntPtr Partner, ref UInt32 R_ID, byte[] Buffer, ref Int32 Size, UInt32 Timeout);
-    public int BRecv(ref UInt32 R_ID, byte[] Buffer, ref Int32 Size, UInt32 Timeout)
+    protected static extern int Par_BRecv(IntPtr Partner, ref uint R_ID, byte[] Buffer, ref int Size, uint Timeout);
+    public int BRecv(ref uint R_ID, byte[] Buffer, ref int Size, uint Timeout)
     {
         return Par_BRecv(Partner, ref R_ID, Buffer, ref Size, Timeout);
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Par_CheckAsBRecvCompletion(IntPtr Partner, ref Int32 opResult, ref UInt32 R_ID, byte[] Buffer, ref Int32 Size);
-    public bool CheckAsBRecvCompletion(ref Int32 opResult, ref UInt32 R_ID, byte[] Buffer, ref Int32 Size)
+    protected static extern int Par_CheckAsBRecvCompletion(IntPtr Partner, ref int opResult, ref uint R_ID, byte[] Buffer, ref int Size);
+    public bool CheckAsBRecvCompletion(ref int opResult, ref uint R_ID, byte[] Buffer, ref int Size)
     {
         Par_CheckAsBRecvCompletion(Partner, ref opResult, ref R_ID, Buffer, ref Size);
         return opResult == JobComplete;
@@ -1916,10 +1916,10 @@ public class S7Partner
     #region [Info functions]
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Par_GetLastError(IntPtr Partner, ref Int32 LastError);
-    public int LastError(ref Int32 LastError)
+    protected static extern int Par_GetLastError(IntPtr Partner, ref int LastError);
+    public int LastError(ref int LastError)
     {
-        Int32 PartnerLastError = new();
+        int PartnerLastError = new();
         if (Par_GetLastError(Partner, ref PartnerLastError) == 0)
             return (int)PartnerLastError;
         else
@@ -1936,8 +1936,8 @@ public class S7Partner
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Par_GetStats(IntPtr Partner, ref Int32 BytesSent, ref Int32 BytesRecv,
-       ref Int32 SendErrors, ref Int32 RecvErrors);
+    protected static extern int Par_GetStats(IntPtr Partner, ref int BytesSent, ref int BytesRecv,
+       ref int SendErrors, ref int RecvErrors);
 
     private void GetStatistics()
     {
@@ -1987,7 +1987,7 @@ public class S7Partner
     }
 
     [DllImport(S7Consts.Snap7LibName)]
-    protected static extern int Par_GetStatus(IntPtr Partner, ref Int32 Status);
+    protected static extern int Par_GetStatus(IntPtr Partner, ref int Status);
 
     public int Status
     {

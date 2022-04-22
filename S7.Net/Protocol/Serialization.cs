@@ -36,13 +36,13 @@ internal static class Serialization
             case "Byte":
                 return Types.Byte.ToByteArray((byte)value);
             case "Int16":
-                return Types.Int.ToByteArray((Int16)value);
+                return Types.Int.ToByteArray((short)value);
             case "UInt16":
-                return Types.Word.ToByteArray((UInt16)value);
+                return Types.Word.ToByteArray((ushort)value);
             case "Int32":
-                return Types.DInt.ToByteArray((Int32)value);
+                return Types.DInt.ToByteArray((int)value);
             case "UInt32":
-                return Types.DWord.ToByteArray((UInt32)value);
+                return Types.DWord.ToByteArray((uint)value);
             case "Single":
                 return Types.Real.ToByteArray((float)value);
             case "Double":
@@ -52,13 +52,13 @@ internal static class Serialization
             case "Byte[]":
                 return (byte[])value;
             case "Int16[]":
-                return Types.Int.ToByteArray((Int16[])value);
+                return Types.Int.ToByteArray((short[])value);
             case "UInt16[]":
-                return Types.Word.ToByteArray((UInt16[])value);
+                return Types.Word.ToByteArray((ushort[])value);
             case "Int32[]":
-                return Types.DInt.ToByteArray((Int32[])value);
+                return Types.DInt.ToByteArray((int[])value);
             case "UInt32[]":
-                return Types.DWord.ToByteArray((UInt32[])value);
+                return Types.DWord.ToByteArray((uint[])value);
             case "Single[]":
                 return Types.Real.ToByteArray((float[])value);
             case "Double[]":

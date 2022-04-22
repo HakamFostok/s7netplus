@@ -23,7 +23,7 @@ public static class Int
     /// <summary>
     /// Converts a short (Int16) to a S7 Int byte array (2 bytes)
     /// </summary>
-    public static byte[] ToByteArray(Int16 value)
+    public static byte[] ToByteArray(short value)
     {
         byte[] bytes = new byte[2];
 
@@ -36,7 +36,7 @@ public static class Int
     /// <summary>
     /// Converts an array of short (Int16) to a S7 Int byte array (2 bytes)
     /// </summary>
-    public static byte[] ToByteArray(Int16[] value)
+    public static byte[] ToByteArray(short[] value)
     {
         byte[] bytes = new byte[value.Length * 2];
         int bytesPos = 0;
@@ -52,11 +52,11 @@ public static class Int
     /// <summary>
     /// Converts an array of S7 Int to an array of short (Int16)
     /// </summary>
-    public static Int16[] ToArray(byte[] bytes)
+    public static short[] ToArray(byte[] bytes)
     {
         int shortsCount = bytes.Length / 2;
 
-        Int16[] values = new Int16[shortsCount];
+        short[] values = new short[shortsCount];
 
         int counter = 0;
         for (int cnt = 0; cnt < shortsCount; cnt++)
@@ -70,7 +70,7 @@ public static class Int
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static Int16 CWord(int value)
+    public static short CWord(int value)
     {
         if (value > 32767)
         {

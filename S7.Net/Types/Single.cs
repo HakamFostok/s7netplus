@@ -14,7 +14,7 @@ public static class Single
     /// <summary>
     /// Converts a S7 DInt to float
     /// </summary>
-    public static float FromDWord(Int32 value)
+    public static float FromDWord(int value)
     {
         byte[] b = DInt.ToByteArray(value);
         float d = FromByteArray(b);
@@ -24,7 +24,7 @@ public static class Single
     /// <summary>
     /// Converts a S7 DWord to float
     /// </summary>
-    public static float FromDWord(UInt32 value)
+    public static float FromDWord(uint value)
     {
         byte[] b = DWord.ToByteArray(value);
         float d = FromByteArray(b);

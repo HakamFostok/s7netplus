@@ -14,7 +14,7 @@ public static class Double
     /// <summary>
     /// Converts a S7 DInt to double
     /// </summary>
-    public static double FromDWord(Int32 value)
+    public static double FromDWord(int value)
     {
         byte[] b = DInt.ToByteArray(value);
         double d = FromByteArray(b);
@@ -24,7 +24,7 @@ public static class Double
     /// <summary>
     /// Converts a S7 DWord to double
     /// </summary>
-    public static double FromDWord(UInt32 value)
+    public static double FromDWord(uint value)
     {
         byte[] b = DWord.ToByteArray(value);
         double d = FromByteArray(b);

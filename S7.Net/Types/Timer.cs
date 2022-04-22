@@ -41,7 +41,7 @@ public static class Timer
     /// <summary>
     /// Converts a ushort (UInt16) to an array of bytes formatted as time
     /// </summary>
-    public static byte[] ToByteArray(UInt16 value)
+    public static byte[] ToByteArray(ushort value)
     {
         byte[] bytes = new byte[2];
         bytes[1] = (byte)((int)value & 0xFF);
@@ -53,10 +53,10 @@ public static class Timer
     /// <summary>
     /// Converts an array of ushorts (Uint16) to an array of bytes formatted as time
     /// </summary>
-    public static byte[] ToByteArray(UInt16[] value)
+    public static byte[] ToByteArray(ushort[] value)
     {
         ByteArray arr = new();
-        foreach (UInt16 val in value)
+        foreach (ushort val in value)
             arr.Add(ToByteArray(val));
         return arr.Array;
     }

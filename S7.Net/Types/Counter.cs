@@ -8,7 +8,7 @@ public static class Counter
     /// <summary>
     /// Converts a Counter (2 bytes) to ushort (UInt16)
     /// </summary>
-    public static UInt16 FromByteArray(byte[] bytes)
+    public static ushort FromByteArray(byte[] bytes)
     {
         if (bytes.Length != 2)
         {
@@ -16,14 +16,14 @@ public static class Counter
         }
         // bytes[0] -> HighByte
         // bytes[1] -> LowByte
-        return (UInt16)((bytes[0] << 8) | bytes[1]);
+        return (ushort)((bytes[0] << 8) | bytes[1]);
     }
 
 
     /// <summary>
     /// Converts a ushort (UInt16) to word (2 bytes)
     /// </summary>
-    public static byte[] ToByteArray(UInt16 value)
+    public static byte[] ToByteArray(ushort value)
     {
         byte[] bytes = new byte[2];
 
@@ -36,10 +36,10 @@ public static class Counter
     /// <summary>
     /// Converts an array of ushort (UInt16) to an array of bytes
     /// </summary>
-    public static byte[] ToByteArray(UInt16[] value)
+    public static byte[] ToByteArray(ushort[] value)
     {
         ByteArray arr = new();
-        foreach (UInt16 val in value)
+        foreach (ushort val in value)
             arr.Add(ToByteArray(val));
         return arr.Array;
     }
@@ -47,9 +47,9 @@ public static class Counter
     /// <summary>
     /// Converts an array of bytes to an array of ushort
     /// </summary>
-    public static UInt16[] ToArray(byte[] bytes)
+    public static ushort[] ToArray(byte[] bytes)
     {
-        UInt16[] values = new UInt16[bytes.Length / 2];
+        ushort[] values = new ushort[bytes.Length / 2];
 
         int counter = 0;
         for (int cnt = 0; cnt < bytes.Length / 2; cnt++)

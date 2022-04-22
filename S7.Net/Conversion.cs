@@ -60,15 +60,15 @@ public static class Conversion
                         break;
                     case "Int16":
                         x = 15;
-                        longValue = (long)((Int16)value);
+                        longValue = (long)((short)value);
                         break;
                     case "Int32":
                         x = 31;
-                        longValue = (long)((Int32)value);
+                        longValue = (long)((int)value);
                         break;
                     case "Int64":
                         x = 63;
-                        longValue = (long)((Int64)value);
+                        longValue = (long)((long)value);
                         break;
                     default:
                         throw new Exception();
@@ -76,7 +76,7 @@ public static class Conversion
 
                 for (cnt = x; cnt >= 0; cnt += -1)
                 {
-                    if (((Int64)longValue & (Int64)Math.Pow(2, cnt)) > 0)
+                    if (((long)longValue & (long)Math.Pow(2, cnt)) > 0)
                         txt += "1";
                     else
                         txt += "0";
@@ -98,7 +98,7 @@ public static class Conversion
                         break;
                     case "Int16[]":
                         x = 15;
-                        Int16[] Int16Arr = (Int16[])value;
+                        short[] Int16Arr = (short[])value;
                         for (cnt2 = 0; cnt2 <= Int16Arr.Length - 1; cnt2++)
                         {
                             for (cnt = x; cnt >= 0; cnt += -1)
@@ -107,7 +107,7 @@ public static class Conversion
                         break;
                     case "Int32[]":
                         x = 31;
-                        Int32[] Int32Arr = (Int32[])value;
+                        int[] Int32Arr = (int[])value;
                         for (cnt2 = 0; cnt2 <= Int32Arr.Length - 1; cnt2++)
                         {
                             for (cnt = x; cnt >= 0; cnt += -1)
@@ -179,7 +179,7 @@ public static class Conversion
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static Int32 ConvertToInt(this uint input)
+    public static int ConvertToInt(this uint input)
     {
         int output;
         output = int.Parse(input.ToString("X"), NumberStyles.HexNumber);
@@ -191,7 +191,7 @@ public static class Conversion
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static UInt32 ConvertToUInt(this int input)
+    public static uint ConvertToUInt(this int input)
     {
         uint output;
         output = uint.Parse(input.ToString("X"), NumberStyles.HexNumber);
@@ -203,7 +203,7 @@ public static class Conversion
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public static UInt32 ConvertToUInt(this float input)
+    public static uint ConvertToUInt(this float input)
     {
         uint output;
         output = S7.Net.Types.DWord.FromByteArray(S7.Net.Types.Real.ToByteArray(input));

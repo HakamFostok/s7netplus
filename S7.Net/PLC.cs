@@ -52,12 +52,12 @@ public partial class Plc : IDisposable
     /// <summary>
     /// Rack of the PLC
     /// </summary>
-    public Int16 Rack { get; }
+    public short Rack { get; }
 
     /// <summary>
     /// Slot of the CPU of the PLC
     /// </summary>
-    public Int16 Slot { get; }
+    public short Slot { get; }
 
     /// <summary>
     /// Max PDU size this cpu supports
@@ -119,7 +119,7 @@ public partial class Plc : IDisposable
     /// <param name="rack">rack of the PLC, usually it's 0, but check in the hardware configuration of Step7 or TIA portal</param>
     /// <param name="slot">slot of the CPU of the PLC, usually it's 2 for S7300-S7400, 0 for S7-1200 and S7-1500.
     ///  If you use an external ethernet card, this must be set accordingly.</param>
-    public Plc(CpuType cpu, string ip, Int16 rack, Int16 slot)
+    public Plc(CpuType cpu, string ip, short rack, short slot)
         : this(cpu, ip, DefaultPort, rack, slot)
     {
     }
@@ -136,7 +136,7 @@ public partial class Plc : IDisposable
     /// <param name="rack">rack of the PLC, usually it's 0, but check in the hardware configuration of Step7 or TIA portal</param>
     /// <param name="slot">slot of the CPU of the PLC, usually it's 2 for S7300-S7400, 0 for S7-1200 and S7-1500.
     ///  If you use an external ethernet card, this must be set accordingly.</param>
-    public Plc(CpuType cpu, string ip, int port, Int16 rack, Int16 slot)
+    public Plc(CpuType cpu, string ip, int port, short rack, short slot)
         : this(ip, port, TsapPair.GetDefaultTsapPair(cpu, rack, slot))
     {
         if (!Enum.IsDefined(typeof(CpuType), cpu))

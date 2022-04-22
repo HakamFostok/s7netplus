@@ -8,7 +8,7 @@ public static class DInt
     /// <summary>
     /// Converts a S7 DInt (4 bytes) to int (Int32)
     /// </summary>
-    public static Int32 FromByteArray(byte[] bytes)
+    public static int FromByteArray(byte[] bytes)
     {
         if (bytes.Length != 4)
         {
@@ -21,7 +21,7 @@ public static class DInt
     /// <summary>
     /// Converts a int (Int32) to S7 DInt (4 bytes)
     /// </summary>
-    public static byte[] ToByteArray(Int32 value)
+    public static byte[] ToByteArray(int value)
     {
         byte[] bytes = new byte[4];
 
@@ -36,10 +36,10 @@ public static class DInt
     /// <summary>
     /// Converts an array of int (Int32) to an array of bytes
     /// </summary>
-    public static byte[] ToByteArray(Int32[] value)
+    public static byte[] ToByteArray(int[] value)
     {
         ByteArray arr = new();
-        foreach (Int32 val in value)
+        foreach (int val in value)
             arr.Add(ToByteArray(val));
         return arr.Array;
     }
@@ -47,9 +47,9 @@ public static class DInt
     /// <summary>
     /// Converts an array of S7 DInt to an array of int (Int32)
     /// </summary>
-    public static Int32[] ToArray(byte[] bytes)
+    public static int[] ToArray(byte[] bytes)
     {
-        Int32[] values = new Int32[bytes.Length / 4];
+        int[] values = new int[bytes.Length / 4];
 
         int counter = 0;
         for (int cnt = 0; cnt < bytes.Length / 4; cnt++)
