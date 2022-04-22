@@ -33,7 +33,7 @@ public partial class Plc
         }
         catch (Exception)
         {
-            stream.Dispose();
+            await stream.DisposeAsync();
             throw;
         }
     }

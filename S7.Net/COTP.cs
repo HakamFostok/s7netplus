@@ -41,7 +41,7 @@ internal class COTP
                 }
                 //TODO: Handle other PDUTypes
             }
-            Data = new byte[0];
+            Data = Array.Empty<byte>();
         }
 
         /// <summary>
