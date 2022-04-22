@@ -214,7 +214,7 @@ public partial class Plc : IDisposable
 
     private void ConfigureConnection()
     {
-        if (tcpClient == null)
+        if (tcpClient is null)
         {
             return;
         }
@@ -239,7 +239,7 @@ public partial class Plc : IDisposable
                 $"Received {s7Data.Length} bytes: '{BitConverter.ToString(s7Data)}', expected {expectedLength} bytes.")
         ;
 
-        if (s7Data == null)
+        if (s7Data is null)
             throw new PlcException(ErrorCode.WrongNumberReceivedBytes, "No s7Data received.");
 
         if (s7Data.Length < 15) throw NotEnoughBytes();
@@ -274,7 +274,7 @@ public partial class Plc : IDisposable
 
     private Stream GetStreamIfAvailable()
     {
-        if (_stream == null)
+        if (_stream is null)
         {
             throw new PlcException(ErrorCode.ConnectionError, "Plc is not connected");
         }

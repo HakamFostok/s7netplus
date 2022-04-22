@@ -76,12 +76,12 @@ public class ConnectionCloseTest
         // Set up access to private method and field
         var dynMethod = plc.GetType().GetMethod("NoLockRequestTpduAsync",
             BindingFlags.NonPublic | BindingFlags.Instance);
-        if (dynMethod == null)
+        if (dynMethod is null)
         {
             throw new NullReferenceException("Could not find method 'NoLockRequestTpduAsync' on Plc object.");
         }
         var tcpClientField = plc.GetType().GetField("tcpClient", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (tcpClientField == null)
+        if (tcpClientField is null)
         {
             throw new NullReferenceException("Could not find field 'tcpClient' on Plc object.");
         }
@@ -131,12 +131,12 @@ public class ConnectionCloseTest
         // Set up access to private method and field
         var dynMethod = plc.GetType().GetMethod("NoLockRequestTpduAsync",
             BindingFlags.NonPublic | BindingFlags.Instance);
-        if (dynMethod == null)
+        if (dynMethod is null)
         {
             throw new NullReferenceException("Could not find method 'NoLockRequestTpduAsync' on Plc object.");
         }
         var tcpClientField = plc.GetType().GetField("tcpClient", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (tcpClientField == null)
+        if (tcpClientField is null)
         {
             throw new NullReferenceException("Could not find field 'tcpClient' on Plc object.");
         }

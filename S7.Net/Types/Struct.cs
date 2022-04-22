@@ -82,7 +82,7 @@ public static class Struct
     /// <returns>The object depending on the struct type or null if fails(array-length != struct-length</returns>
     public static object? FromBytes(Type structType, byte[] bytes)
     {
-        if (bytes == null)
+        if (bytes is null)
             return null;
 
         if (bytes.Length != GetStructSize(structType))

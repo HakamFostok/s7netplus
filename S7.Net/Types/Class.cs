@@ -205,7 +205,7 @@ public static class Class
     /// <param name="bytes">The array of bytes</param>
     public static double FromBytes(object sourceClass, byte[] bytes, double numBytes = 0, bool isInnerClass = false)
     {
-        if (bytes == null)
+        if (bytes is null)
             return numBytes;
 
         var properties = GetAccessableProperties(sourceClass.GetType());
