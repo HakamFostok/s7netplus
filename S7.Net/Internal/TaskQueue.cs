@@ -1,4 +1,4 @@
-namespace S7.Net.Internal
+﻿namespace S7.Net.Internal
 {
     internal class TaskQueue
     {

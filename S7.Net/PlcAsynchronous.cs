@@ -1,7 +1,7 @@
+﻿using System.Net.Sockets;
 using S7.Net.Protocol;
 using S7.Net.Protocol.S7;
 using S7.Net.Types;
-using System.Net.Sockets;
 
 namespace S7.Net
 {

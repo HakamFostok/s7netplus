@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace S7.Net.UnitTest
 {
