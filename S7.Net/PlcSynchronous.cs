@@ -56,8 +56,8 @@ public partial class Plc
     /// <param name="db">Address of the memory area (if you want to read DB1, this is set to 1). This must be set also for other memory area types: counters, timers,etc.</param>
     /// <param name="startByteAdr">Start byte address. If you want to read DB1.DBW200, this is 200.</param>
     /// <param name="varType">Type of the variable/s that you are reading</param>
-    /// <param name="bitAdr">Address of bit. If you want to read DB1.DBX200.6, set 6 to this parameter.</param>
     /// <param name="varCount"></param>
+    /// <param name="bitAdr">Address of bit. If you want to read DB1.DBX200.6, set 6 to this parameter.</param>
     public object? Read(DataType dataType, int db, int startByteAdr, VarType varType, int varCount, byte bitAdr = 0)
     {
         int cntBytes = VarTypeToByteLength(varType, varCount);

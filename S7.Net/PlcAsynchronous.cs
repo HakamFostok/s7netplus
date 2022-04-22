@@ -119,8 +119,8 @@ public partial class Plc
     /// <param name="db">Address of the memory area (if you want to read DB1, this is set to 1). This must be set also for other memory area types: counters, timers,etc.</param>
     /// <param name="startByteAdr">Start byte address. If you want to read DB1.DBW200, this is 200.</param>
     /// <param name="varType">Type of the variable/s that you are reading</param>
-    /// <param name="bitAdr">Address of bit. If you want to read DB1.DBX200.6, set 6 to this parameter.</param>
     /// <param name="varCount"></param>
+    /// <param name="bitAdr">Address of bit. If you want to read DB1.DBX200.6, set 6 to this parameter.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests. The default value is None.
     /// Please note that cancellation is advisory/cooperative and will not lead to immediate cancellation in all cases.</param>
     public async Task<object?> ReadAsync(DataType dataType, int db, int startByteAdr, VarType varType, int varCount, byte bitAdr = 0, CancellationToken cancellationToken = default)

@@ -32,7 +32,7 @@ public class TsapPair
     /// addresses.
     /// </summary>
     /// <remarks>
-    /// The remote TSAP is constructed using <code>new Tsap(0x03, (byte) ((rack &lt;&lt; 5) | slot))</code>.
+    /// The remote TSAP is constructed using <c>new Tsap(0x03, (byte) ((rack &lt;&lt; 5) | slot))</c>.
     /// </remarks>
     /// <param name="cpuType">The CPU type of the PLC.</param>
     /// <param name="rack">The rack of the PLC's network card.</param>
