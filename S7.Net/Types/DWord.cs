@@ -22,7 +22,7 @@ public static class DWord
     }
 
     /// <summary>
-    /// Converts a uint (UInt32) to S7 DWord (4 bytes) 
+    /// Converts a uint (UInt32) to S7 DWord (4 bytes)
     /// </summary>
     public static byte[] ToByteArray(uint value)
     {
@@ -37,7 +37,7 @@ public static class DWord
     }
 
     /// <summary>
-    /// Converts an array of uint (UInt32) to an array of S7 DWord (4 bytes) 
+    /// Converts an array of uint (UInt32) to an array of S7 DWord (4 bytes)
     /// </summary>
     public static byte[] ToByteArray(uint[] value)
     {

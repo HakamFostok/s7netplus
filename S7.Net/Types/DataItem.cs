@@ -8,7 +8,7 @@ namespace S7.Net.Types;
 public class DataItem
 {
     /// <summary>
-    /// Memory area to read 
+    /// Memory area to read
     /// </summary>
     public DataType DataType { get; set; }
 

@@ -54,7 +54,6 @@ public class PLCAddressParsingTests
         Assert.AreEqual(0, dataItem.BitAdr, "Wrong bit for MD200");
     }
 
-
     [TestMethod]
     public void T05_ParseI2000_1()
     {
@@ -102,7 +101,6 @@ public class PLCAddressParsingTests
         Assert.AreEqual(200, dataItem.StartByteAdr, "Wrong startbyte for ID200");
         Assert.AreEqual(0, dataItem.BitAdr, "Wrong bit for ID200");
     }
-
 
     [TestMethod]
     public void T09_ParseQ2000_1()

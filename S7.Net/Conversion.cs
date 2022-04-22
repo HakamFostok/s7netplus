@@ -137,7 +137,7 @@ public static class Conversion
 
     /// <summary>
     /// Helper to get a bit value given a byte and the bit index.
-    /// Example: DB1.DBX0.5 -> var bytes = ReadBytes(DB1.DBW0); bool bit = bytes[0].SelectBit(5); 
+    /// Example: DB1.DBX0.5 -> var bytes = ReadBytes(DB1.DBW0); bool bit = bytes[0].SelectBit(5);
     /// </summary>
     /// <param name="data"></param>
     /// <param name="bitPosition"></param>

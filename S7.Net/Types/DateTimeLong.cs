@@ -77,7 +77,6 @@ public static class DateTimeLong
         int hour = AssertRangeInclusive(bytes[5], 0, 23, "hour");
         int minute = AssertRangeInclusive(bytes[6], 0, 59, "minute");
         int second = AssertRangeInclusive(bytes[7], 0, 59, "second");
-        ;
 
         uint nanoseconds = AssertRangeInclusive<uint>(DWord.FromBytes(bytes[11], bytes[10], bytes[9], bytes[8]), 0,
             999999999, "nanoseconds");

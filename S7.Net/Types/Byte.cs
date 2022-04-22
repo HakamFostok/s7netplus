@@ -10,7 +10,7 @@ public static class Byte
     /// </summary>
     public static byte[] ToByteArray(byte value)
     {
-        return new byte[] { value }; ;
+        return new byte[] { value };
     }
 
     /// <summary>

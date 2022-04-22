@@ -41,7 +41,7 @@ public static class LReal
     }
 
     /// <summary>
-    /// Converts an array of double to an array of bytes 
+    /// Converts an array of double to an array of bytes
     /// </summary>
     public static byte[] ToByteArray(double[] value) => TypeHelper.ToByteArray(value, ToByteArray);
 

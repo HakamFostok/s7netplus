@@ -40,7 +40,7 @@ public static class Real
     }
 
     /// <summary>
-    /// Converts an array of float to an array of bytes 
+    /// Converts an array of float to an array of bytes
     /// </summary>
     public static byte[] ToByteArray(float[] value)
     {

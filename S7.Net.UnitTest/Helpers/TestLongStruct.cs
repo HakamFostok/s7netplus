@@ -8,7 +8,6 @@ struct TestLongStruct
     // these variables are not used, but are needed to match the size of the DB
 #pragma warning disable 0649
 
-
     public short IntVariable0;
     public short IntVariable1;
     public short IntVariable2;

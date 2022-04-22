@@ -37,7 +37,7 @@ public static class Double
     public static byte[] ToByteArray(double value) => Real.ToByteArray((float)value);
 
     /// <summary>
-    /// Converts an array of double to an array of bytes 
+    /// Converts an array of double to an array of bytes
     /// </summary>
     public static byte[] ToByteArray(double[] value)
     {

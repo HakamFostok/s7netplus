@@ -17,9 +17,9 @@ public struct TestStruct
     public bool BitVariable06;
     public bool BitVariable07;
 
-    /// <summary>            
-    /// DB1.DBX1.0           
-    /// </summary>           
+    /// <summary>
+    /// DB1.DBX1.0
+    /// </summary>
     public bool BitVariable10;
 
     public bool BitVariable11;
@@ -30,9 +30,9 @@ public struct TestStruct
     public bool BitVariable16;
     public bool BitVariable17;
 
-    /// <summary>           
-    /// DB1.DBW2            
-    /// </summary>          
+    /// <summary>
+    /// DB1.DBW2
+    /// </summary>
     public short IntVariable;
 
     /// <summary>
