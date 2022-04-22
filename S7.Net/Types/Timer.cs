@@ -44,8 +44,8 @@ public static class Timer
     public static byte[] ToByteArray(ushort value)
     {
         byte[] bytes = new byte[2];
-        bytes[1] = (byte)((int)value & 0xFF);
-        bytes[0] = (byte)((int)value >> 8 & 0xFF);
+        bytes[1] = (byte)(value & 0xFF);
+        bytes[0] = (byte)(value >> 8 & 0xFF);
 
         return bytes;
     }

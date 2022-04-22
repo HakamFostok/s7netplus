@@ -1133,7 +1133,7 @@ public class S7Client
     {
         int ClientLastError = new();
         if (Cli_GetLastError(Client, ref ClientLastError) == 0)
-            return (int)ClientLastError;
+            return ClientLastError;
         else
             return -1;
     }
@@ -1918,7 +1918,7 @@ public class S7Partner
     {
         int PartnerLastError = new();
         if (Par_GetLastError(Partner, ref PartnerLastError) == 0)
-            return (int)PartnerLastError;
+            return PartnerLastError;
         else
             return -1;
     }

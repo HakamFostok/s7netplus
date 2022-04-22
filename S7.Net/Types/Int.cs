@@ -16,7 +16,7 @@ public static class Int
         }
         // bytes[0] -> HighByte
         // bytes[1] -> LowByte
-        return (short)((int)(bytes[1]) | ((int)(bytes[0]) << 8));
+        return (short)(bytes[1] | (bytes[0] << 8));
     }
 
     /// <summary>

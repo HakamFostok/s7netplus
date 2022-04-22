@@ -112,16 +112,13 @@ public static class Class
             case "Boolean":
                 // get the value
                 int bytePos = (int)Math.Floor(numBytes);
-                int bitPos = (int)((numBytes - (double)bytePos) / 0.125);
-                if ((bytes[bytePos] & (int)Math.Pow(2, bitPos)) != 0)
-                    value = true;
-                else
-                    value = false;
+                int bitPos = (int)((numBytes - bytePos) / 0.125);
+                value = (bytes[bytePos] & (int)Math.Pow(2, bitPos)) != 0;
                 numBytes += 0.125;
                 break;
             case "Byte":
                 numBytes = Math.Ceiling(numBytes);
-                value = (byte)(bytes[(int)numBytes]);
+                value = bytes[(int)numBytes];
                 numBytes++;
                 break;
             case "Int16":
@@ -246,7 +243,7 @@ public static class Class
             case "Boolean":
                 // get the value
                 bytePos = (int)Math.Floor(numBytes);
-                bitPos = (int)((numBytes - (double)bytePos) / 0.125);
+                bitPos = (int)((numBytes - bytePos) / 0.125);
                 if ((bool)propertyValue)
                     bytes[bytePos] |= (byte)Math.Pow(2, bitPos);            // is true
                 else

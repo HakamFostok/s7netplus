@@ -300,7 +300,7 @@ public partial class Plc
         int count = value.Length;
         while (count > 0)
         {
-            int maxToWrite = (int)Math.Min(count, MaxPDUSize - 35);
+            int maxToWrite = Math.Min(count, MaxPDUSize - 35);
             await WriteBytesWithASingleRequestAsync(dataType, db, startByteAdr + localIndex, value, localIndex, maxToWrite, cancellationToken).ConfigureAwait(false);
             count -= maxToWrite;
             localIndex += maxToWrite;

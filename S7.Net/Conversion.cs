@@ -56,19 +56,19 @@ public static class Conversion
                 {
                     case "Byte":
                         x = 7;
-                        longValue = (long)((byte)value);
+                        longValue = (byte)value;
                         break;
                     case "Int16":
                         x = 15;
-                        longValue = (long)((short)value);
+                        longValue = (short)value;
                         break;
                     case "Int32":
                         x = 31;
-                        longValue = (long)((int)value);
+                        longValue = (int)value;
                         break;
                     case "Int64":
                         x = 63;
-                        longValue = (long)((long)value);
+                        longValue = (long)value;
                         break;
                     default:
                         throw new Exception();
@@ -76,7 +76,7 @@ public static class Conversion
 
                 for (cnt = x; cnt >= 0; cnt += -1)
                 {
-                    if (((long)longValue & (long)Math.Pow(2, cnt)) > 0)
+                    if ((longValue & (long)Math.Pow(2, cnt)) > 0)
                         txt += "1";
                     else
                         txt += "0";
@@ -147,7 +147,7 @@ public static class Conversion
         int mask = 1 << bitPosition;
         int result = data & mask;
 
-        return (result != 0);
+        return result != 0;
     }
 
     /// <summary>

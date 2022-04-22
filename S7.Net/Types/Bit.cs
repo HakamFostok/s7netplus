@@ -12,7 +12,7 @@ public static class Bit
     /// </summary>
     public static bool FromByte(byte v, byte bitAdr)
     {
-        return (((int)v & (1 << bitAdr)) != 0);
+        return (v & (1 << bitAdr)) != 0;
     }
 
     /// <summary>

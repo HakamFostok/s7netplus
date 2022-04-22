@@ -104,7 +104,7 @@ public static class Struct
                 case "Boolean":
                     // get the value
                     bytePos = (int)Math.Floor(numBytes);
-                    bitPos = (int)((numBytes - (double)bytePos) / 0.125);
+                    bitPos = (int)((numBytes - bytePos) / 0.125);
                     if ((bytes[bytePos] & (int)Math.Pow(2, bitPos)) != 0)
                         info.SetValue(structValue, true);
                     else
@@ -113,7 +113,7 @@ public static class Struct
                     break;
                 case "Byte":
                     numBytes = Math.Ceiling(numBytes);
-                    info.SetValue(structValue, (byte)(bytes[(int)numBytes]));
+                    info.SetValue(structValue, bytes[(int)numBytes]);
                     numBytes++;
                     break;
                 case "Int16":
@@ -245,7 +245,7 @@ public static class Struct
                 case "Boolean":
                     // get the value
                     bytePos = (int)Math.Floor(numBytes);
-                    bitPos = (int)((numBytes - (double)bytePos) / 0.125);
+                    bitPos = (int)((numBytes - bytePos) / 0.125);
                     if ((bool)info.GetValue(structValue))
                         bytes[bytePos] |= (byte)Math.Pow(2, bitPos);            // is true
                     else

@@ -62,7 +62,7 @@ public partial class Plc
                 stream.WriteByteArray(Types.Word.ToByteArray((ushort)(startByteAdr)));
                 break;
             default:
-                stream.WriteByteArray(Types.Word.ToByteArray((ushort)((startByteAdr) * 8)));
+                stream.WriteByteArray(Types.Word.ToByteArray((ushort)(startByteAdr * 8)));
                 break;
         }
     }
