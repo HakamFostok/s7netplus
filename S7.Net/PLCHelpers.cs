@@ -178,35 +178,19 @@ public partial class Plc
     /// <returns>Byte lenght of variable</returns>
     internal static int VarTypeToByteLength(VarType varType, int varCount = 1)
     {
-        switch (varType)
+        return varType switch
         {
-            case VarType.Bit:
-                return (varCount + 7) / 8;
-            case VarType.Byte:
-                return (varCount < 1) ? 1 : varCount;
-            case VarType.String:
-                return varCount;
-            case VarType.S7String:
-                return ((varCount + 2) & 1) == 1 ? (varCount + 3) : (varCount + 2);
-            case VarType.S7WString:
-                return (varCount * 2) + 4;
-            case VarType.Word:
-            case VarType.Timer:
-            case VarType.Int:
-            case VarType.Counter:
-                return varCount * 2;
-            case VarType.DWord:
-            case VarType.DInt:
-            case VarType.Real:
-                return varCount * 4;
-            case VarType.LReal:
-            case VarType.DateTime:
-                return varCount * 8;
-            case VarType.DateTimeLong:
-                return varCount * 12;
-            default:
-                return 0;
-        }
+            VarType.Bit => (varCount + 7) / 8,
+            VarType.Byte => (varCount < 1) ? 1 : varCount,
+            VarType.String => varCount,
+            VarType.S7String => ((varCount + 2) & 1) == 1 ? (varCount + 3) : (varCount + 2),
+            VarType.S7WString => (varCount * 2) + 4,
+            VarType.Word or VarType.Timer or VarType.Int or VarType.Counter => varCount * 2,
+            VarType.DWord or VarType.DInt or VarType.Real => varCount * 4,
+            VarType.LReal or VarType.DateTime => varCount * 8,
+            VarType.DateTimeLong => varCount * 12,
+            _ => 0,
+        };
     }
 
     private byte[] GetS7ConnectionSetup()

@@ -63,24 +63,14 @@ public class TsapPair
         if (slot < 0) throw InvalidRackOrSlot(slot, nameof(slot), "minimum", 0);
         if (slot > 0x0F) throw InvalidRackOrSlot(slot, nameof(slot), "maximum", 0x0F);
 
-        switch (cpuType)
+        return cpuType switch
         {
-            case CpuType.S7200:
-                return new TsapPair(new Tsap(0x10, 0x00), new Tsap(0x10, 0x01));
-            case CpuType.Logo0BA8:
-                // The actual values are probably on a per-project basis
-                return new TsapPair(new Tsap(0x01, 0x00), new Tsap(0x01, 0x02));
-            case CpuType.S7200Smart:
-            case CpuType.S71200:
-            case CpuType.S71500:
-            case CpuType.S7300:
-            case CpuType.S7400:
-                // Testing with S7 1500 shows only the remote TSAP needs to match. This might differ for other
-                // PLC types.
-                return new TsapPair(new Tsap(0x01, 0x00), new Tsap(0x03, (byte)((rack << 5) | slot)));
-            default:
-                throw new ArgumentOutOfRangeException(nameof(cpuType), "Invalid CPU Type specified");
-        }
+            CpuType.S7200 => new TsapPair(new Tsap(0x10, 0x00), new Tsap(0x10, 0x01)),
+            CpuType.Logo0BA8 => new TsapPair(new Tsap(0x01, 0x00), new Tsap(0x01, 0x02)),// The actual values are probably on a per-project basis
+            CpuType.S7200Smart or CpuType.S71200 or CpuType.S71500 or CpuType.S7300 or CpuType.S7400 => new TsapPair(new Tsap(0x01, 0x00), new Tsap(0x03, (byte)((rack << 5) | slot))),// Testing with S7 1500 shows only the remote TSAP needs to match. This might differ for other
+                                                                                                                                                                                       // PLC types.
+            _ => throw new ArgumentOutOfRangeException(nameof(cpuType), "Invalid CPU Type specified"),
+        };
     }
 
     private static ArgumentOutOfRangeException InvalidRackOrSlot(int value, string name, string extrema,
