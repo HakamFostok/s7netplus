@@ -59,8 +59,7 @@ internal class PLCAddress
                 dbNumber = int.Parse(strings[0][2..]);
                 address = int.Parse(strings[1][3..]);
 
-                string dbType = strings[1][..3];
-                switch (dbType)
+                switch (strings[1][..3])
                 {
                     case "DBB":
                         varType = VarType.Byte;

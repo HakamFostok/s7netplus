@@ -70,8 +70,7 @@ public static class Class
     /// <returns>the number of bytes</returns>
     public static double GetClassSize(object instance, double numBytes = 0.0, bool isInnerProperty = false)
     {
-        IEnumerable<PropertyInfo>? properties = GetAccessableProperties(instance.GetType());
-        foreach (PropertyInfo? property in properties)
+        foreach (PropertyInfo? property in GetAccessableProperties(instance.GetType()))
         {
             if (property.PropertyType.IsArray)
             {
@@ -204,8 +203,7 @@ public static class Class
         if (bytes is null)
             return numBytes;
 
-        IEnumerable<PropertyInfo>? properties = GetAccessableProperties(sourceClass.GetType());
-        foreach (PropertyInfo? property in properties)
+        foreach (PropertyInfo? property in GetAccessableProperties(sourceClass.GetType()))
         {
             if (property.PropertyType.IsArray)
             {
@@ -297,8 +295,7 @@ public static class Class
     /// <returns>A byte array or null if fails.</returns>
     public static double ToBytes(object sourceClass, byte[] bytes, double numBytes = 0.0)
     {
-        IEnumerable<PropertyInfo>? properties = GetAccessableProperties(sourceClass.GetType());
-        foreach (PropertyInfo? property in properties)
+        foreach (PropertyInfo? property in GetAccessableProperties(sourceClass.GetType()))
         {
             if (property.PropertyType.IsArray)
             {

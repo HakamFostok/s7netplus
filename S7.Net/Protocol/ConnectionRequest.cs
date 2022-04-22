@@ -4,7 +4,7 @@ internal static class ConnectionRequest
 {
     public static byte[] GetCOTPConnectionRequest(TsapPair tsapPair)
     {
-        byte[] bSend1 = {
+        return new byte[]{
                 3, 0, 0, 22, //TPKT
                 17,     //COTP Header Length
                 224,    //Connect Request
@@ -21,7 +21,5 @@ internal static class ConnectionRequest
                 1,      //Parameter Length
                 10      //TPDU Size (2^10 = 1024)
             };
-
-        return bSend1;
     }
 }

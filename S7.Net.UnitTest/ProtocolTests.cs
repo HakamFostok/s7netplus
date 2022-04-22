@@ -59,9 +59,7 @@ public class ProtocolUnitTest
         Assert.IsTrue(expected.SequenceEqual(t));
 
         // Test all possible byte values. Everything except 0xff should throw an exception.
-        var testData = Enumerable.Range(0, 256).Select(i => new { StatusCode = (ReadWriteErrorCode)i, ThrowsException = i != (byte)ReadWriteErrorCode.Success });
-
-        foreach (var entry in testData)
+        foreach (var entry in Enumerable.Range(0, 256).Select(i => new { StatusCode = (ReadWriteErrorCode)i, ThrowsException = i != (byte)ReadWriteErrorCode.Success }))
         {
             if (entry.ThrowsException)
             {
