@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace S7.Net.UnitTest
 {
@@ -34,7 +29,7 @@ namespace S7.Net.UnitTest
         {
             throw new NotImplementedException();
         }
-        
+
         public override int Read(byte[] buffer, int offset, int count)
         {
             throw new NotImplementedException();
@@ -95,10 +90,10 @@ namespace S7.Net.UnitTest
             tcpClientField.SetValue(plc, new TcpClient());
             var tcpClientValue = tcpClientField.GetValue(plc);
             Assert.IsNotNull(tcpClientValue);
-            
+
             try
             {
-                var result = (Task<COTP.TPDU>) dynMethod.Invoke(plc, new object[] { stream, requestData, cancellationToken });
+                var result = (Task<COTP.TPDU>)dynMethod.Invoke(plc, new object[] { stream, requestData, cancellationToken });
                 await result;
             }
             catch (OperationCanceledException)

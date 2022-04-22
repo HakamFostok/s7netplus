@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace S7.Net.UnitTest.Helpers
+﻿namespace S7.Net.UnitTest.Helpers
 {
     class TestClassInnerWithBool
     {

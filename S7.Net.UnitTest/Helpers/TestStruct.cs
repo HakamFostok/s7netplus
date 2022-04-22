@@ -58,7 +58,7 @@ namespace S7.Net.UnitTest.Helpers
         /// <summary>
         /// DB1.DBX20.0
         /// </summary>
-        [S7String(S7StringType.S7WString, 10)] 
+        [S7String(S7StringType.S7WString, 10)]
         public string WStringVariable;
 
         /// <summary>

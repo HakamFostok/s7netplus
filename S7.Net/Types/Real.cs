@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace S7.Net.Types
+﻿namespace S7.Net.Types
 {
     /// <summary>
     /// Contains the conversion methods to convert Real from S7 plc to C# double.
@@ -37,7 +34,7 @@ namespace S7.Net.Types
 
             // sps uses bigending so we have to check if platform is same
             if (!BitConverter.IsLittleEndian) return bytes;
-            
+
             // create deep copy of the array and reverse
             return new byte[] { bytes[3], bytes[2], bytes[1], bytes[0] };
         }
@@ -70,6 +67,6 @@ namespace S7.Net.Types
 
             return values;
         }
-        
+
     }
 }

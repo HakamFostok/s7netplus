@@ -27,7 +27,6 @@
 |  C# Interface classes.                                                       |
 |                                                                              |
 |=============================================================================*/
-using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -41,67 +40,67 @@ namespace Snap7
         //------------------------------------------------------------------------------
         //                                  PARAMS LIST            
         //------------------------------------------------------------------------------
-        public static readonly Int32 p_u16_LocalPort     = 1;
-        public static readonly Int32 p_u16_RemotePort    = 2;
-        public static readonly Int32 p_i32_PingTimeout   = 3;
-        public static readonly Int32 p_i32_SendTimeout   = 4;
-        public static readonly Int32 p_i32_RecvTimeout   = 5;
-        public static readonly Int32 p_i32_WorkInterval  = 6;
-        public static readonly Int32 p_u16_SrcRef        = 7;
-        public static readonly Int32 p_u16_DstRef        = 8;
-        public static readonly Int32 p_u16_SrcTSap       = 9;
-        public static readonly Int32 p_i32_PDURequest    = 10;
-        public static readonly Int32 p_i32_MaxClients    = 11;
-        public static readonly Int32 p_i32_BSendTimeout  = 12;
-        public static readonly Int32 p_i32_BRecvTimeout  = 13;
-        public static readonly Int32 p_u32_RecoveryTime  = 14;
+        public static readonly Int32 p_u16_LocalPort = 1;
+        public static readonly Int32 p_u16_RemotePort = 2;
+        public static readonly Int32 p_i32_PingTimeout = 3;
+        public static readonly Int32 p_i32_SendTimeout = 4;
+        public static readonly Int32 p_i32_RecvTimeout = 5;
+        public static readonly Int32 p_i32_WorkInterval = 6;
+        public static readonly Int32 p_u16_SrcRef = 7;
+        public static readonly Int32 p_u16_DstRef = 8;
+        public static readonly Int32 p_u16_SrcTSap = 9;
+        public static readonly Int32 p_i32_PDURequest = 10;
+        public static readonly Int32 p_i32_MaxClients = 11;
+        public static readonly Int32 p_i32_BSendTimeout = 12;
+        public static readonly Int32 p_i32_BRecvTimeout = 13;
+        public static readonly Int32 p_u32_RecoveryTime = 14;
         public static readonly Int32 p_u32_KeepAliveTime = 15;
     }
-    
+
     public class S7Client
     {
         #region [Constants, private vars and TypeDefs]
         private const int MsgTextLen = 1024;
         // Error codes
-        public static readonly uint errNegotiatingPDU            = 0x00100000;
-        public static readonly uint errCliInvalidParams          = 0x00200000;
-        public static readonly uint errCliJobPending             = 0x00300000;
-        public static readonly uint errCliTooManyItems           = 0x00400000;
-        public static readonly uint errCliInvalidWordLen         = 0x00500000;
-        public static readonly uint errCliPartialDataWritten     = 0x00600000;
-        public static readonly uint errCliSizeOverPDU            = 0x00700000;
-        public static readonly uint errCliInvalidPlcAnswer       = 0x00800000;
-        public static readonly uint errCliAddressOutOfRange      = 0x00900000;
-        public static readonly uint errCliInvalidTransportSize   = 0x00A00000;
-        public static readonly uint errCliWriteDataSizeMismatch  = 0x00B00000;
-        public static readonly uint errCliItemNotAvailable       = 0x00C00000;
-        public static readonly uint errCliInvalidValue           = 0x00D00000;
-        public static readonly uint errCliCannotStartPLC         = 0x00E00000;
-        public static readonly uint errCliAlreadyRun             = 0x00F00000;
-        public static readonly uint errCliCannotStopPLC          = 0x01000000;
-        public static readonly uint errCliCannotCopyRamToRom     = 0x01100000;
-        public static readonly uint errCliCannotCompress         = 0x01200000;
-        public static readonly uint errCliAlreadyStop            = 0x01300000;
-        public static readonly uint errCliFunNotAvailable        = 0x01400000;
-        public static readonly uint errCliUploadSequenceFailed   = 0x01500000;
-        public static readonly uint errCliInvalidDataSizeRecvd   = 0x01600000;
-        public static readonly uint errCliInvalidBlockType       = 0x01700000;
-        public static readonly uint errCliInvalidBlockNumber     = 0x01800000;
-        public static readonly uint errCliInvalidBlockSize       = 0x01900000;
+        public static readonly uint errNegotiatingPDU = 0x00100000;
+        public static readonly uint errCliInvalidParams = 0x00200000;
+        public static readonly uint errCliJobPending = 0x00300000;
+        public static readonly uint errCliTooManyItems = 0x00400000;
+        public static readonly uint errCliInvalidWordLen = 0x00500000;
+        public static readonly uint errCliPartialDataWritten = 0x00600000;
+        public static readonly uint errCliSizeOverPDU = 0x00700000;
+        public static readonly uint errCliInvalidPlcAnswer = 0x00800000;
+        public static readonly uint errCliAddressOutOfRange = 0x00900000;
+        public static readonly uint errCliInvalidTransportSize = 0x00A00000;
+        public static readonly uint errCliWriteDataSizeMismatch = 0x00B00000;
+        public static readonly uint errCliItemNotAvailable = 0x00C00000;
+        public static readonly uint errCliInvalidValue = 0x00D00000;
+        public static readonly uint errCliCannotStartPLC = 0x00E00000;
+        public static readonly uint errCliAlreadyRun = 0x00F00000;
+        public static readonly uint errCliCannotStopPLC = 0x01000000;
+        public static readonly uint errCliCannotCopyRamToRom = 0x01100000;
+        public static readonly uint errCliCannotCompress = 0x01200000;
+        public static readonly uint errCliAlreadyStop = 0x01300000;
+        public static readonly uint errCliFunNotAvailable = 0x01400000;
+        public static readonly uint errCliUploadSequenceFailed = 0x01500000;
+        public static readonly uint errCliInvalidDataSizeRecvd = 0x01600000;
+        public static readonly uint errCliInvalidBlockType = 0x01700000;
+        public static readonly uint errCliInvalidBlockNumber = 0x01800000;
+        public static readonly uint errCliInvalidBlockSize = 0x01900000;
         public static readonly uint errCliDownloadSequenceFailed = 0x01A00000;
-        public static readonly uint errCliInsertRefused          = 0x01B00000;
-        public static readonly uint errCliDeleteRefused          = 0x01C00000;
-        public static readonly uint errCliNeedPassword           = 0x01D00000;
-        public static readonly uint errCliInvalidPassword        = 0x01E00000;
+        public static readonly uint errCliInsertRefused = 0x01B00000;
+        public static readonly uint errCliDeleteRefused = 0x01C00000;
+        public static readonly uint errCliNeedPassword = 0x01D00000;
+        public static readonly uint errCliInvalidPassword = 0x01E00000;
         public static readonly uint errCliNoPasswordToSetOrClear = 0x01F00000;
-        public static readonly uint errCliJobTimeout             = 0x02000000;
-        public static readonly uint errCliPartialDataRead        = 0x02100000;
-        public static readonly uint errCliBufferTooSmall         = 0x02200000;
-        public static readonly uint errCliFunctionRefused        = 0x02300000;
-        public static readonly uint errCliDestroying             = 0x02400000;
-        public static readonly uint errCliInvalidParamNumber     = 0x02500000;
-        public static readonly uint errCliCannotChangeParam      = 0x02600000;
-        
+        public static readonly uint errCliJobTimeout = 0x02000000;
+        public static readonly uint errCliPartialDataRead = 0x02100000;
+        public static readonly uint errCliBufferTooSmall = 0x02200000;
+        public static readonly uint errCliFunctionRefused = 0x02300000;
+        public static readonly uint errCliDestroying = 0x02400000;
+        public static readonly uint errCliInvalidParamNumber = 0x02500000;
+        public static readonly uint errCliCannotChangeParam = 0x02600000;
+
         // Area ID
         public static readonly byte S7AreaPE = 0x81;
         public static readonly byte S7AreaPA = 0x82;
@@ -111,46 +110,46 @@ namespace Snap7
         public static readonly byte S7AreaTM = 0x1D;
 
         // Word Length
-        public static readonly int S7WLBit     = 0x01;
-        public static readonly int S7WLByte    = 0x02;
-        public static readonly int S7WLWord    = 0x04;
-        public static readonly int S7WLDWord   = 0x06;
-        public static readonly int S7WLReal    = 0x08;
+        public static readonly int S7WLBit = 0x01;
+        public static readonly int S7WLByte = 0x02;
+        public static readonly int S7WLWord = 0x04;
+        public static readonly int S7WLDWord = 0x06;
+        public static readonly int S7WLReal = 0x08;
         public static readonly int S7WLCounter = 0x1C;
-        public static readonly int S7WLTimer   = 0x1D;
+        public static readonly int S7WLTimer = 0x1D;
 
         // Block type
-        public static readonly byte Block_OB  = 0x38;
-        public static readonly byte Block_DB  = 0x41;
+        public static readonly byte Block_OB = 0x38;
+        public static readonly byte Block_DB = 0x41;
         public static readonly byte Block_SDB = 0x42;
-        public static readonly byte Block_FC  = 0x43;
+        public static readonly byte Block_FC = 0x43;
         public static readonly byte Block_SFC = 0x44;
-        public static readonly byte Block_FB  = 0x45;
+        public static readonly byte Block_FB = 0x45;
         public static readonly byte Block_SFB = 0x46;
 
         // Sub Block Type 
-        public static readonly byte SubBlk_OB  = 0x08;
-        public static readonly byte SubBlk_DB  = 0x0A;
+        public static readonly byte SubBlk_OB = 0x08;
+        public static readonly byte SubBlk_DB = 0x0A;
         public static readonly byte SubBlk_SDB = 0x0B;
-        public static readonly byte SubBlk_FC  = 0x0C;
+        public static readonly byte SubBlk_FC = 0x0C;
         public static readonly byte SubBlk_SFC = 0x0D;
-        public static readonly byte SubBlk_FB  = 0x0E;
+        public static readonly byte SubBlk_FB = 0x0E;
         public static readonly byte SubBlk_SFB = 0x0F;
 
         // Block languages
-        public static readonly byte BlockLangAWL   = 0x01;
-        public static readonly byte BlockLangKOP   = 0x02;
-        public static readonly byte BlockLangFUP   = 0x03;
-        public static readonly byte BlockLangSCL   = 0x04;
-        public static readonly byte BlockLangDB    = 0x05;
+        public static readonly byte BlockLangAWL = 0x01;
+        public static readonly byte BlockLangKOP = 0x02;
+        public static readonly byte BlockLangFUP = 0x03;
+        public static readonly byte BlockLangSCL = 0x04;
+        public static readonly byte BlockLangDB = 0x05;
         public static readonly byte BlockLangGRAPH = 0x06;
 
         // Max number of vars (multiread/write)
         public static readonly int MaxVars = 20;
 
         // Client Connection Type
-        public static readonly UInt16 CONNTYPE_PG    = 0x01;  // Connect to the PLC as a PG
-        public static readonly UInt16 CONNTYPE_OP    = 0x02;  // Connect to the PLC as an OP
+        public static readonly UInt16 CONNTYPE_PG = 0x01;  // Connect to the PLC as a PG
+        public static readonly UInt16 CONNTYPE_OP = 0x02;  // Connect to the PLC as an OP
         public static readonly UInt16 CONNTYPE_BASIC = 0x03;  // Basic connection 
 
         // Job
@@ -379,7 +378,7 @@ namespace Snap7
             int Rack,
             int Slot
             );
-        
+
         public int ConnectTo(string Address, int Rack, int Slot)
         {
             return Cli_ConnectTo(Client, Address, Rack, Slot);
@@ -421,35 +420,35 @@ namespace Snap7
         {
             return Cli_GetParam_i16(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
         protected static extern int Cli_GetParam_u16(IntPtr Client, Int32 ParamNumber, ref UInt16 IntValue);
         public int GetParam(Int32 ParamNumber, ref UInt16 IntValue)
         {
             return Cli_GetParam_u16(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
         protected static extern int Cli_GetParam_i32(IntPtr Client, Int32 ParamNumber, ref Int32 IntValue);
         public int GetParam(Int32 ParamNumber, ref Int32 IntValue)
         {
             return Cli_GetParam_i32(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
         protected static extern int Cli_GetParam_u32(IntPtr Client, Int32 ParamNumber, ref UInt32 IntValue);
         public int GetParam(Int32 ParamNumber, ref UInt32 IntValue)
         {
             return Cli_GetParam_u32(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
         protected static extern int Cli_GetParam_i64(IntPtr Client, Int32 ParamNumber, ref Int64 IntValue);
         public int GetParam(Int32 ParamNumber, ref Int64 IntValue)
         {
             return Cli_GetParam_i64(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_GetParam")]
         protected static extern int Cli_GetParam_u64(IntPtr Client, Int32 ParamNumber, ref UInt64 IntValue);
         public int GetParam(Int32 ParamNumber, ref UInt64 IntValue)
@@ -463,35 +462,35 @@ namespace Snap7
         {
             return Cli_SetParam_i16(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
         protected static extern int Cli_SetParam_u16(IntPtr Client, Int32 ParamNumber, ref UInt16 IntValue);
         public int SetParam(Int32 ParamNumber, ref UInt16 IntValue)
         {
             return Cli_SetParam_u16(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
         protected static extern int Cli_SetParam_i32(IntPtr Client, Int32 ParamNumber, ref Int32 IntValue);
         public int SetParam(Int32 ParamNumber, ref Int32 IntValue)
         {
             return Cli_SetParam_i32(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
         protected static extern int Cli_SetParam_u32(IntPtr Client, Int32 ParamNumber, ref UInt32 IntValue);
         public int SetParam(Int32 ParamNumber, ref UInt32 IntValue)
         {
             return Cli_SetParam_u32(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
         protected static extern int Cli_SetParam_i64(IntPtr Client, Int32 ParamNumber, ref Int64 IntValue);
         public int SetParam(Int32 ParamNumber, ref Int64 IntValue)
         {
             return Cli_SetParam_i64(Client, ParamNumber, ref IntValue);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, EntryPoint = "Cli_SetParam")]
         protected static extern int Cli_SetParam_u64(IntPtr Client, Int32 ParamNumber, ref UInt64 IntValue);
         public int SetParam(Int32 ParamNumber, ref UInt64 IntValue)
@@ -507,7 +506,7 @@ namespace Snap7
         {
             return Cli_SetAsCallback(Client, Completion, usrPtr);
         }
-        
+
         #endregion
 
         #region [Data I/O main functions]
@@ -755,12 +754,12 @@ namespace Snap7
         [DllImport(S7Consts.Snap7LibName)]
         protected static extern int Cli_GetPlcDateTime(IntPtr Client, ref cpp_tm tm);
         public int GetPlcDateTime(ref DateTime DT)
-        {           
+        {
             int res = Cli_GetPlcDateTime(Client, ref tm);
             if (res == 0)
             {
                 // Packed->Managed
-                DateTime PlcDT = new DateTime(tm.tm_year+1900, tm.tm_mon+1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+                DateTime PlcDT = new DateTime(tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
                 DT = PlcDT;
             }
             return res;
@@ -773,7 +772,7 @@ namespace Snap7
 
             // Managed->Packed
             tm.tm_year = DT.Year - 1900;
-            tm.tm_mon = DT.Month-1;
+            tm.tm_mon = DT.Month - 1;
             tm.tm_mday = DT.Day;
             tm.tm_hour = DT.Hour;
             tm.tm_min = DT.Minute;
@@ -787,8 +786,8 @@ namespace Snap7
         public int SetPlcSystemDateTime()
         {
             return Cli_SetPlcSystemDateTime(Client);
-        }      
-        
+        }
+
         #endregion
 
         #region [System Info functions]
@@ -1180,7 +1179,7 @@ namespace Snap7
         {
             UInt32 IsConnected = new UInt32();
             if (Cli_GetConnected(Client, ref IsConnected) == 0)
-                return IsConnected!=0;
+                return IsConnected != 0;
             else
                 return false;
         }
@@ -1194,7 +1193,7 @@ namespace Snap7
 
         private const int MsgTextLen = 1024;
         private const int mkEvent = 0;
-        private const int mkLog   = 1;
+        private const int mkLog = 1;
 
         // Server Area ID  (use with Register/unregister - Lock/unlock Area)
         public static readonly int srvAreaPE = 0;
@@ -1204,106 +1203,106 @@ namespace Snap7
         public static readonly int srvAreaTM = 4;
         public static readonly int srvAreaDB = 5;
         // Errors
-        public static readonly uint errSrvCannotStart        = 0x00100000; // Server cannot start
-        public static readonly uint errSrvDBNullPointer      = 0x00200000; // Passed null as PData
-        public static readonly uint errSrvAreaAlreadyExists  = 0x00300000; // Area Re-registration
-        public static readonly uint errSrvUnknownArea        = 0x00400000; // Unknown area
-        public static readonly uint errSrvInvalidParams      = 0x00500000; // Invalid param(s) supplied
-        public static readonly uint errSrvTooManyDB          = 0x00600000; // Cannot register DB
+        public static readonly uint errSrvCannotStart = 0x00100000; // Server cannot start
+        public static readonly uint errSrvDBNullPointer = 0x00200000; // Passed null as PData
+        public static readonly uint errSrvAreaAlreadyExists = 0x00300000; // Area Re-registration
+        public static readonly uint errSrvUnknownArea = 0x00400000; // Unknown area
+        public static readonly uint errSrvInvalidParams = 0x00500000; // Invalid param(s) supplied
+        public static readonly uint errSrvTooManyDB = 0x00600000; // Cannot register DB
         public static readonly uint errSrvInvalidParamNumber = 0x00700000; // Invalid param (srv_get/set_param)
-        public static readonly uint errSrvCannotChangeParam  = 0x00800000; // Cannot change because running
+        public static readonly uint errSrvCannotChangeParam = 0x00800000; // Cannot change because running
 
         // TCP Server Event codes
-        public static readonly uint evcServerStarted       = 0x00000001;
-        public static readonly uint evcServerStopped       = 0x00000002;
+        public static readonly uint evcServerStarted = 0x00000001;
+        public static readonly uint evcServerStopped = 0x00000002;
         public static readonly uint evcListenerCannotStart = 0x00000004;
-        public static readonly uint evcClientAdded         = 0x00000008;
-        public static readonly uint evcClientRejected      = 0x00000010;
-        public static readonly uint evcClientNoRoom        = 0x00000020;
-        public static readonly uint evcClientException     = 0x00000040;
-        public static readonly uint evcClientDisconnected  = 0x00000080;
-        public static readonly uint evcClientTerminated    = 0x00000100;
-        public static readonly uint evcClientsDropped      = 0x00000200;
-        public static readonly uint evcReserved_00000400   = 0x00000400; // actually unused
-        public static readonly uint evcReserved_00000800   = 0x00000800; // actually unused
-        public static readonly uint evcReserved_00001000   = 0x00001000; // actually unused
-        public static readonly uint evcReserved_00002000   = 0x00002000; // actually unused
-        public static readonly uint evcReserved_00004000   = 0x00004000; // actually unused
-        public static readonly uint evcReserved_00008000   = 0x00008000; // actually unused
+        public static readonly uint evcClientAdded = 0x00000008;
+        public static readonly uint evcClientRejected = 0x00000010;
+        public static readonly uint evcClientNoRoom = 0x00000020;
+        public static readonly uint evcClientException = 0x00000040;
+        public static readonly uint evcClientDisconnected = 0x00000080;
+        public static readonly uint evcClientTerminated = 0x00000100;
+        public static readonly uint evcClientsDropped = 0x00000200;
+        public static readonly uint evcReserved_00000400 = 0x00000400; // actually unused
+        public static readonly uint evcReserved_00000800 = 0x00000800; // actually unused
+        public static readonly uint evcReserved_00001000 = 0x00001000; // actually unused
+        public static readonly uint evcReserved_00002000 = 0x00002000; // actually unused
+        public static readonly uint evcReserved_00004000 = 0x00004000; // actually unused
+        public static readonly uint evcReserved_00008000 = 0x00008000; // actually unused
         // S7 Server Event Code
-        public static readonly uint evcPDUincoming         = 0x00010000;
-        public static readonly uint evcDataRead            = 0x00020000;
-        public static readonly uint evcDataWrite           = 0x00040000;
-        public static readonly uint evcNegotiatePDU        = 0x00080000;
-        public static readonly uint evcReadSZL             = 0x00100000;
-        public static readonly uint evcClock               = 0x00200000;
-        public static readonly uint evcUpload              = 0x00400000;
-        public static readonly uint evcDownload            = 0x00800000;
-        public static readonly uint evcDirectory           = 0x01000000;
-        public static readonly uint evcSecurity            = 0x02000000;
-        public static readonly uint evcControl             = 0x04000000;
-        public static readonly uint evcReserved_08000000   = 0x08000000; // actually unused
-        public static readonly uint evcReserved_10000000   = 0x10000000; // actually unused
-        public static readonly uint evcReserved_20000000   = 0x20000000; // actually unused
-        public static readonly uint evcReserved_40000000   = 0x40000000; // actually unused
-        public static readonly uint evcReserved_80000000   = 0x80000000; // actually unused
+        public static readonly uint evcPDUincoming = 0x00010000;
+        public static readonly uint evcDataRead = 0x00020000;
+        public static readonly uint evcDataWrite = 0x00040000;
+        public static readonly uint evcNegotiatePDU = 0x00080000;
+        public static readonly uint evcReadSZL = 0x00100000;
+        public static readonly uint evcClock = 0x00200000;
+        public static readonly uint evcUpload = 0x00400000;
+        public static readonly uint evcDownload = 0x00800000;
+        public static readonly uint evcDirectory = 0x01000000;
+        public static readonly uint evcSecurity = 0x02000000;
+        public static readonly uint evcControl = 0x04000000;
+        public static readonly uint evcReserved_08000000 = 0x08000000; // actually unused
+        public static readonly uint evcReserved_10000000 = 0x10000000; // actually unused
+        public static readonly uint evcReserved_20000000 = 0x20000000; // actually unused
+        public static readonly uint evcReserved_40000000 = 0x40000000; // actually unused
+        public static readonly uint evcReserved_80000000 = 0x80000000; // actually unused
         // Masks to enable/disable all events
-        public static readonly uint evcAll  = 0xFFFFFFFF;
+        public static readonly uint evcAll = 0xFFFFFFFF;
         public static readonly uint evcNone = 0x00000000;
         // Event SubCodes
-        public static readonly ushort evsUnknown       = 0x0000;
-        public static readonly ushort evsStartUpload   = 0x0001;
+        public static readonly ushort evsUnknown = 0x0000;
+        public static readonly ushort evsStartUpload = 0x0001;
         public static readonly ushort evsStartDownload = 0x0001;
-        public static readonly ushort evsGetBlockList  = 0x0001;
-        public static readonly ushort evsStartListBoT  = 0x0002;
-        public static readonly ushort evsListBoT       = 0x0003;
-        public static readonly ushort evsGetBlockInfo  = 0x0004;
-        public static readonly ushort evsGetClock      = 0x0001;
-        public static readonly ushort evsSetClock      = 0x0002;
-        public static readonly ushort evsSetPassword   = 0x0001;
-        public static readonly ushort evsClrPassword   = 0x0002;
+        public static readonly ushort evsGetBlockList = 0x0001;
+        public static readonly ushort evsStartListBoT = 0x0002;
+        public static readonly ushort evsListBoT = 0x0003;
+        public static readonly ushort evsGetBlockInfo = 0x0004;
+        public static readonly ushort evsGetClock = 0x0001;
+        public static readonly ushort evsSetClock = 0x0002;
+        public static readonly ushort evsSetPassword = 0x0001;
+        public static readonly ushort evsClrPassword = 0x0002;
         // Event Params : functions group
-        public static readonly ushort grProgrammer     = 0x0041;
-        public static readonly ushort grCyclicData     = 0x0042;
-        public static readonly ushort grBlocksInfo     = 0x0043;
-        public static readonly ushort grSZL            = 0x0044;
-        public static readonly ushort grPassword       = 0x0045;
-        public static readonly ushort grBSend          = 0x0046;
-        public static readonly ushort grClock          = 0x0047;
-        public static readonly ushort grSecurity       = 0x0045;
+        public static readonly ushort grProgrammer = 0x0041;
+        public static readonly ushort grCyclicData = 0x0042;
+        public static readonly ushort grBlocksInfo = 0x0043;
+        public static readonly ushort grSZL = 0x0044;
+        public static readonly ushort grPassword = 0x0045;
+        public static readonly ushort grBSend = 0x0046;
+        public static readonly ushort grClock = 0x0047;
+        public static readonly ushort grSecurity = 0x0045;
         // Event Params : control codes
-        public static readonly ushort CodeControlUnknown   = 0x0000;
+        public static readonly ushort CodeControlUnknown = 0x0000;
         public static readonly ushort CodeControlColdStart = 0x0001;
         public static readonly ushort CodeControlWarmStart = 0x0002;
-        public static readonly ushort CodeControlStop      = 0x0003;
-        public static readonly ushort CodeControlCompress  = 0x0004;
+        public static readonly ushort CodeControlStop = 0x0003;
+        public static readonly ushort CodeControlCompress = 0x0004;
         public static readonly ushort CodeControlCpyRamRom = 0x0005;
-        public static readonly ushort CodeControlInsDel    = 0x0006;
+        public static readonly ushort CodeControlInsDel = 0x0006;
         // Event Result
         public static readonly ushort evrNoError = 0x0000;
-        public static readonly ushort evrFragmentRejected  = 0x0001;
-        public static readonly ushort evrMalformedPDU      = 0x0002;
-        public static readonly ushort evrSparseBytes       = 0x0003;
-        public static readonly ushort evrCannotHandlePDU   = 0x0004;
-        public static readonly ushort evrNotImplemented    = 0x0005;
-        public static readonly ushort evrErrException      = 0x0006;
-        public static readonly ushort evrErrAreaNotFound   = 0x0007;
-        public static readonly ushort evrErrOutOfRange     = 0x0008;
-        public static readonly ushort evrErrOverPDU        = 0x0009;
-        public static readonly ushort evrErrTransportSize  = 0x000A;
+        public static readonly ushort evrFragmentRejected = 0x0001;
+        public static readonly ushort evrMalformedPDU = 0x0002;
+        public static readonly ushort evrSparseBytes = 0x0003;
+        public static readonly ushort evrCannotHandlePDU = 0x0004;
+        public static readonly ushort evrNotImplemented = 0x0005;
+        public static readonly ushort evrErrException = 0x0006;
+        public static readonly ushort evrErrAreaNotFound = 0x0007;
+        public static readonly ushort evrErrOutOfRange = 0x0008;
+        public static readonly ushort evrErrOverPDU = 0x0009;
+        public static readonly ushort evrErrTransportSize = 0x000A;
         public static readonly ushort evrInvalidGroupUData = 0x000B;
-        public static readonly ushort evrInvalidSZL        = 0x000C;
-        public static readonly ushort evrDataSizeMismatch  = 0x000D;
-        public static readonly ushort evrCannotUpload      = 0x000E;
-        public static readonly ushort evrCannotDownload    = 0x000F;
-        public static readonly ushort evrUploadInvalidID   = 0x0010;
-        public static readonly ushort evrResNotFound       = 0x0011;
+        public static readonly ushort evrInvalidSZL = 0x000C;
+        public static readonly ushort evrDataSizeMismatch = 0x000D;
+        public static readonly ushort evrCannotUpload = 0x000E;
+        public static readonly ushort evrCannotDownload = 0x000F;
+        public static readonly ushort evrUploadInvalidID = 0x0010;
+        public static readonly ushort evrResNotFound = 0x0011;
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct USrvEvent
         {
             public IntPtr EvtTime;   // It's platform dependent (32 or 64 bit)
-            public Int32  EvtSender;
+            public Int32 EvtSender;
             public UInt32 EvtCode;
             public ushort EvtRetCode;
             public ushort EvtParam1;
@@ -1315,7 +1314,7 @@ namespace Snap7
         public struct SrvEvent
         {
             public DateTime EvtTime;
-            public Int32  EvtSender;
+            public Int32 EvtSender;
             public UInt32 EvtCode;
             public ushort EvtRetCode;
             public ushort EvtParam1;
@@ -1343,7 +1342,7 @@ namespace Snap7
         {
             Srv_Destroy(ref Server);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName)]
         protected static extern int Srv_StartTo(IntPtr Server, [MarshalAs(UnmanagedType.LPStr)] string Address);
         public int StartTo(string Address)
@@ -1452,7 +1451,7 @@ namespace Snap7
         {
             return Srv_SetParam_u64(Server, ParamNumber, ref IntValue);
         }
-        
+
         #endregion
 
         #region [Data Areas functions]
@@ -1522,7 +1521,7 @@ namespace Snap7
         {
             return Srv_ClearEvents(Server);
         }
-        
+
         [DllImport(S7Consts.Snap7LibName, CharSet = CharSet.Ansi)]
         protected static extern int Srv_EventText(ref USrvEvent Event, StringBuilder EvtMsg, int TextSize);
         public string EventText(ref USrvEvent Event)
@@ -1536,19 +1535,20 @@ namespace Snap7
         {
             DateTime UnixStartEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return UnixStartEpoch.AddSeconds(Convert.ToDouble(TimeStamp));
-        }        
-        
+        }
+
         [DllImport(S7Consts.Snap7LibName)]
         protected static extern int Srv_GetMask(IntPtr Server, Int32 MaskKind, ref UInt32 Mask);
         [DllImport(S7Consts.Snap7LibName)]
         protected static extern int Srv_SetMask(IntPtr Server, Int32 MaskKind, UInt32 Mask);
-        
+
         // Property LogMask R/W
-        public UInt32 LogMask {
-            get 
+        public UInt32 LogMask
+        {
+            get
             {
                 UInt32 Mask = new UInt32();
-                if (Srv_GetMask(Server, S7Server.mkLog, ref Mask)==0)
+                if (Srv_GetMask(Server, S7Server.mkLog, ref Mask) == 0)
                     return Mask;
                 else
                     return 0;
@@ -1584,8 +1584,8 @@ namespace Snap7
         [DllImport(S7Consts.Snap7LibName)]
         protected static extern int Srv_GetStatus(IntPtr Server, ref Int32 ServerStatus, ref Int32 CpuStatus, ref Int32 ClientsCount);
         [DllImport(S7Consts.Snap7LibName)]
-        protected static extern int Srv_SetCpuStatus(IntPtr Server, Int32 CpuStatus);       
-        
+        protected static extern int Srv_SetCpuStatus(IntPtr Server, Int32 CpuStatus);
+
         // Property Virtual CPU status R/W
         public int CpuStatus
         {
@@ -1593,7 +1593,7 @@ namespace Snap7
             {
                 Int32 CStatus = new Int32();
                 Int32 SStatus = new Int32();
-                Int32 CCount  = new Int32();
+                Int32 CCount = new Int32();
 
                 if (Srv_GetStatus(Server, ref CStatus, ref SStatus, ref CCount) == 0)
                     return CStatus;
@@ -1605,7 +1605,7 @@ namespace Snap7
                 Srv_SetCpuStatus(Server, value);
             }
         }
-        
+
         // Property Server Status Read Only
         public int ServerStatus
         {
@@ -1620,7 +1620,7 @@ namespace Snap7
                     return -1;
             }
         }
-        
+
         // Property Clients Count Read Only
         public int ClientsCount
         {
@@ -1635,7 +1635,7 @@ namespace Snap7
                     return -1;
             }
         }
-               
+
         [DllImport(S7Consts.Snap7LibName, CharSet = CharSet.Ansi)]
         protected static extern int Srv_ErrorText(int Error, StringBuilder ErrMsg, int TextSize);
         public string ErrorText(int Error)
@@ -1644,7 +1644,7 @@ namespace Snap7
             Srv_ErrorText(Error, Message, MsgTextLen);
             return Message.ToString();
         }
-                
+
         #endregion
     }
 
@@ -1653,36 +1653,36 @@ namespace Snap7
         #region [Constants, private vars and TypeDefs]
 
         private const int MsgTextLen = 1024;
-        
+
         // Status
-        public static readonly int par_stopped    = 0;   // stopped
+        public static readonly int par_stopped = 0;   // stopped
         public static readonly int par_connecting = 1;   // running and active connecting
-        public static readonly int par_waiting    = 2;   // running and waiting for a connection
-        public static readonly int par_linked     = 3;   // running and connected : linked
-        public static readonly int par_sending    = 4;   // sending data
-        public static readonly int par_receiving  = 5;   // receiving data
-        public static readonly int par_binderror  = 6;   // error starting passive server
+        public static readonly int par_waiting = 2;   // running and waiting for a connection
+        public static readonly int par_linked = 3;   // running and connected : linked
+        public static readonly int par_sending = 4;   // sending data
+        public static readonly int par_receiving = 5;   // receiving data
+        public static readonly int par_binderror = 6;   // error starting passive server
 
         // Errors
-        public static readonly uint errParAddressInUse       = 0x00200000;
-        public static readonly uint errParNoRoom             = 0x00300000;
-        public static readonly uint errServerNoRoom          = 0x00400000;
-        public static readonly uint errParInvalidParams      = 0x00500000;
-        public static readonly uint errParNotLinked          = 0x00600000;
-        public static readonly uint errParBusy               = 0x00700000;
-        public static readonly uint errParFrameTimeout       = 0x00800000;
-        public static readonly uint errParInvalidPDU         = 0x00900000;
-        public static readonly uint errParSendTimeout        = 0x00A00000;
-        public static readonly uint errParRecvTimeout        = 0x00B00000;
-        public static readonly uint errParSendRefused        = 0x00C00000;
-        public static readonly uint errParNegotiatingPDU     = 0x00D00000;
-        public static readonly uint errParSendingBlock       = 0x00E00000;
-        public static readonly uint errParRecvingBlock       = 0x00F00000;
-        public static readonly uint errBindError             = 0x01000000;
-        public static readonly uint errParDestroying         = 0x01100000;
-        public static readonly uint errParInvalidParamNumber = 0x01200000; 
-        public static readonly uint errParCannotChangeParam  = 0x01300000; 
-     
+        public static readonly uint errParAddressInUse = 0x00200000;
+        public static readonly uint errParNoRoom = 0x00300000;
+        public static readonly uint errServerNoRoom = 0x00400000;
+        public static readonly uint errParInvalidParams = 0x00500000;
+        public static readonly uint errParNotLinked = 0x00600000;
+        public static readonly uint errParBusy = 0x00700000;
+        public static readonly uint errParFrameTimeout = 0x00800000;
+        public static readonly uint errParInvalidPDU = 0x00900000;
+        public static readonly uint errParSendTimeout = 0x00A00000;
+        public static readonly uint errParRecvTimeout = 0x00B00000;
+        public static readonly uint errParSendRefused = 0x00C00000;
+        public static readonly uint errParNegotiatingPDU = 0x00D00000;
+        public static readonly uint errParSendingBlock = 0x00E00000;
+        public static readonly uint errParRecvingBlock = 0x00F00000;
+        public static readonly uint errBindError = 0x01000000;
+        public static readonly uint errParDestroying = 0x01100000;
+        public static readonly uint errParInvalidParamNumber = 0x01200000;
+        public static readonly uint errParCannotChangeParam = 0x01300000;
+
         // Generic byte buffer structure, you may need to declare a more
         // specialistic one in your program.
         // It's used to cast the input pointer that cames from the callback.
@@ -1697,24 +1697,24 @@ namespace Snap7
 
         // Job status
         private const int JobComplete = 0;
-        private const int JobPending  = 1;
+        private const int JobPending = 1;
 
         private IntPtr Partner;
 
         private Int32 parBytesSent;
         private Int32 parBytesRecv;
-	    private Int32 parSendErrors;
+        private Int32 parSendErrors;
         private Int32 parRecvErrors;
 
         #endregion
 
         #region [Class Control]
-        
+
         [DllImport(S7Consts.Snap7LibName)]
         protected static extern IntPtr Par_Create(Int32 ParActive);
         public S7Partner(int Active)
         {
-            Partner= Par_Create(Active);
+            Partner = Par_Create(Active);
         }
 
         [DllImport(S7Consts.Snap7LibName)]
@@ -1865,7 +1865,7 @@ namespace Snap7
         protected static extern int Par_CheckAsBSendCompletion(IntPtr Partner, ref Int32 opResult);
         public bool CheckAsBSendCompletion(ref int opResult)
         {
-            return Par_CheckAsBSendCompletion(Partner, ref opResult)==JobComplete;
+            return Par_CheckAsBSendCompletion(Partner, ref opResult) == JobComplete;
         }
 
         [DllImport(S7Consts.Snap7LibName)]
@@ -1938,8 +1938,8 @@ namespace Snap7
 
         [DllImport(S7Consts.Snap7LibName)]
         protected static extern int Par_GetStats(IntPtr Partner, ref Int32 BytesSent, ref Int32 BytesRecv,
-	       ref Int32 SendErrors, ref Int32 RecvErrors);
-        
+           ref Int32 SendErrors, ref Int32 RecvErrors);
+
         private void GetStatistics()
         {
             if (Par_GetStats(Partner, ref parBytesSent, ref parBytesRecv, ref parSendErrors, ref parRecvErrors) != 0)
@@ -1947,8 +1947,8 @@ namespace Snap7
                 parBytesSent = -1;
                 parBytesRecv = -1;
                 parSendErrors = -1;
-                parRecvErrors = -1;           
-            }        
+                parRecvErrors = -1;
+            }
         }
 
         public int BytesSent
@@ -1999,7 +1999,7 @@ namespace Snap7
                     return -1;
                 else
                     return ParStatus;
-            }             
+            }
         }
         // simply useful
         public bool Linked

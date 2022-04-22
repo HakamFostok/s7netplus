@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace S7.Net.UnitTest.Helpers
+﻿namespace S7.Net.UnitTest.Helpers
 {
     class TestClassWithPrivateSetters : TestClass
     {

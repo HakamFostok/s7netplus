@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Boolean = S7.Net.Types.Boolean;
 
 namespace S7.Net.UnitTest.TypeTests
@@ -32,7 +31,7 @@ namespace S7.Net.UnitTest.TypeTests
         [DataRow(7)]
         public void TestValidClearBitValues(int index)
         {
-            Assert.AreEqual((byte) ((uint) Math.Pow(2, index) ^ uint.MaxValue), Boolean.ClearBit(byte.MaxValue, index));
+            Assert.AreEqual((byte)((uint)Math.Pow(2, index) ^ uint.MaxValue), Boolean.ClearBit(byte.MaxValue, index));
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using S7.Net.Types;
-using System;
 
 namespace S7.Net.UnitTest
 {

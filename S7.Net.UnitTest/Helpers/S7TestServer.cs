@@ -1,5 +1,4 @@
-﻿using System;
-using Snap7;
+﻿using Snap7;
 
 namespace S7.Net.UnitTest.Helpers
 {
@@ -87,7 +86,7 @@ namespace S7.Net.UnitTest.Helpers
             //        low and so it's considered "privileged".
         }
 
-        public static void Stop() 
+        public static void Stop()
         {
             int Error = Server.Stop();
         }

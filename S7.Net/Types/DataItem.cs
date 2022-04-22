@@ -1,5 +1,4 @@
 ﻿using S7.Net.Protocol.S7;
-using System;
 
 namespace S7.Net.Types
 {
@@ -69,7 +68,7 @@ namespace S7.Net.Types
                 DB = dbNumber,
                 VarType = varType,
                 StartByteAdr = startByte,
-                BitAdr = (byte) (bitNumber == -1 ? 0 : bitNumber)
+                BitAdr = (byte)(bitNumber == -1 ? 0 : bitNumber)
             };
         }
 
@@ -87,7 +86,7 @@ namespace S7.Net.Types
             if (typeof(T).IsArray)
             {
                 var array = ((Array?)dataItem.Value);
-                if ( array != null)
+                if (array != null)
                 {
                     dataItem.Count = array.Length;
                 }

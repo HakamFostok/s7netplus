@@ -1,12 +1,8 @@
 ﻿#region Using
-using System;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using S7.Net.UnitTest.Helpers;
 using S7.Net.Types;
+using S7.Net.UnitTest.Helpers;
 using S7.UnitTest.Helpers;
-using System.Threading.Tasks;
-using System.Threading;
 
 #endregion
 
@@ -935,13 +931,13 @@ namespace S7.Net.UnitTest
             {
                 await plc.WriteBytesAsync(DataType.DataBlock, db, 0, data, cancellationToken);
             }
-            catch(OperationCanceledException)
+            catch (OperationCanceledException)
             {
                 // everything is good, that is the exception we expect
                 Console.WriteLine("Operation was cancelled as expected.");
                 return;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Assert.Fail($"Wrong exception type received. Expected {typeof(OperationCanceledException)}, received {e.GetType()}.");
             }
@@ -960,7 +956,7 @@ namespace S7.Net.UnitTest
 
             var db = 2;
             // First write a sensible S7 string capacity
-            await plc.WriteBytesAsync(DataType.DataBlock, db, 0, new byte[] {5, 0});
+            await plc.WriteBytesAsync(DataType.DataBlock, db, 0, new byte[] { 5, 0 });
 
             // Read two data items, with the first having odd number of bytes (7),
             // and the second has to be aligned on a even address
