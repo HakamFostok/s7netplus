@@ -1,24 +1,23 @@
-﻿namespace S7.Net.Internal
+﻿namespace S7.Net.Internal;
+
+internal class TaskQueue
 {
-    internal class TaskQueue
+    private static readonly object Sentinel = new object();
+
+    private Task prev = Task.FromResult(Sentinel);
+
+    public async Task<T> Enqueue<T>(Func<Task<T>> action)
     {
-        private static readonly object Sentinel = new object();
+        var tcs = new TaskCompletionSource<object>();
+        await Interlocked.Exchange(ref prev, tcs.Task).ConfigureAwait(false);
 
-        private Task prev = Task.FromResult(Sentinel);
-
-        public async Task<T> Enqueue<T>(Func<Task<T>> action)
+        try
         {
-            var tcs = new TaskCompletionSource<object>();
-            await Interlocked.Exchange(ref prev, tcs.Task).ConfigureAwait(false);
-
-            try
-            {
-                return await action.Invoke().ConfigureAwait(false);
-            }
-            finally
-            {
-                tcs.SetResult(Sentinel);
-            }
+            return await action.Invoke().ConfigureAwait(false);
+        }
+        finally
+        {
+            tcs.SetResult(Sentinel);
         }
     }
 }

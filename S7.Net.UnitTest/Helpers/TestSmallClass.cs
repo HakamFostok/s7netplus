@@ -1,7 +1,6 @@
-﻿namespace S7.UnitTest.Helpers
+﻿namespace S7.UnitTest.Helpers;
+
+class TestSmallClass
 {
-    class TestSmallClass
-    {
-        public bool Bool1 { get; set; }
-    }
+    public bool Bool1 { get; set; }
 }
