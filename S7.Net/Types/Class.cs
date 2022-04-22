@@ -10,16 +10,11 @@ public static class Class
     private static IEnumerable<PropertyInfo> GetAccessableProperties(Type classType)
     {
         return classType
-#if NETSTANDARD1_3
-            .GetTypeInfo().DeclaredProperties.Where(p => p.SetMethod != null);
-#else
             .GetProperties(
                 BindingFlags.SetProperty |
                 BindingFlags.Public |
                 BindingFlags.Instance)
             .Where(p => p.GetSetMethod() != null);
-#endif
-
     }
 
     private static double GetIncreasedNumberOfBytes(double numBytes, Type type)

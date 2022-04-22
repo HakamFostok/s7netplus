@@ -17,11 +17,7 @@ public static class Struct
         double numBytes = 0.0;
 
         var infos = structType
-#if NETSTANDARD1_3
-            .GetTypeInfo().DeclaredFields;
-#else
             .GetFields();
-#endif
 
         foreach (var info in infos)
         {
@@ -100,11 +96,7 @@ public static class Struct
 
 
         var infos = structValue.GetType()
-#if NETSTANDARD1_3
-            .GetTypeInfo().DeclaredFields;
-#else
             .GetFields();
-#endif
 
         foreach (var info in infos)
         {
@@ -244,11 +236,7 @@ public static class Struct
         double numBytes = 0.0;
 
         var infos = type
-#if NETSTANDARD1_3
-            .GetTypeInfo().DeclaredFields;
-#else
             .GetFields();
-#endif
 
         foreach (var info in infos)
         {
