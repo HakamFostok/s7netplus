@@ -17,7 +17,7 @@ public static class Single
     public static float FromDWord(int value)
     {
         byte[] b = DInt.ToByteArray(value);
-        return (float)FromByteArray(b);
+        return FromByteArray(b);
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public static class Single
     public static float FromDWord(uint value)
     {
         byte[] b = DWord.ToByteArray(value);
-        return (float)FromByteArray(b);
+        return FromByteArray(b);
     }
 
     /// <summary>

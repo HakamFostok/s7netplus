@@ -17,7 +17,7 @@ public static class Double
     public static double FromDWord(int value)
     {
         byte[] b = DInt.ToByteArray(value);
-        return (double)FromByteArray(b);
+        return FromByteArray(b);
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public static class Double
     public static double FromDWord(uint value)
     {
         byte[] b = DWord.ToByteArray(value);
-        return (double)FromByteArray(b);
+        return FromByteArray(b);
     }
 
     /// <summary>

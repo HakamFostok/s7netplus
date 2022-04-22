@@ -206,6 +206,6 @@ public static class Conversion
     /// <returns></returns>
     public static float ConvertToFloat(this uint input)
     {
-        return (float)S7.Net.Types.Real.FromByteArray(S7.Net.Types.DWord.ToByteArray(input));
+        return S7.Net.Types.Real.FromByteArray(S7.Net.Types.DWord.ToByteArray(input));
     }
 }
