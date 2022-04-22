@@ -157,8 +157,7 @@ public static class Conversion
     /// <returns></returns>
     public static short ConvertToShort(this ushort input)
     {
-        short output;
-        output = short.Parse(input.ToString("X"), NumberStyles.HexNumber);
+        short output = short.Parse(input.ToString("X"), NumberStyles.HexNumber);
         return output;
     }
 
@@ -169,8 +168,7 @@ public static class Conversion
     /// <returns></returns>
     public static ushort ConvertToUshort(this short input)
     {
-        ushort output;
-        output = ushort.Parse(input.ToString("X"), NumberStyles.HexNumber);
+        ushort output = ushort.Parse(input.ToString("X"), NumberStyles.HexNumber);
         return output;
     }
 
@@ -181,8 +179,7 @@ public static class Conversion
     /// <returns></returns>
     public static int ConvertToInt(this uint input)
     {
-        int output;
-        output = int.Parse(input.ToString("X"), NumberStyles.HexNumber);
+        int output = int.Parse(input.ToString("X"), NumberStyles.HexNumber);
         return output;
     }
 
@@ -193,8 +190,7 @@ public static class Conversion
     /// <returns></returns>
     public static uint ConvertToUInt(this int input)
     {
-        uint output;
-        output = uint.Parse(input.ToString("X"), NumberStyles.HexNumber);
+        uint output = uint.Parse(input.ToString("X"), NumberStyles.HexNumber);
         return output;
     }
 
@@ -205,8 +201,7 @@ public static class Conversion
     /// <returns></returns>
     public static uint ConvertToUInt(this float input)
     {
-        uint output;
-        output = S7.Net.Types.DWord.FromByteArray(S7.Net.Types.Real.ToByteArray(input));
+        uint output = S7.Net.Types.DWord.FromByteArray(S7.Net.Types.Real.ToByteArray(input));
         return output;
     }
 
@@ -217,8 +212,7 @@ public static class Conversion
     /// <returns></returns>
     public static float ConvertToFloat(this uint input)
     {
-        float output;
-        output = S7.Net.Types.Real.FromByteArray(S7.Net.Types.DWord.ToByteArray(input));
+        float output = S7.Net.Types.Real.FromByteArray(S7.Net.Types.DWord.ToByteArray(input));
         return output;
     }
 }
