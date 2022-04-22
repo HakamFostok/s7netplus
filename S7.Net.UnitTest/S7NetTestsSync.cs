@@ -40,7 +40,7 @@ public partial class S7NetTests : IDisposable
     #endregion
 
     #region Private fields
-    Plc plc;
+    readonly Plc plc;
     #endregion
 
     #region Constructor

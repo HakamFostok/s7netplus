@@ -5,10 +5,10 @@ namespace S7.Net.UnitTest.Helpers;
 class S7TestServer
 {
     static S7Server Server;
-    static private byte[] DB1 = new byte[1024];  // Our DB1
-    static private byte[] DB2 = new byte[64000]; // Our DB2
-    static private byte[] DB3 = new byte[1024]; // Our DB3
-    static private byte[] DB4 = new byte[6] { 3, 128, 1, 0, 197, 104 }; // Our DB4
+    private static readonly byte[] DB1 = new byte[1024];  // Our DB1
+    private static readonly byte[] DB2 = new byte[64000]; // Our DB2
+    private static readonly byte[] DB3 = new byte[1024]; // Our DB3
+    private static readonly byte[] DB4 = new byte[6] { 3, 128, 1, 0, 197, 104 }; // Our DB4
 
     private static S7Server.TSrvCallback TheEventCallBack; // <== Static var containig the callback
     private static S7Server.TSrvCallback TheReadCallBack; // <== Static var containig the callback
