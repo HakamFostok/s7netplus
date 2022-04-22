@@ -872,7 +872,7 @@ public partial class S7NetTests
         const float test_value = 55.6632f;
         await plc.WriteAsync("DB1.DBD0", test_value);
         object? helper = await plc.ReadAsync("DB1.DBD0");
-        float test_value2 = Conversion.ConvertToFloat((uint)helper);
+        float test_value2 = ((uint)helper).ConvertToFloat();
 
         Assert.AreEqual(test_value, test_value2, "Compare Write/Read"); //No delta, datatype matches
     }
