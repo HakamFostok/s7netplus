@@ -597,12 +597,10 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T13_ReadBytesThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected);
-            TestClass tc = new();
-            int actualReadBytes = notConnectedPlc.ReadClass(tc, DB2);
-        }
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected);
+        TestClass tc = new();
+        int actualReadBytes = notConnectedPlc.ReadClass(tc, DB2);
     }
 
     [TestMethod]
@@ -638,14 +636,12 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T15_ReadClassWithGenericThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
 
-            TestClass tc = notConnectedPlc.ReadClass<TestClass>(DB2);
+        TestClass tc = notConnectedPlc.ReadClass<TestClass>(DB2);
 
-            Assert.IsNull(tc);
-        }
+        Assert.IsNull(tc);
     }
 
     [TestMethod]
@@ -680,14 +676,12 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T17_ReadClassWithGenericAndClassFactoryThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected);
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected);
 
-            TestClass tc = notConnectedPlc.ReadClass(() => new TestClass(), DB2);
+        TestClass tc = notConnectedPlc.ReadClass(() => new TestClass(), DB2);
 
-            Assert.IsNull(tc);
-        }
+        Assert.IsNull(tc);
     }
 
     [TestMethod]
@@ -761,14 +755,12 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T18_ReadStructThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected);
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected);
 
-            object tsObj = notConnectedPlc.ReadStruct(typeof(TestStruct), DB2);
+        object tsObj = notConnectedPlc.ReadStruct(typeof(TestStruct), DB2);
 
-            Assert.IsNull(tsObj);
-        }
+        Assert.IsNull(tsObj);
     }
 
     [TestMethod]
@@ -807,14 +799,12 @@ public partial class S7NetTests : IDisposable
     [TestMethod, ExpectedException(typeof(PlcException))]
     public void T20_ReadStructThrowsIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected);
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected);
 
-            object tsObj = notConnectedPlc.ReadStruct<TestStruct>(DB2);
+        object tsObj = notConnectedPlc.ReadStruct<TestStruct>(DB2);
 
-            Assert.IsNull(tsObj);
-        }
+        Assert.IsNull(tsObj);
     }
 
     /// <summary>

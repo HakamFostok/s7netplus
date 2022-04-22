@@ -602,12 +602,10 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadBytesReturnsNullIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected);
-            TestClass tc = new();
-            await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadClassAsync(tc, DB2));
-        }
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected);
+        TestClass tc = new();
+        await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadClassAsync(tc, DB2));
     }
 
     [TestMethod]
@@ -646,11 +644,9 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadClassWithGenericReturnsNullIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
-            await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadClassAsync<TestClass>(DB2));
-        }
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected, "Before executing this test, the plc must be connected. Check constructor.");
+        await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadClassAsync<TestClass>(DB2));
     }
 
     [TestMethod]
@@ -686,11 +682,9 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadClassWithGenericAndClassFactoryThrowsExceptionPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected);
-            await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadClassAsync(() => new TestClass(), DB2));
-        }
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected);
+        await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadClassAsync(() => new TestClass(), DB2));
     }
 
     [TestMethod]
@@ -718,11 +712,9 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadStructThrowsExceptionPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected);
-            await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadStructAsync(typeof(TestStruct), DB2));
-        }
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected);
+        await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadStructAsync(typeof(TestStruct), DB2));
     }
 
     [TestMethod]
@@ -764,11 +756,9 @@ public partial class S7NetTests
     [TestMethod]
     public async Task Test_Async_ReadStructWithGenericThrowsExceptionIfPlcIsNotConnected()
     {
-        using (Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0))
-        {
-            Assert.IsFalse(notConnectedPlc.IsConnected);
-            await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadStructAsync<TestStruct>(DB2));
-        }
+        using Plc? notConnectedPlc = new(CpuType.S7300, "255.255.255.255", 0, 0);
+        Assert.IsFalse(notConnectedPlc.IsConnected);
+        await Assert.ThrowsExceptionAsync<PlcException>(async () => await notConnectedPlc.ReadStructAsync<TestStruct>(DB2));
     }
 
     /// <summary>
