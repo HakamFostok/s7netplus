@@ -105,8 +105,7 @@ public static class Class
 
     private static object? GetPropertyValue(Type propertyType, byte[] bytes, ref double numBytes)
     {
-        object? value = null;
-
+        object? value;
         switch (propertyType.Name)
         {
             case "Boolean":
@@ -234,16 +233,15 @@ public static class Class
 
     private static double SetBytesFromProperty(object propertyValue, byte[] bytes, double numBytes)
     {
-        int bytePos = 0;
-        int bitPos = 0;
         byte[]? bytes2 = null;
 
+        int bytePos;
         switch (propertyValue.GetType().Name)
         {
             case "Boolean":
                 // get the value
                 bytePos = (int)Math.Floor(numBytes);
-                bitPos = (int)((numBytes - bytePos) / 0.125);
+                int bitPos = (int)((numBytes - bytePos) / 0.125);
                 if ((bool)propertyValue)
                     bytes[bytePos] |= (byte)Math.Pow(2, bitPos);            // is true
                 else

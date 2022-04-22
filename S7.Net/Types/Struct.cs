@@ -87,10 +87,6 @@ public static class Struct
 
         if (bytes.Length != GetStructSize(structType))
             return null;
-
-        // and decode it
-        int bytePos = 0;
-        int bitPos = 0;
         double numBytes = 0.0;
         object structValue = Activator.CreateInstance(structType);
 
@@ -102,9 +98,10 @@ public static class Struct
             switch (info.FieldType.Name)
             {
                 case "Boolean":
+                    // and decode it
                     // get the value
-                    bytePos = (int)Math.Floor(numBytes);
-                    bitPos = (int)((numBytes - bytePos) / 0.125);
+                    int bytePos = (int)Math.Floor(numBytes);
+                    int bitPos = (int)((numBytes - bytePos) / 0.125);
                     if ((bytes[bytePos] & (int)Math.Pow(2, bitPos)) != 0)
                         info.SetValue(structValue, true);
                     else
@@ -228,10 +225,6 @@ public static class Struct
 
         int size = Struct.GetStructSize(type);
         byte[] bytes = new byte[size];
-        byte[]? bytes2 = null;
-
-        int bytePos = 0;
-        int bitPos = 0;
         double numBytes = 0.0;
 
         FieldInfo[]? infos = type
@@ -239,13 +232,14 @@ public static class Struct
 
         foreach (FieldInfo? info in infos)
         {
-            bytes2 = null;
+            byte[]? bytes2 = null;
+            int bytePos;
             switch (info.FieldType.Name)
             {
                 case "Boolean":
                     // get the value
                     bytePos = (int)Math.Floor(numBytes);
-                    bitPos = (int)((numBytes - bytePos) / 0.125);
+                    int bitPos = (int)((numBytes - bytePos) / 0.125);
                     if ((bool)info.GetValue(structValue))
                         bytes[bytePos] |= (byte)Math.Pow(2, bitPos);            // is true
                     else

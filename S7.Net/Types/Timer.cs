@@ -10,9 +10,7 @@ public static class Timer
     /// </summary>
     public static double FromByteArray(byte[] bytes)
     {
-        double wert = 0;
-
-        wert = ((bytes[0]) & 0x0F) * 100.0;
+        double wert = (bytes[0] & 0x0F) * 100.0;
         wert += ((bytes[1] >> 4) & 0x0F) * 10.0;
         wert += ((bytes[1]) & 0x0F) * 1.0;
 

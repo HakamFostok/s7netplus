@@ -41,16 +41,14 @@ public static class Conversion
     /// <returns></returns>
     public static string ValToBinString(this object value)
     {
-        int cnt = 0;
-        int cnt2 = 0;
-        int x = 0;
         string txt = "";
-        long longValue = 0;
-
         try
         {
+            int cnt;
+            int x;
             if (value.GetType().Name.IndexOf("[]") < 0)
             {
+                long longValue;
                 // ist nur ein Wert
                 switch (value.GetType().Name)
                 {
@@ -84,6 +82,7 @@ public static class Conversion
             }
             else
             {
+                int cnt2;
                 // ist ein Array
                 switch (value.GetType().Name)
                 {

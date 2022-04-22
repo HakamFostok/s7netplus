@@ -22,7 +22,7 @@ public class ProtocolUnitTest
     public async Task TPKT_ReadShort()
     {
         MemoryStream? m = new(StringToByteArray("0300002902f0803203000000010002001400000401ff040080"));
-        TPKT? t = await TPKT.ReadAsync(m, CancellationToken.None);
+        TPKT? _ = await TPKT.ReadAsync(m, CancellationToken.None);
     }
 
     [TestMethod]
@@ -30,7 +30,7 @@ public class ProtocolUnitTest
     public async Task TPKT_ReadShortAsync()
     {
         MemoryStream? m = new(StringToByteArray("0300002902f0803203000000010002001400000401ff040080"));
-        TPKT? t = await TPKT.ReadAsync(m, TestContext.CancellationTokenSource.Token);
+        TPKT? _ = await TPKT.ReadAsync(m, TestContext.CancellationTokenSource.Token);
     }
 
     [TestMethod]

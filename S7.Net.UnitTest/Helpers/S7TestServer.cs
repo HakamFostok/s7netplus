@@ -88,6 +88,6 @@ class S7TestServer
 
     public static void Stop()
     {
-        int Error = Server.Stop();
+        int _ = Server.Stop();
     }
 }
