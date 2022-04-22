@@ -1,8 +1,4 @@
-﻿#if NET_FULL
-using System.Runtime.Serialization;    
-#endif
-
-namespace S7.Net;
+﻿namespace S7.Net;
 
 internal class WrongNumberOfBytesException : Exception
 {
@@ -17,12 +13,6 @@ internal class WrongNumberOfBytesException : Exception
     public WrongNumberOfBytesException(string message, Exception innerException) : base(message, innerException)
     {
     }
-
-#if NET_FULL
-    protected WrongNumberOfBytesException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-#endif
 }
 
 internal class InvalidAddressException : Exception
@@ -38,12 +28,6 @@ internal class InvalidAddressException : Exception
     public InvalidAddressException(string message, Exception innerException) : base(message, innerException)
     {
     }
-
-#if NET_FULL
-    protected InvalidAddressException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-#endif
 }
 
 internal class InvalidVariableTypeException : Exception
@@ -59,12 +43,6 @@ internal class InvalidVariableTypeException : Exception
     public InvalidVariableTypeException(string message, Exception innerException) : base(message, innerException)
     {
     }
-
-#if NET_FULL
-    protected InvalidVariableTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-#endif
 }
 
 internal class TPKTInvalidException : Exception
@@ -80,12 +58,6 @@ internal class TPKTInvalidException : Exception
     public TPKTInvalidException(string message, Exception innerException) : base(message, innerException)
     {
     }
-
-#if NET_FULL
-    protected TPKTInvalidException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-#endif
 }
 
 internal class TPDUInvalidException : Exception
@@ -101,10 +73,4 @@ internal class TPDUInvalidException : Exception
     public TPDUInvalidException(string message, Exception innerException) : base(message, innerException)
     {
     }
-
-#if NET_FULL
-    protected TPDUInvalidException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
-#endif
 }

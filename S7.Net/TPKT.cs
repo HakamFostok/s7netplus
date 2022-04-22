@@ -5,8 +5,6 @@
 /// </summary>
 internal class TPKT
 {
-
-
     public byte Version;
     public byte Reserved1;
     public int Length;

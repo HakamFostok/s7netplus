@@ -1,8 +1,5 @@
 ﻿namespace S7.Net;
 
-#if NET_FULL
-[Serializable]
-#endif
 public class InvalidDataException : Exception
 {
     public byte[] ReceivedData { get; }
@@ -16,16 +13,6 @@ public class InvalidDataException : Exception
         ErrorIndex = errorIndex;
         ExpectedValue = expectedValue;
     }
-
-#if NET_FULL
-    protected InvalidDataException(System.Runtime.Serialization.SerializationInfo info,
-        System.Runtime.Serialization.StreamingContext context) : base(info, context)
-    {
-        ReceivedData = (byte[]) info.GetValue(nameof(ReceivedData), typeof(byte[]));
-        ErrorIndex = info.GetInt32(nameof(ErrorIndex));
-        ExpectedValue = info.GetByte(nameof(ExpectedValue));
-    }
-#endif
 
     private static string FormatMessage(string message, byte[] receivedData, int errorIndex, byte expectedValue)
     {
