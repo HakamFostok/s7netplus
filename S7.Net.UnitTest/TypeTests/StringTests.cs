@@ -74,12 +74,12 @@ namespace S7.Net.UnitTest.TypeTests
 
         private static void AssertFromByteArrayEquals(string expected, params byte[] bytes)
         {
-            Assert.AreEqual(expected, String.FromByteArray(bytes));
+            Assert.AreEqual(expected, S7.Net.Types.String.FromByteArray(bytes));
         }
 
         private static void AssertToByteArrayEquals(string value, int reservedLength, params byte[] expected)
         {
-            CollectionAssert.AreEqual(expected, String.ToByteArray(value, reservedLength));
+            CollectionAssert.AreEqual(expected, S7.Net.Types.String.ToByteArray(value, reservedLength));
         }
     }
 }

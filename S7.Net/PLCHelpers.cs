@@ -130,9 +130,9 @@ namespace S7.Net
 
                 case VarType.Timer:
                     if (varCount == 1)
-                        return Timer.FromByteArray(bytes);
+                        return S7.Net.Types.Timer.FromByteArray(bytes);
                     else
-                        return Timer.ToArray(bytes);
+                        return S7.Net.Types.Timer.ToArray(bytes);
                 case VarType.Counter:
                     if (varCount == 1)
                         return Counter.FromByteArray(bytes);
