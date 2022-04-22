@@ -1,10 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<Nullable>Enable</Nullable>
-		<ImplicitUsings>true</ImplicitUsings>
-
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>Properties\S7.Net.snk</AssemblyOriginatorKeyFile>
 		<InternalsVisibleTo>S7.Net.UnitTest</InternalsVisibleTo>
